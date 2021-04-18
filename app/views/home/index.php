@@ -55,9 +55,15 @@ $preland = $data['user']['preland'];
             <h4>Your short link:</h4>
             <div class="shortlink_line">
                 <p id="shortlink"><?= $_SESSION['shortlink'] ?></p>
-                <div class="copy_btn" onclick="copyLink()"><img src="/public/img/copy_icon.png" alt=""></div>
+                <div class="copy_btn" onclick="copyLink('#shortlink')"><img src="/public/img/copy_icon.png" alt=""></div>
                 <div class="copy_success">copied</div>
             </div>
+            <div class="shortlink_line shortlink_line_https">
+                <p id="shortlink_http">https://<?= $_SESSION['shortlink'] ?></p>
+                <div class="copy_btn" onclick="copyLink('#shortlink_http')"><img src="/public/img/copy_icon.png" alt=""></div>
+                <div class="copy_success">copied</div>
+            </div>
+            
         </div>        
             <?php 
                 

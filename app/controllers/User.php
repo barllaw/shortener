@@ -30,5 +30,10 @@ class User extends Controller
 
         exit(header('location: /'));
     }
+    
+    public function dashboard()
+    {
+        $this->view('user/dashboard');
+    }
 
 }

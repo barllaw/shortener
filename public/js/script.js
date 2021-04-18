@@ -4,15 +4,14 @@ function textAreaAdjust(element) {
 }
 
 //Copy link
-function copyLink(){
+function copyLink(link_class){
+  let copyText = document.querySelector(link_class).innerHTML;
+  let msg = document.querySelector('.copy_success');
 
-let copyText = document.querySelector('#shortlink').innerHTML;
-let msg = document.querySelector('.copy_success');
-
-navigator.clipboard.writeText(copyText).then(() => {
-  msg.classList.add('active');
-  setTimeout(() => msg.classList.remove('active'), 2000)
-});
+  navigator.clipboard.writeText(copyText).then(() => {
+    msg.classList.add('active');
+    setTimeout(() => msg.classList.remove('active'), 2000)
+  });
 }
 
 let users_btn = document.querySelector('#users_btn');

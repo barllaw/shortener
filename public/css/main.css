@@ -30,7 +30,7 @@ input{
 }
 .container{
     margin: 0 auto;
-    padding: 0 20px 10px 20px;
+    padding: 10px 20px;
     width: 55%;
     background: #00000010;
 }
@@ -240,7 +240,7 @@ input{
     letter-spacing: .5px;
 }
 .shortlink-wrap .shortlink_line{
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -285,11 +285,15 @@ input{
     opacity: 0;
     visibility: hidden;
     transition: .25s;
+    z-index: 2;
 }
 .shortlink-wrap .shortlink_line .copy_success.active{
     opacity: 1;
     visibility: visible;
     bottom: -20px;
+}
+.shortlink-wrap .shortlink_line_https{
+    margin-bottom: 50px;
 }
 .login{
     padding: 40px 0; 
@@ -422,7 +426,6 @@ input{
     }
     .container{
         width: 95%;
-        padding-top: 10px;
     }
     .all_links-wrap{
         padding: 0;
