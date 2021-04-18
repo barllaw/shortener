@@ -9,7 +9,7 @@ class LinkModel
 
     public function getDates($param)
     {
-        $query = $this->_db->query("SELECT DISTINCT `date_created` FROM `links` ORDER BY `date_created` DESC LIMIT $param ");
+        $query = $this->_db->query("SELECT DISTINCT `date_created`, `id` FROM `links` ORDER BY `id` DESC LIMIT $param ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
