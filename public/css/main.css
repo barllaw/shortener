@@ -16,6 +16,13 @@ header{
     align-items: center;
     padding: 20px 25%;
 }
+header .account{
+    width: 25px;
+    height: 25px;
+    background-image: url('../img/user.svg');
+    background-size: cover;
+
+}
 label{
     font-size: 13px;
     font-weight: 300;
@@ -120,7 +127,7 @@ input{
     padding: 5px 10px;
     font-size: 15px;
     width: 100%;
-    height: 50px;
+    height: 30px;
     margin-bottom: 15px;
 }
 #shortener_form .save_link-btn{
@@ -317,20 +324,7 @@ input{
     justify-content: space-between;
     align-items: center;
 }
-.all_links_title .preland_btn{
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    padding: 5px 10px;
-    color: #fff;
-    font-weight: 300;
-}
-.all_links_title .preland_btn.Off{
-    background: #bdc3d1;
-}
-.all_links_title .preland_btn.On{
-    background: #7890df;
-}
+
 .all_links-wrap{
     padding: 20px 50px;
 }
@@ -422,7 +416,11 @@ input{
 }
 @media only screen and (max-width: 1024px){
     header{
-        padding: 10px 25%;
+        padding: 10px 15%;
+    }
+    header .account{
+        height: 30px;
+        width: 30px;
     }
     .container{
         width: 95%;
@@ -434,7 +432,13 @@ input{
         padding: 0;
     }
     #shortener_form textarea{
-        height: 70px;
+        margin-bottom: 0;
+    }
+    #shortener_form .links_radio{
+        margin-top: 10px;
+    }
+    #shortener_form .radio-wrap{
+        margin-top: 5px;
     }
     #shortener_form input.custom_link,
      #shortener_form input.name_input,

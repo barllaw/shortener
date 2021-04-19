@@ -12,11 +12,12 @@ $preland = $data['user']['preland'];
         <form action="/link/shorten" method='post' id="shortener_form">
             <label for="link">Link:</label>
             <textarea name='link' wrap="hard" onkeyup="textAreaAdjust(this)" class="link_textarea"></textarea>
-            <div class="save_link-btn btn" onclick="saveLink()">Save</div>
             <div class="radio-wrap links_radio">
                 <?php 
                     foreach($data['mainlinks'] as $link){
-                        echo '<div class="mainlink"><label class="radio_label"><input class="radio" type="radio" value="'.$link['link'].'" name="mainlink"> '.$link['name'].'</label><a href="/link/delete/'.$link['id'].'" class="delete_mainlink">delete</a></div>';
+                        $default = '';
+                        if($link['is_default'] == '1') $default = 'checked';
+                        echo '<div class="mainlink"><label class="radio_label"><input class="radio" type="radio" value="'.$link['link'].'" name="mainlink" '.$default.'> '.$link['name'].'</label></div>';
                     }
                  ?>
             </div>
@@ -25,8 +26,10 @@ $preland = $data['user']['preland'];
                 <input type="text" name="nickname" class="nickname" onkeyup="checkInput('nickname')">
                 <!-- <div class="img" onclick="pasteText()"></div> -->
             </div>
+            <?php if($data['user']['input_custom'] == 'On'): ?>
             <label for="custom_link">Custom:</label>
             <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
+            <?php endif; ?>
             <div class="radio-wrap">
                 <label class="radio_label"><input class="radio" type="radio" value="blisshub.fun" name='domain' checked> blisshub.fun </label>
                 <label class="radio_label"><input class="radio" type="radio" value="chicshub.fun" name='domain' > chicshub.fun </label>
@@ -79,12 +82,8 @@ $preland = $data['user']['preland'];
                     }
                     echo '</div>';
                 }
-            ?>
-        <div class="all_links_title">
-            <h4>All links: <?=$data['user']['count_links']?></h4>
-            <a href="/user/preland/<?=$preland?>" class="btn preland_btn <?=$preland?>">Preland: <?=$preland?></a>
-        </div>
-        <?php foreach($data['links'] as $date => $links):  ?>
+            
+            foreach($data['links'] as $date => $links):  ?>
             <p class="date_created"><?php 
                 $sum_clicks = 0;
                 foreach($links as $link){

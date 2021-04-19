@@ -45,13 +45,13 @@ function checkInput(input_class){
 
 
 //SAVE LINK
-body = document.querySelector('body');
 function saveLink(){
+  body = document.querySelector('body');
   popup = document.querySelector('.popup');
   popup_wrap = document.querySelector('.popup_wrap');
-  link_textarea = document.querySelector('.link_textarea').value;
-  link_textarea_save = document.querySelector('.link_textarea_save');
-  link_textarea_save.value = link_textarea;
+  // // link_textarea = document.querySelector('.link_textarea').value;
+  // // link_textarea_save = document.querySelector('.link_textarea_save');
+  // link_textarea_save.value = link_textarea;
   popup.classList.add('popup_show');
   popup_wrap.classList.add('popup_wrap_show');
   body.style.cssText = 'overflow: hidden;';
@@ -59,6 +59,7 @@ function saveLink(){
 }
 //CLOSE POPUP
 function closePopup(){
+  body = document.querySelector('body');
   popup = document.querySelector('.popup');
   popup_wrap = document.querySelector('.popup_wrap');
   popup.classList.remove('popup_show');

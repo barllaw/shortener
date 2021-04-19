@@ -2,19 +2,17 @@
 
 class Home extends Controller
 {
-    public function index($param = '')
+    public function index()
     {
         if(!isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));
         }
 
-        if($param == '') $param = 3;
-
         $user = $this->model('UserModel');
         $link = $this->model('LinkModel');
 
         $data = [
-            'links' => $link->getLinks($param),
+            'links' => $link->getLinksToday(),
             'mainlinks' => $link->getMainlinks(),
             'user' => $user->getUser(),
             'users_links' => $link->getUsersLinks($user->getAllUsers()),

@@ -46,15 +46,27 @@ class UserModel
         setcookie('login', 'londofff', time() + 3600 * 24 * 7, '/');
     }
 
-    public function offPreland()
+    public function prelandOff()
     {
         $query = $this->_db->prepare("UPDATE `users` SET `preland` = ? WHERE `login` = ? ");
         $query->execute([ 'Off', $_COOKIE['login']]);
     }
 
-    public function onPreland()
+    public function prelandOn()
     {
         $query = $this->_db->prepare("UPDATE `users` SET `preland` = ? WHERE `login` = ? ");
+        $query->execute([ 'On', $_COOKIE['login']]);
+    }
+
+    public function customOff()
+    {
+        $query = $this->_db->prepare("UPDATE `users` SET `input_custom` = ? WHERE `login` = ? ");
+        $query->execute([ 'Off', $_COOKIE['login']]);
+    }
+
+    public function customOn()
+    {
+        $query = $this->_db->prepare("UPDATE `users` SET `input_custom` = ? WHERE `login` = ? ");
         $query->execute([ 'On', $_COOKIE['login']]);
     }
 

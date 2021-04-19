@@ -7,17 +7,35 @@ class LinkModel
             $this->_db = DB::getInstence();
     }
 
-    public function getDates($param)
+    public function getDates($param = '')
     {
-        $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created`  LIMIT $param ");
-        // exit(print_r($query->fetchAll(PDO::FETCH_ASSOC)));
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        if($param != '')
+        {
+            $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created`  LIMIT $param ");
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else
+        {
+            $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created` ");
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
     }
 
-    public function getLinks($param)
+    public function getLinksToday()
     {
-        $dates = $this->getDates($param);
+        $dates = $this->getDates(1);
         $links = [];
+        foreach($dates as $date){
+            $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+            $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $links;
+    }
+
+    public function getLinks()
+    {
+        $dates = $this->getDates();
         foreach($dates as $date){
             $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
             $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -27,7 +45,7 @@ class LinkModel
 
     public function getMainlinks()
     {
-        $query = $this->_db->query("SELECT * FROM `main_links` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        $query = $this->_db->query("SELECT * FROM `mainlinks` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -90,16 +108,25 @@ class LinkModel
         $_SESSION['shortlink'] = $shortlink;
     }
 
-    public function saveMainlink( $link_textarea_save, $link_name )
+    public function saveMainlink( $link_save, $link_name )
     {
-        $link_textarea_save = preg_replace('/\s+/', '',  trim($link_textarea_save));
-        $query = $this->_db->prepare("INSERT INTO `main_links` ( `link`, `name`, `login`) VALUES ( ?,?,? ) ");
-        $query->execute([ $link_textarea_save, $link_name, $_COOKIE['login'] ]);
+        $link_save = preg_replace('/\s+/', '',  trim($link_save));
+        $query = $this->_db->prepare("INSERT INTO `mainlinks` ( `link`, `name`, `login`) VALUES ( ?,?,? ) ");
+        $query->execute([ $link_save, $link_name, $_COOKIE['login'] ]);
     }
 
     public function deleteMainlink($id)
     {
-        $this->_db->query("DELETE FROM `main_links` WHERE `id` = '$id'");
+        $this->_db->query("DELETE FROM `mainlinks` WHERE `id` = '$id'");
+    }
+
+    public function setDefaultMainlink($id)
+    {
+        $query = $this->_db->prepare("UPDATE `mainlinks` SET `is_default` = ? WHERE `login` = ? ");
+        $query->execute([ '0', $_COOKIE['login']]);
+
+        $query = $this->_db->prepare("UPDATE `mainlinks` SET `is_default` = ? WHERE `id` = ? ");
+        $query->execute([ '1', $id]);
     }
 
 }

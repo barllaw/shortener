@@ -25,15 +25,37 @@ class User extends Controller
     public function preland($preland)
     {
         $userModel = $this->model('UserModel');
-        if($preland == 'On') $userModel->offPreland();
-        else $userModel->onPreland();
+        if($preland == 'On') $userModel->prelandOff();
+        else $userModel->prelandOn();
 
-        exit(header('location: /'));
+        exit(header('location: /user/dashboard'));
+    }
+    public function custom($custom)
+    {
+        $userModel = $this->model('UserModel');
+        if($custom == 'On') $userModel->customOff();
+        else $userModel->customOn();
+
+        exit(header('location: /user/dashboard'));
     }
     
     public function dashboard()
     {
-        $this->view('user/dashboard');
+
+        if(!isset($_COOKIE['login'])){
+            exit(header('location: /user/auth'));
+        }
+
+        $user = $this->model('UserModel');
+        $link = $this->model('LinkModel');
+
+        $data = [
+            'links' => $link->getLinks(),
+            'mainlinks' => $link->getMainlinks(),
+            'user' => $user->getUser(),
+        ];
+
+        $this->view('user/dashboard', $data);
     }
 
 }

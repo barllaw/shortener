@@ -37,16 +37,13 @@ class Link extends Controller
     {
         $linkModel = $this->model('LinkModel');
 
-        $link_name = $_POST['link_name'];
-        $link_textarea_save = $_POST['link_textarea_save'];
-
-        if($link_name == ''){
-            $this->view('home/index');
+        if($_POST['link_save'] == '' and $_POST['link_name'] == ''){
+            exit(header('location: /user/dashboard'));
         }
 
-        $linkModel->saveMainlink( $link_textarea_save, $link_name );
+        $linkModel->saveMainlink( $_POST['link_save'], $_POST['link_name'] );
         
-        exit(header('location: /'));
+        exit(header('location: /user/dashboard'));
     }
 
     public function delete($id)
@@ -55,7 +52,15 @@ class Link extends Controller
 
         $linkModel->deleteMainlink($id);
 
-        exit(header('location: /'));
+        exit(header('location: /user/dashboard'));
+    }
+    public function setDefault($id)
+    {
+        $linkModel = $this->model('LinkModel');
+
+        $linkModel->setDefaultMainlink($id);
+
+        exit(header('location: /user/dashboard'));
     }
 
     public function update($param)

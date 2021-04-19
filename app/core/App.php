@@ -8,6 +8,7 @@ class App{
 
     public function __construct()
     {
+
         $url = $this->parseUrl();
 
     // FINDING SHORTLINK IN DB with $url[0]

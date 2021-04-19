@@ -1,0 +1,81 @@
+.login_title h3{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.new_mainlink_btn{
+    background: #4568db;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    margin: auto;
+    cursor: pointer;
+}
+.mainlink_wrap{
+    margin: 30px 0;
+}
+.mainlink_wrap .mainlink_title{
+    background: #fff;
+    padding: 0px 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+.mainlink_wrap .mainlink_link{
+    background: #ffffff9a;
+    padding: 10px 15px ;
+    font-weight: 300;
+    font-size: 12px;
+    opacity: .7;
+
+}
+.mainlink_wrap .mainlink_title .btns{
+    display: flex;
+}
+.mainlink_wrap .mainlink_title .btns a{
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    padding: 9px 5px ;
+    display: inline-block;
+    color: #fff;
+    background: #4568db;
+    margin: 0;
+}
+.mainlink_wrap .mainlink_title .btns .delete_link_btn{
+    background: #ff5757;
+}
+.mainlink_wrap .mainlink_title .btns .isset{
+    pointer-events: none;
+    background: #4568db90;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0;
+}
+.buttons .preland_btn{
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    color: #fff;
+    font-weight: 300;
+}
+.buttons .Off{
+    background: #bdc3d1;
+}
+.buttons .On{
+    background: #7890df;
+}
