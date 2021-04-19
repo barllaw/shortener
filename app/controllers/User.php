@@ -58,4 +58,17 @@ class User extends Controller
         $this->view('user/dashboard', $data);
     }
 
+    public function statistics($login)
+    {
+        $user = $this->model('UserModel');
+        $link = $this->model('LinkModel');
+
+        $data = [
+            'links' => $link->getLinks($login),
+            'user' => $user->getUser($login),
+        ];
+
+        $this->view('user/statistics', $data);
+    }
+
 }

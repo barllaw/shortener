@@ -33,11 +33,13 @@ class LinkModel
         return $links;
     }
 
-    public function getLinks()
+    public function getLinks($login = '')
     {
+        if($login == '') $login = $_COOKIE['login'];
+
         $dates = $this->getDates();
         foreach($dates as $date){
-            $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+            $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$login' ORDER BY `id` DESC");
             $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
         }
         return $links;

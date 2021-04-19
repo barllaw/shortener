@@ -20,9 +20,11 @@ class UserModel
         }
     }
 
-    public function getUser()
+    public function getUser($login = '')
     {
-        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
+        if($login == '') $login = $_COOKIE['login'];
+
+        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 

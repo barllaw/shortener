@@ -78,7 +78,7 @@ $preland = $data['user']['preland'];
                         $sum_clicks = 0;
                         foreach($links as $link){  $sum_clicks += $link['clicks'];    }
                         $user_links = count($links);
-                        echo "<div class='user_row'>$user : links $user_links clicks $sum_clicks</div>";
+                        echo "<div class='user_row'><div class='user_today'>$user : links $user_links clicks $sum_clicks</div><a href='/user/statistics/$user'>statistics</a></div>";
                     }
                     echo '</div>';
                 }
