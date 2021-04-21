@@ -31,24 +31,42 @@ class App{
             if($user['preland'] == 'Off') exit(header('location: '.$link['link']));
             else {
                 $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-                if( $lang == 'FR'){
-                    $question = 'Ça ne vous dérange pas <span>je vais montrer ma vidéo?';
-                    $yes = 'je suis d`accord'; $no = 'Continuez';
-                }else if( $lang == 'CS'){
-                    $question = 'Nevadí <span>ukážu své video?';
-                    $yes = 'souhlasím'; $no = 'pokračovat';
-                }else if( $lang == 'ES'){
-                    $question = '¿No te importa <span>te mostraré mi video?';
-                    $yes = 'estoy de acuerdo'; $no = 'Seguir';
-                }else if( $lang == 'NL'){
-                    $question = 'Vind je het niet erg <span>ik zal mijn video laten zien?';
-                    $yes = 'ik ga akkoord'; $no = 'doorgaan met';
-                }else if( $lang == 'DE'){
-                    $question = 'Du hast nichts dagegen habe <span>ich werde mein Video gezeigt?</span>';
-                    $yes = 'Genau'; $no = 'fortsetzen';
-                }else{
-                    $question = 'You dont mind <span>I will show my video?';
-                    $yes = 'I agree'; $no = 'Continue';
+                switch ($lang) {
+                    case 'FR':
+                        $upertext = 'Rejoignez-moi mon surnom ';
+                        $question = 'Ça ne vous dérange pas <span>je vais montrer ma vidéo?</span>';
+                        $yes = 'je suis d`accord'; $no = 'Continuez';
+                        break;
+                    case 'CS':
+                        $upertext = 'Připojte se ke mně moje přezdívka';
+                        $question = 'Nevadí <span>ukážu své video?</span>';
+                        $yes = 'souhlasím'; $no = 'pokračovat';
+                        break;
+                    case 'ES':
+                        $upertext = 'Únete a mi mi apodo ';
+                        $question = '¿No te importa <span>te mostraré mi video?</span>';
+                        $yes = 'estoy de acuerdo'; $no = 'Seguir';
+                        break;
+                    case 'NL':
+                        $upertext = 'Sluit me aan bij mijn bijnaam ';
+                        $question = 'Vind je het niet erg <span>ik zal mijn video laten zien?</span>';
+                        $yes = 'ik ga akkoord'; $no = 'doorgaan met';
+                        break;
+                    case 'DE':
+                        $upertext = 'Mach mit, mein Spitzname ';
+                        $question = 'Du hast nichts dagegen habe <span>ich werde mein Video gezeigt?</span>';
+                        $yes = 'Genau'; $no = 'fortsetzen';
+                        break;
+                    case 'IT':
+                        $upertext = 'Unisciti a me il mio soprannome ';
+                        $question = 'Non ti dispiace <span>che mostri il mio video?</span>';
+                        $yes = 'Sono d\'accordo'; $no = 'Continua';
+                        break;
+                    default:
+                        $upertext = 'Join to me my nickname ';
+                        $question = 'You dont mind <span>I will show my video?</span>';
+                        $yes = 'I agree'; $no = 'Continue';
+                        break;
                 }
                 exit(require_once './app/views/landing/index.php');
             }

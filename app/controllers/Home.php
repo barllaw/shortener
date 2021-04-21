@@ -21,4 +21,8 @@ class Home extends Controller
 
         $this->view('home/index', $data);
     }
+    public function landing()
+    {
+        $this->view('new_land/index');
+    }
 }

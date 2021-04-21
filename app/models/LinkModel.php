@@ -56,7 +56,7 @@ class LinkModel
         $today = date("d.m");
         $users_links = [];
         foreach($users as $user){
-            $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$user[login]' and `date_created` = '$today' ");
+            $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$user[login]' and `date_created` = '$today'");
             $users_links[$user['login']] = $query->fetchAll(PDO::FETCH_ASSOC);
         }
         return $users_links;
@@ -65,6 +65,20 @@ class LinkModel
     public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo )
     {
         $tiktok = '';
+        if($domain == ''){
+            $arr_domain = [
+                'blisshub.fun',
+                'chicshub.fun',
+                'babeshub.fun',
+                'yourhub.fun',
+                'nighthub.fun',
+                'partyonhome.fun',
+            ];
+
+            $int = rand(0,count($arr_domain));
+            $domain = $arr_domain[$int];
+
+        }
 
         if($nickname != ''){
             $tiktok = 'tiktok.com/@'.$nickname;

@@ -31,11 +31,12 @@ $preland = $data['user']['preland'];
             <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
             <?php endif; ?>
             <div class="radio-wrap">
-                <label class="radio_label"><input class="radio" type="radio" value="blisshub.fun" name='domain' checked> blisshub.fun </label>
+                <label class="radio_label"><input class="radio" type="radio" value="blisshub.fun" name='domain' > blisshub.fun </label>
                 <label class="radio_label"><input class="radio" type="radio" value="chicshub.fun" name='domain' > chicshub.fun </label>
                 <label class="radio_label"><input class="radio" type="radio" value="babeshub.fun" name='domain' > babeshub.fun </label>
                 <label class="radio_label"><input class="radio" type="radio" value="yourhub.fun" name='domain' > yourhub.fun </label>
                 <label class="radio_label"><input class="radio" type="radio" value="nighthub.fun" name='domain' > nighthub.fun </label>
+                <label class="radio_label"><input class="radio" type="radio" value="partyonhome.fun" name='domain' > partyonhome.fun </label>
             </div>
             <select name="geo" id="geo">
                 <option value="">Choose country</option>
@@ -44,6 +45,8 @@ $preland = $data['user']['preland'];
                 <option value="France" <?php if( $data['lang'] == 'FR') echo 'selected'; ?>>France</option>
                 <option value="Netherlands" <?php if( $data['lang'] == 'NL') echo 'selected'; ?>>Netherlands</option>
                 <option value="Spain" <?php if( $data['lang'] == 'ES') echo 'selected'; ?>>Spain</option>
+                <option value="United State" <?php if( $data['lang'] == 'US') echo 'selected'; ?>>United State</option>
+                <option value="Portugal" <?php if( $data['lang'] == 'PT') echo 'selected'; ?>>Portugal</option>
                 <option value="Italy" >Italy</option>
                 <option value="Czech Republic" >Czech Republic</option>
                 <option value="Poland" >Poland</option>
