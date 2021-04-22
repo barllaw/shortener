@@ -33,39 +33,39 @@ class App{
                 $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
                 switch ($lang) {
                     case 'FR':
-                        $upertext = 'Rejoignez-moi mon surnom ';
-                        $question = 'Ça ne vous dérange pas <span>je vais montrer ma vidéo?</span>';
-                        $yes = 'je suis d`accord'; $no = 'Continuez';
+                        $register = 'S\'inscrire';
+                        $confirm = 'Confirmez votre e-mail';
+                        $see = 'Regarder nu TikTok';
                         break;
                     case 'CS':
-                        $upertext = 'Připojte se ke mně moje přezdívka';
-                        $question = 'Nevadí <span>ukážu své video?</span>';
-                        $yes = 'souhlasím'; $no = 'pokračovat';
+                        $register = 'Registrovat';
+                        $confirm = 'potvrdit email';
+                        $see = 'Sledujte nahý TikTok';
                         break;
                     case 'ES':
-                        $upertext = 'Únete a mi mi apodo ';
-                        $question = '¿No te importa <span>te mostraré mi video?</span>';
-                        $yes = 'estoy de acuerdo'; $no = 'Seguir';
+                        $register = 'Registrarse';
+                        $confirm = 'Confirmar correo electrónico';
+                        $see = 'Ver desnudo TikTok';
                         break;
                     case 'NL':
-                        $upertext = 'Sluit me aan bij mijn bijnaam ';
-                        $question = 'Vind je het niet erg <span>ik zal mijn video laten zien?</span>';
-                        $yes = 'ik ga akkoord'; $no = 'doorgaan met';
+                        $register = 'Registreren';
+                        $confirm = 'Bevestig Email';
+                        $see = 'Bekijk naakte TikTok';
                         break;
                     case 'DE':
-                        $upertext = 'Mach mit, mein Spitzname ';
-                        $question = 'Du hast nichts dagegen habe <span>ich werde mein Video gezeigt?</span>';
-                        $yes = 'Genau'; $no = 'fortsetzen';
+                        $register = 'Registrieren';
+                        $confirm = 'Bestätigungs-E-Mail';
+                        $see = 'Schau dir nackt TikTok an';
                         break;
                     case 'IT':
-                        $upertext = 'Unisciti a me il mio soprannome ';
-                        $question = 'Non ti dispiace <span>che mostri il mio video?</span>';
-                        $yes = 'Sono d\'accordo'; $no = 'Continua';
+                        $register = 'Registrati';
+                        $confirm = 'Conferma email';
+                        $see = 'Guarda TikTok nudo';
                         break;
                     default:
-                        $upertext = 'Join to me my nickname ';
-                        $question = 'You dont mind <span>I will show my video?</span>';
-                        $yes = 'I agree'; $no = 'Continue';
+                        $register = 'Register';
+                        $confirm = 'Confirm Email';
+                        $see = 'Watch naked TikTok'; 
                         break;
                 }
                 exit(require_once './app/views/landing/index.php');
