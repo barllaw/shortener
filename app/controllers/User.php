@@ -2,8 +2,21 @@
 
 class User extends Controller
 {
+    public function reg()
+    {
+        $userModel = $this->model('UserModel');
+
+        if($_POST['login'] != ''){
+            exit($userModel->reg($_POST['login']));
+        }
+
+        $this->view('user/reg');
+    }
     public function auth()
     {
+        if(isset($_COOKIE['login'])) exit(header('location: /'));
+
+
         $userModel = $this->model('UserModel');
 
         if($_POST['login']){
@@ -42,17 +55,14 @@ class User extends Controller
     public function dashboard()
     {
 
-        if(!isset($_COOKIE['login'])){
-            exit(header('location: /user/auth'));
-        }
-
-        $user = $this->model('UserModel');
-        $link = $this->model('LinkModel');
+        $userModel = $this->model('UserModel');
+        $linkModel = $this->model('LinkModel');
 
         $data = [
-            'links' => $link->getLinks(),
-            'mainlinks' => $link->getMainlinks(),
-            'user' => $user->getUser(),
+            'links' => $linkModel->getLinks(),
+            'mainlinks' => $linkModel->getMainlinks(),
+            'domains' => $linkModel->getDomains(),
+            'user' => $userModel->getUser(),
         ];
 
         $this->view('user/dashboard', $data);
@@ -60,15 +70,26 @@ class User extends Controller
 
     public function statistics($login)
     {
-        $user = $this->model('UserModel');
-        $link = $this->model('LinkModel');
+        $userModel = $this->model('UserModel');
+        $linkModel = $this->model('LinkModel');
 
         $data = [
-            'links' => $link->getLinks($login),
-            'user' => $user->getUser($login),
+            'links' => $linkModel->getLinks($login),
+            'user' => $userModel->getUser($login),
         ];
 
         $this->view('user/statistics', $data);
     }
+
+    public function updateDomains()
+    {
+        if($_POST['domains'] == '') exit(header('location: /user/dashboard'));
+
+        $userModel = $this->model('UserModel');
+
+        $userModel->updateDomains($_POST['domains']);
+
+    }
+    
 
 }

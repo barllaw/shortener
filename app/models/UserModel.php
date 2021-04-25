@@ -16,8 +16,16 @@ class UserModel
             setcookie('login', $login, time() + 3600 * 24 * 7, '/');
             header('location: /');
         }else{
-            header('location: https://zbxmgw.shewantyou.net/c/da57dc555e50572d?s1=110002&s2=1217518&s3=LOGIN&j1=1&j3=1');
+            header('location: https://gxwxkj.teenisyours.com/c/da57dc555e50572d?s1=123364&s2=1265766&s3=LOGIN&j1=1&j3=1');
         }
+    }
+
+    public function reg($login)
+    {
+        $login = strtolower($login);
+        $query = $this->_db->prepare("INSERT INTO users (login) VALUES (?) ");
+        $query->execute([$login]);
+        header('location: /user/auth');
     }
 
     public function getUser($login = '')
@@ -70,6 +78,11 @@ class UserModel
     {
         $query = $this->_db->prepare("UPDATE `users` SET `input_custom` = ? WHERE `login` = ? ");
         $query->execute([ 'On', $_COOKIE['login']]);
+    }
+
+    public function updateDomains($domains)
+    {
+        $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
     }
 
 

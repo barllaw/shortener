@@ -4,6 +4,8 @@ require_once 'public/blocks/header.php';
 require_once 'public/blocks/popup.php';
 
 $preland = $data['user']['preland'];
+$user_domains = explode(',', $data['user']['domains']);
+
 ?>
 
 <div class="container">
@@ -12,6 +14,7 @@ $preland = $data['user']['preland'];
         <form action="/link/shorten" method='post' id="shortener_form">
             <label for="link">Link:</label>
             <textarea name='link' wrap="hard" onkeyup="textAreaAdjust(this)" class="link_textarea"></textarea>
+            <div class="links_radio_btn second_btn" onclick="showWrap('links_radio')">Mainlinks:</div>
             <div class="radio-wrap links_radio">
                 <?php 
                     foreach($data['mainlinks'] as $link){
@@ -31,12 +34,13 @@ $preland = $data['user']['preland'];
             <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
             <?php endif; ?>
             <div class="radio-wrap">
-                <label class="radio_label"><input class="radio" type="radio" value="blisshub.fun" name='domain' > blisshub.fun </label>
-                <label class="radio_label"><input class="radio" type="radio" value="chicshub.fun" name='domain' > chicshub.fun </label>
-                <label class="radio_label"><input class="radio" type="radio" value="babeshub.fun" name='domain' > babeshub.fun </label>
-                <label class="radio_label"><input class="radio" type="radio" value="yourhub.fun" name='domain' > yourhub.fun </label>
-                <label class="radio_label"><input class="radio" type="radio" value="nighthub.fun" name='domain' > nighthub.fun </label>
-                <label class="radio_label"><input class="radio" type="radio" value="partyonhome.fun" name='domain' > partyonhome.fun </label>
+                <div class="domains_btn second_btn" onclick="showWrap('domains')">Domains: </div>
+                <div class="domains">
+                    <?php foreach($user_domains as $domain): ?>
+                        <label class="radio_label"><input class="radio" type="radio" value="<?= $domain ?>" name='domain' > <?= $domain ?> </label>
+                    <?php endforeach; ?>
+                </div>
+                
             </div>
             <select name="geo" id="geo">
                 <option value="">Choose country</option>
@@ -69,13 +73,12 @@ $preland = $data['user']['preland'];
                 <div class="copy_btn" onclick="copyLink('#shortlink_http')"><img src="/public/img/copy_icon.png" alt=""></div>
                 <div class="copy_success">copied</div>
             </div>
-            
         </div>        
             <?php 
                 
                 $usr_arr = ['londofff','andrii','makeover','emannon'];
                 if(in_array($_COOKIE['login'], $usr_arr)){
-                    echo '<div id="users_btn">Users</div>';
+                    echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
                     echo '<div class="users-wrap">';
                     foreach($data['users_links'] as $user => $links){
                         $sum_clicks = 0;

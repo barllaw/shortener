@@ -62,21 +62,13 @@ class LinkModel
         return $users_links;
     }
 
-    public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo )
+    public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains )
     {
         $tiktok = '';
         if($domain == ''){
-            $arr_domain = [
-                'blisshub.fun',
-                'chicshub.fun',
-                'babeshub.fun',
-                'yourhub.fun',
-                'nighthub.fun',
-                'partyonhome.fun',
-            ];
-
-            $int = rand(0,count($arr_domain));
-            $domain = $arr_domain[$int];
+            $domains = explode(',', $domains);
+            $int = rand(0,count($domains));
+            $domain = $domains[$int];
 
         }
 
@@ -143,6 +135,18 @@ class LinkModel
 
         $query = $this->_db->prepare("UPDATE `mainlinks` SET `is_default` = ? WHERE `id` = ? ");
         $query->execute([ '1', $id]);
+    }
+
+    public function addDomain($domain)
+    {
+        $query = $this->_db->prepare("INSERT INTO `domains` ( `domain`) VALUES ( ? ) ");
+        $query->execute([ $domain ]);
+    }
+
+    public function getDomains()
+    {
+        $query = $this->_db->query("SELECT `domain` FROM `domains`");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

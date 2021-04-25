@@ -14,10 +14,15 @@ function copyLink(link_class){
   });
 }
 
-let users_btn = document.querySelector('#users_btn');
-let users_wrap = document.querySelector('.users-wrap');
-users_btn.onclick = function(){
-  users_wrap.classList.toggle('show_users');
+// let users_btn = document.querySelector('#users_btn');
+// let users_wrap = document.querySelector('.users-wrap');
+// users_btn.onclick = function(){
+//   users_wrap.classList.toggle('show_users');
+// }
+//Show wrap
+function showWrap(wrap_class){
+  let wrap = document.querySelector('.'+wrap_class);
+  wrap.classList.toggle('show_wrap');
 }
 
 //Paste text

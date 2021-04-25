@@ -6,6 +6,8 @@ require_once 'public/blocks/popup.php';
 
 $preland = $data['user']['preland'];
 $custom = $data['user']['input_custom'];
+
+$user_domains = explode(',', $data['user']['domains']);
 ?>
 
 <div class="container">
@@ -36,8 +38,28 @@ $custom = $data['user']['input_custom'];
     </div>
 
     <div class="buttons">
-       <a href="/user/custom/<?=$custom?>" class="btn preland_btn <?=$custom?>">Input Custom: <?=$custom?></a>
+        <a href="/user/custom/<?=$custom?>" class="btn preland_btn <?=$custom?>">Input Custom: <?=$custom?></a>
         <a href="/user/preland/<?=$preland?>" class="btn preland_btn <?=$preland?>">Preland: <?=$preland?></a>
+        <a href="/link/domain/" class="btn preland_btn">add domain</a>
+    </div>
+    
+    <div class="domains_btn second_btn" onclick="showWrap('domains')">Domains: </div>
+    <div class="domains">
+
+       <div class="domains_wrap">
+            <?php 
+                $i = 0;
+                foreach($data['domains'] as $domain): ?>
+            <?php 
+                $checked = ''; $i++; 
+                if(in_array($domain['domain'], $user_domains)) $checked = 'checked';
+            ?>
+            <label for="domain<?=$i?>"><input type="checkbox" class="domain" id="domain<?=$i?>" value="<?=$domain['domain']?>" <?=$checked?>/><?=$domain['domain']?></label>
+            
+            
+            <?php endforeach; ?>
+       </div>
+        <div class="save btn" id="save_domains">Save</div>
     </div>
 
     <div class="all_links-wrap">

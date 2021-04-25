@@ -9,6 +9,8 @@ class App{
     public function __construct()
     {
 
+        
+
         $url = $this->parseUrl();
 
     // FINDING SHORTLINK IN DB with $url[0]
@@ -62,6 +64,11 @@ class App{
                         $confirm = 'Conferma email';
                         $see = 'Guarda TikTok nudo';
                         break;
+                    case 'RU':
+                        $register = 'Регистрируйся';
+                        $confirm = 'Подтверди e-mail';
+                        $see = 'Смотри голые видео TikTok';
+                        break;
                     default:
                         $register = 'Register';
                         $confirm = 'Confirm Email';
@@ -70,6 +77,11 @@ class App{
                 }
                 exit(require_once './app/views/landing/index.php');
             }
+        }
+
+        // Check cookie
+        if( $url[0] != 'user' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
+            exit(header('location: /user/auth'));
         }
 
 

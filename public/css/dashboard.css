@@ -79,3 +79,23 @@
 .buttons .On{
     background: #7890df;
 }
+.domains_wrap{
+    padding-left: 20px;
+}
+.domains_wrap label{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0;
+    font-size: 15px;
+}
+.domains_wrap label input{
+    appearance: auto;
+    margin-right: 10px;
+}
+.domains .save{
+    font-size: 12px;
+    padding: 8px;
+    color: #fff;
+    margin-top: 10px;
+}

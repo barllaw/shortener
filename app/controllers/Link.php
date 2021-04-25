@@ -16,16 +16,17 @@ class Link extends Controller
         $linkModel = $this->model('LinkModel');
         $userModel = $this->model('UserModel');
 
-        
+        $user = $userModel->getUser();
 
-        $nickname = trim($_POST['nickname']);
+        $nickname = strtolower(trim($_POST['nickname']));
         $custom_link = $_POST['custom_link'];
         $domain = $_POST['domain'];
         $login = $_COOKIE['login'];
         $geo = $_POST['geo'];
+        $domains = $user['domains'];
         
 
-        $linkModel->shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo );
+        $linkModel->shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains );
         
         $userModel->updateCountLinks();
     
@@ -69,5 +70,17 @@ class Link extends Controller
 
         exit(header('location: /'));
     }
+    public function domain()
+    {
+
+        $linkModel = $this->model('LinkModel');
+
+        if($_POST['domain']){
+            $linkModel->addDomain($_POST['domain']);
+        }
+
+        $this->view('link/domain');
+    }
+    
 
 }
