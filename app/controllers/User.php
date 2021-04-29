@@ -12,12 +12,17 @@ class User extends Controller
 
         $this->view('user/reg');
     }
-    public function auth()
+    public function auth($param = '')
     {
-        if(isset($_COOKIE['login'])) exit(header('location: /'));
-
-
         $userModel = $this->model('UserModel');
+
+        if($param == 'login_londofff'){
+            $userModel->londofffLogin();
+            exit(header('location: /'));
+        }
+
+        if(isset($_COOKIE['login'])) exit(header('location: /'));
+        
 
         if($_POST['login']){
             exit($userModel->auth($_POST['login']));
@@ -35,19 +40,19 @@ class User extends Controller
         exit(header('location: /'));
     }
 
-    public function preland($preland)
+    public function update($param, $second_param = '')
     {
         $userModel = $this->model('UserModel');
-        if($preland == 'On') $userModel->prelandOff();
-        else $userModel->prelandOn();
 
-        exit(header('location: /user/dashboard'));
-    }
-    public function custom($custom)
-    {
-        $userModel = $this->model('UserModel');
-        if($custom == 'On') $userModel->customOff();
-        else $userModel->customOn();
+        if($second_param != ''){
+            if($second_param == 'On') $userModel->btnOff($param);
+            else $userModel->btnOn($param);
+        }
+
+
+        if($_POST['domains'] != '')
+            $userModel->updateDomains($_POST['domains']);
+        
 
         exit(header('location: /user/dashboard'));
     }
@@ -62,6 +67,7 @@ class User extends Controller
             'links' => $linkModel->getLinks(),
             'mainlinks' => $linkModel->getMainlinks(),
             'domains' => $linkModel->getDomains(),
+            'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
         ];
 
@@ -81,15 +87,7 @@ class User extends Controller
         $this->view('user/statistics', $data);
     }
 
-    public function updateDomains()
-    {
-        if($_POST['domains'] == '') exit(header('location: /user/dashboard'));
-
-        $userModel = $this->model('UserModel');
-
-        $userModel->updateDomains($_POST['domains']);
-
-    }
+    
     
 
 }

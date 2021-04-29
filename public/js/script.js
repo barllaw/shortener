@@ -50,24 +50,28 @@ function checkInput(input_class){
 
 
 //SAVE LINK
-function saveLink(){
-  body = document.querySelector('body');
-  popup = document.querySelector('.popup');
-  popup_wrap = document.querySelector('.popup_wrap');
-  // // link_textarea = document.querySelector('.link_textarea').value;
-  // // link_textarea_save = document.querySelector('.link_textarea_save');
-  // link_textarea_save.value = link_textarea;
-  popup.classList.add('popup_show');
-  popup_wrap.classList.add('popup_wrap_show');
-  body.style.cssText = 'overflow: hidden;';
+function addLink(param){
+  $('body').css('overflow', 'hidden');
+  
+  if(param == 'mainlink'){
+    popup_wrap = $('.mainlink_popup_wrap');}
+  if(param == 'stairs_link'){
+    popup_wrap = $('.stairs_popup_wrap');}
+  
 
+  $('.popup').addClass('popup_show');
+  popup_wrap.addClass('popup_wrap_show');
 }
+
 //CLOSE POPUP
-function closePopup(){
-  body = document.querySelector('body');
-  popup = document.querySelector('.popup');
-  popup_wrap = document.querySelector('.popup_wrap');
-  popup.classList.remove('popup_show');
-  popup_wrap.classList.remove('popup_wrap_show');
-  body.style.cssText = 'overflow: visible;';
+close_btn = $('.close');
+for(let i = 0; i < close_btn.length;i++){
+  $(close_btn[i]).click(function (){
+
+    $('.popup').removeClass('popup_show');
+    $('.popup_wrap').removeClass('popup_wrap_show');
+    $('body').css('overflow', 'visible');
+
+  })
 }
+

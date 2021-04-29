@@ -65,8 +65,24 @@ input{
     letter-spacing: 1px;
     width: 100%;
 }
+.alert{
+    
+    padding: 20px;
+    text-align: center;
+    background: #ffd642;
+}
+.delete_btn{
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 1px 5px;
+    background: #dddddd90;
+    display: flex;
+    align-items: center;
+}
 .popup{
-    position: absolute;
+    position: fixed;
     background: #00000050;
     top: 0;
     left: 0;
@@ -84,8 +100,10 @@ input{
     margin: auto;
     display: flex;
     justify-content: center;
-    position: relative;
-    transform: translateY(-100px);
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -150%);
     transition: .5s;
     visibility: hidden;
     opacity: 0;
@@ -126,7 +144,7 @@ input{
     opacity: 1;
 }
 .popup .popup_wrap_show{
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
 }
 #shortener_form{
     padding: 10px 50px;
@@ -184,7 +202,7 @@ input{
 .domains_btn{
     margin-bottom: 10px;
 }
-.domains{
+.domains, .stairs{
     margin-bottom: 15px;
     transition: .25s;
     max-height: 0;
@@ -389,6 +407,7 @@ input{
     display: block;
     color: #555;
 }
+
 .all_links-wrap .link_row p.shortlink{
     font-weight: 300;
     font-size: 13px;
@@ -411,8 +430,19 @@ input{
     text-align: center;
     justify-content: space-between;
 }
-.all_links-wrap .link_row .span span{
+
+.all_links-wrap .link_row .span p{
     font-size: 14px;
+}
+.all_links-wrap .link_row .span p .last_click{
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+.all_links-wrap .link_row .span p .last_click span{
+    font-size: 13px;
+    letter-spacing: 0;
 }
 .all_links-wrap .link_row .span b{
     text-transform: uppercase;

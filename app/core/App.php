@@ -16,71 +16,44 @@ class App{
     // FINDING SHORTLINK IN DB with $url[0]
         $this->_db = DB::getInstence();
         $shortlink = $_SERVER['SERVER_NAME'].'/'.$url[0];
-        $result = $this->_db->query("SELECT * FROM `links` WHERE `short_link` = '$shortlink'");
-        $link = $result->fetch(PDO::FETCH_ASSOC);
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `short_link` = '$shortlink'");
+        $link = $query->fetch(PDO::FETCH_ASSOC);
         if($link != []) {
             // update clicks
             $clicks = $link['clicks'] + 1;
             $query = $this->_db->prepare("UPDATE `links` SET `clicks` = ? WHERE `id` = ? ");
             $query->execute([ $clicks, $link['id']]);
+            //Update last ckick
+            $time = date("d.m").' '.date("H:i");
+            $query = $this->_db->prepare("UPDATE `links` SET `last_click` = ? WHERE `id` = ? ");
+            $query->execute([ $time, $link['id']]);
             // get user
             $login = $link['login'];
             $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
             $user = $query->fetch(PDO::FETCH_ASSOC);
-            
 
-            //landing check
-            if($user['preland'] == 'Off') exit(header('location: '.$link['link']));
-            else {
-                $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-                switch ($lang) {
-                    case 'FR':
-                        $register = 'S\'inscrire';
-                        $confirm = 'Confirmez votre e-mail';
-                        $see = 'Regarder nu TikTok';
-                        break;
-                    case 'CS':
-                        $register = 'Registrovat';
-                        $confirm = 'potvrdit email';
-                        $see = 'Sledujte nahý TikTok';
-                        break;
-                    case 'ES':
-                        $register = 'Registrarse';
-                        $confirm = 'Confirmar correo electrónico';
-                        $see = 'Ver desnudo TikTok';
-                        break;
-                    case 'NL':
-                        $register = 'Registreren';
-                        $confirm = 'Bevestig Email';
-                        $see = 'Bekijk naakte TikTok';
-                        break;
-                    case 'DE':
-                        $register = 'Registrieren';
-                        $confirm = 'Bestätigungs-E-Mail';
-                        $see = 'Schau dir nackt TikTok an';
-                        break;
-                    case 'IT':
-                        $register = 'Registrati';
-                        $confirm = 'Conferma email';
-                        $see = 'Guarda TikTok nudo';
-                        break;
-                    case 'RU':
-                        $register = 'Регистрируйся';
-                        $confirm = 'Подтверди e-mail';
-                        $see = 'Смотри голые видео TikTok';
-                        break;
-                    default:
-                        $register = 'Register';
-                        $confirm = 'Confirm Email';
-                        $see = 'Watch naked TikTok'; 
-                        break;
-                }
-                exit(require_once './app/views/landing/index.php');
+            $int = $link['next']; 
+
+            $links = explode(',', $link['link']);
+            if($user['stairs'] == 'On'){
+
+                if($int >= count($links)) $int = 0;
+                //Update next number
+                $update_int = $int + 1;
+                $this->_db->query("UPDATE `links` SET `next` = '$update_int' WHERE `id` = '$link[id]'");
+
             }
+
+            $redirect = $links[$int];
+            //landing check
+            if ( $user['preland'] == 'On' ) 
+                exit(require_once './app/views/landing/index.php');
+
+            exit(header('location: '.$redirect));
         }
 
         // Check cookie
-        if( $url[0] != 'user' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
+        if( $url[1] != 'auth' and !isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));
         }
 

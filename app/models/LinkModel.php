@@ -62,21 +62,24 @@ class LinkModel
         return $users_links;
     }
 
-    public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains )
+    public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links )
     {
         $tiktok = '';
+        
         if($domain == ''){
             $domains = explode(',', $domains);
-            $int = rand(0,count($domains));
-            $domain = $domains[$int];
-
+            $int = rand(1,count($domains));
+            $domain = $domains[$int - 1];
         }
-
+        
         if($nickname != ''){
             $tiktok = 'tiktok.com/@'.$nickname;
             $link = str_replace('NAME', $nickname,  $link);
         }
-    
+        if($stairs){
+            if($stairs_links == '') exit(header('location: /'));
+            $link = str_replace('NAME', $nickname,  $stairs_links);
+        }
         // CUSTOM SHORTLINK
         if($custom_link != ''){
             $shortlink = $domain.'/'.$custom_link;
@@ -122,10 +125,16 @@ class LinkModel
         $query = $this->_db->prepare("INSERT INTO `mainlinks` ( `link`, `name`, `login`) VALUES ( ?,?,? ) ");
         $query->execute([ $link_save, $link_name, $_COOKIE['login'] ]);
     }
-
-    public function deleteMainlink($id)
+    public function saveStairslink( $link_save )
     {
-        $this->_db->query("DELETE FROM `mainlinks` WHERE `id` = '$id'");
+        $link_save = preg_replace('/\s+/', '',  trim($link_save));
+        $query = $this->_db->prepare("INSERT INTO `stairs` ( `smartlink`, `login`) VALUES ( ?,? ) ");
+        $query->execute([ $link_save, $_COOKIE['login'] ]);
+    }
+
+    public function deleteLink($db, $id)
+    {
+        $this->_db->query("DELETE FROM `$db` WHERE `id` = '$id'");
     }
 
     public function setDefaultMainlink($id)
@@ -147,6 +156,21 @@ class LinkModel
     {
         $query = $this->_db->query("SELECT `domain` FROM `domains`");
         return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getStairs($active = '')
+    {
+        $query = $this->_db->query("SELECT * FROM `stairs` WHERE `login` = '$_COOKIE[login]' $active");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function inactiveStairs()
+    {
+        $this->_db->query("UPDATE `stairs` SET `active` = '0' WHERE `login` = '$_COOKIE[login]'");
+        $this->_db->query("UPDATE `links` SET `next` = '0' WHERE `login` = '$_COOKIE[login]'");
+    }
+    public function updateStairs($link)
+    {
+        $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
     }
 
 }

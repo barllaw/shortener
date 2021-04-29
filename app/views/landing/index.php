@@ -1,4 +1,48 @@
-<?php $nickname = explode('@', $link['tiktok']); ?>
+<?php 
+$lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+switch ($lang) {
+    case 'FR':
+        $register = 'S\'inscrire';
+        $confirm = 'Confirmez votre e-mail';
+        $see = 'Regarder nu TikTok';
+        break;
+    case 'CS':
+        $register = 'Registrovat';
+        $confirm = 'potvrdit email';
+        $see = 'Sledujte nahý TikTok';
+        break;
+    case 'ES':
+        $register = 'Registrarse';
+        $confirm = 'Confirmar correo electrónico';
+        $see = 'Ver desnudo TikTok';
+        break;
+    case 'NL':
+        $register = 'Registreren';
+        $confirm = 'Bevestig Email';
+        $see = 'Bekijk naakte TikTok';
+        break;
+    case 'DE':
+        $register = 'Registrieren';
+        $confirm = 'Bestätigungs-E-Mail';
+        $see = 'Schau dir nackt TikTok an';
+        break;
+    case 'IT':
+        $register = 'Registrati';
+        $confirm = 'Conferma email';
+        $see = 'Guarda TikTok nudo';
+        break;
+    case 'RU':
+        $register = 'Регистрируйся';
+        $confirm = 'Подтверди e-mail';
+        $see = 'Смотри голые видео TikTok';
+        break;
+    default:
+        $register = 'Register';
+        $confirm = 'Confirm Email';
+        $see = 'Watch naked TikTok'; 
+        break;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -45,7 +89,7 @@
                 <p>2. <?= $confirm ?></p>
                 <p>3. <?= $see ?></p>
             </div>
-            <div class="btn"><a href="<?= $link['link']?>"><?= $register ?></a></div>
+            <div class="btn"><a href="<?=$redirect?>">FREE <?= $register ?></a></div>
         </div>
 	</body>
 </html>

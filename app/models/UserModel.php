@@ -56,27 +56,16 @@ class UserModel
         setcookie('login', 'londofff', time() + 3600 * 24 * 7, '/');
     }
 
-    public function prelandOff()
+    public function btnOff($btn)
     {
-        $query = $this->_db->prepare("UPDATE `users` SET `preland` = ? WHERE `login` = ? ");
+        $query = $this->_db->prepare("UPDATE `users` SET `$btn` = ? WHERE `login` = ? ");
         $query->execute([ 'Off', $_COOKIE['login']]);
+        $this->_db->query("UPDATE `links` SET `next` = '0' WHERE `login` = '$_COOKIE[login]'");
     }
 
-    public function prelandOn()
+    public function btnOn($btn)
     {
-        $query = $this->_db->prepare("UPDATE `users` SET `preland` = ? WHERE `login` = ? ");
-        $query->execute([ 'On', $_COOKIE['login']]);
-    }
-
-    public function customOff()
-    {
-        $query = $this->_db->prepare("UPDATE `users` SET `input_custom` = ? WHERE `login` = ? ");
-        $query->execute([ 'Off', $_COOKIE['login']]);
-    }
-
-    public function customOn()
-    {
-        $query = $this->_db->prepare("UPDATE `users` SET `input_custom` = ? WHERE `login` = ? ");
+        $query = $this->_db->prepare("UPDATE `users` SET `$btn` = ? WHERE `login` = ? ");
         $query->execute([ 'On', $_COOKIE['login']]);
     }
 
@@ -84,6 +73,5 @@ class UserModel
     {
         $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
     }
-
 
 }
