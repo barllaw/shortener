@@ -291,7 +291,7 @@ input{
     justify-content: center;
     align-items: center;
 }
-.shortlink-wrap .shortlink_line .copy_btn{
+.shortlink-wrap .shortlink_line .copy_btn, .shortlink-wrap .shortlink_line .copy_btn_http{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -300,10 +300,10 @@ input{
     padding: 0 10px;
     cursor: pointer;
 }
-.shortlink-wrap .shortlink_line .copy_btn img{
+.shortlink-wrap .shortlink_line .copy_btn img, .shortlink-wrap .shortlink_line .copy_btn_http img{
     height: 20px;
 }
-.shortlink-wrap .shortlink_line .copy_success{
+.shortlink-wrap .shortlink_line .copy_success, .shortlink-wrap .shortlink_line .copy_success_http{
     position: absolute;
     bottom: -5px;
     left: 0;
@@ -321,7 +321,7 @@ input{
     transition: .25s;
     z-index: 2;
 }
-.shortlink-wrap .shortlink_line .copy_success.active{
+.shortlink-wrap .shortlink_line .copy_success.active,.shortlink-wrap .shortlink_line .copy_success_http.active{
     opacity: 1;
     visibility: visible;
     bottom: -20px;
@@ -439,6 +439,9 @@ input{
     text-transform: uppercase;
     font-size: 10px;
     letter-spacing: 1px;
+}
+.all_links-wrap .link_row .span p .profit{
+    font-weight: 300;
 }
 .all_links-wrap .link_row .span p .last_click span{
     font-size: 13px;

@@ -1,43 +1,27 @@
+//Change textarea height for content
 function textAreaAdjust(element) {
   element.style.height = "1px";
   element.style.height = (5+element.scrollHeight)+"px";
 }
 
-//Copy link
-function copyLink(link_class){
-  let copyText = document.querySelector(link_class).innerHTML;
-  let msg = document.querySelector('.copy_success');
 
-  navigator.clipboard.writeText(copyText).then(() => {
-    msg.classList.add('active');
-    setTimeout(() => msg.classList.remove('active'), 2000)
-  });
+//COPY TEXT WITH CLIPBOARD.JS
+function copyLink(btn, msg){
+  let clipboard = new ClipboardJS(btn);
+  clipboard.on('success', function(e) {
+    msg = $(msg);
+    $(msg).addClass('active');
+    setTimeout(() => $(msg).removeClass('active'), 2000);
+    console.log('Copied');
+});
 }
 
-// let users_btn = document.querySelector('#users_btn');
-// let users_wrap = document.querySelector('.users-wrap');
-// users_btn.onclick = function(){
-//   users_wrap.classList.toggle('show_users');
-// }
 //Show wrap
 function showWrap(wrap_class){
   let wrap = document.querySelector('.'+wrap_class);
   wrap.classList.toggle('show_wrap');
 }
 
-//Paste text
-function pasteText(){
-  let input = document.querySelector('.nickname');
-  navigator.clipboard.readText()
-      .then(text => {
-          // `text` содержит текст, прочитанный из буфера обмена
-          input.value = text;
-      })
-      .catch(err => {
-          // возможно, пользователь не дал разрешение на чтение данных из буфера обмена
-          alert('Something went wrong', err);
-      });
-}
 //Change style for input
 function checkInput(input_class){
   let input = document.querySelector('.'+input_class);

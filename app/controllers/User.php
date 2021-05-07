@@ -62,6 +62,7 @@ class User extends Controller
 
         $userModel = $this->model('UserModel');
         $linkModel = $this->model('LinkModel');
+        $postbackModel = $this->model('PostbackModel');
 
         $data = [
             'links' => $linkModel->getLinks(),
@@ -69,15 +70,18 @@ class User extends Controller
             'domains' => $linkModel->getDomains(),
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
+            'profit' => $postbackModel->getProfit($_COOKIE['login']),
         ];
 
         $this->view('user/dashboard', $data);
     }
 
-    public function statistics($login)
+    public function statistics($login, $count = '')
     {
         $userModel = $this->model('UserModel');
         $linkModel = $this->model('LinkModel');
+
+
 
         $data = [
             'links' => $linkModel->getLinks($login),
@@ -87,7 +91,6 @@ class User extends Controller
         $this->view('user/statistics', $data);
     }
 
-    
     
 
 }

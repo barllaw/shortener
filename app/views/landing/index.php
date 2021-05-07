@@ -52,11 +52,20 @@ switch ($lang) {
 		<title>TikTok +18 Hot videos</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+	    <link rel="shortcut icon" type="image/png" href="/app/views/landing/logo.png"/>
 		<style>
 			*{font-family: 'Roboto';padding: 0;margin: 0;color: #000;outline: none;}
             body{overflow:hidden;filter: blur();}
-            .bg_blur{z-index: -1; position: absolute;top: 0;left: 0;height: 100vh;width: 100%;filter: blur(10px);background-image: url(/app/views/landing/3.gif);background-size: cover;}
-			.container{z-index: 2; width: 100%;height: 100vh; background: linear-gradient(45deg, rgba(28,125,193,0.5074404761904762) 0%, rgba(54,9,121,0.5046393557422969) 51%, rgba(255,0,44,0.5018382352941176) 100%);}
+            .bg_blur{z-index: -1; position: absolute;top: 0;left: 0;height: 100vh;width: 100%;filter: blur(5px);background-size: cover;background-position: center;}
+			/* .bg_blur0{background-image: url(/app/views/landing/0.gif);}*/
+            .bg_blur1{background-image: url(/app/views/landing/1.gif);}
+            /* .bg_blur2{background-image: url(/app/views/landing/2.gif); display: none;} */
+			/* .bg_blur3{background-image: url(/app/views/landing/3.gif); display: none;}
+            .bg_blur4{background-image: url(/app/views/landing/4.gif); display: none;}
+            .bg_blur5{background-image: url(/app/views/landing/5.gif); display: none;}
+            .bg_blur6{background-image: url(/app/views/landing/6.gif); display: none;} */
+
+            .container{z-index: 2; width: 100%;height: 100vh; background: linear-gradient(45deg, rgba(28,125,193,0.5074404761904762) 0%, rgba(54,9,121,0.5046393557422969) 51%, rgba(255,0,44,0.5018382352941176) 100%);}
             .logo_wrap{display: flex;flex-direction: column;justify-content: center;align-items: center;padding-top: 30px;}
             .logo_wrap .logo img{width: 50px;}
             .logo_wrap .tiktok img{width: 150px;}
@@ -78,7 +87,12 @@ switch ($lang) {
 	<body>
     <!-- REGULATIONS -->
     <!-- TikTok +18 are available for users who mark that they are at least 18 years old and confirm an e-mail. -->
-        <div class="bg_blur"></div>
+        <!-- <div class="bg_blur bg_blur0"></div>-->
+        <div class="bg_blur bg_blur1"></div>
+        <!-- <div class="bg_blur bg_blur2"></div> -->
+        <!-- <div class="bg_blur bg_blur3"></div>
+        <div class="bg_blur bg_blur4"></div>
+        <div class="bg_blur bg_blur5"></div> -->
         <div class="container">
             <div class="logo_wrap">
                 <div class="logo"><img src="/app/views/landing/logo.png" alt=""></div>
@@ -92,4 +106,19 @@ switch ($lang) {
             <div class="btn"><a href="<?=$redirect?>">FREE <?= $register ?></a></div>
         </div>
 	</body>
+
+    <script>
+        // var int = Math.floor(Math.random() * 4);
+        // let bg_arr = document.querySelectorAll('.bg_blur');
+        
+        // setInterval(function() {
+        //     bg_arr.forEach(element => {
+        //         element.style.cssText = "display:none";
+        //     });
+        //     var int = Math.floor(Math.random() * 3);
+        //     bg_arr[int].style.cssText = "display: block";
+        // }, 3000);
+
+    </script>
+
 </html>

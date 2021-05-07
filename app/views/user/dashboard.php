@@ -108,8 +108,7 @@ $user_domains = explode(',', $data['user']['domains']);
                 }
 
                 $count = count($links);
-
-                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks ;  
+                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks;  
 
                 ?></p>
             <?php
@@ -119,7 +118,11 @@ $user_domains = explode(',', $data['user']['domains']);
                         <div class="link"><textarea wrap="hard" disabled><?=$link['link'] ?></textarea> <a href="/link/delete/links/<?= $link['id'] ?>" class="delete_btn">Delete</a></div>
                         <p class="shortlink"> <?=$link['short_link'] ?> </p>
                         <p class="tiktok"> <a target="blank" href="https://www.<?=$link['tiktok'] ?>"><?=$link['tiktok'] ?></a> <?php if($link['ban'] != '') echo '<span class="ban">'.$link['ban'].'</span>'; ?> <small> <?=$link['geo'] ?></small></p>
-                        <div class="span"><p> <b>Clicks</b> <?=$link['clicks']?> <?php if($link['last_click'] != '') echo "<span class='last_click'>Last click: <span>$link[last_click]</span></span>"; ?></p><p class="time_created"><?=$link['time_created'] ?></p></div>
+                        <div class="span">
+                            <p> <b>Clicks</b> <?=$link['clicks']?> 
+                            <?php if($link['profit'] != '0') echo "<span class='profit'>$$link[profit]</span>"; if($link['last_click'] != '') echo "<span class='last_click'> Last click: <span>$link[last_click]</span></span>"; ?></p>
+                            <p class="time_created"><?=$link['time_created'] ?></p>
+                        </div>
                     </div>
             
             <?php endforeach; ?>

@@ -172,5 +172,4 @@ class LinkModel
     {
         $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
     }
-
 }
