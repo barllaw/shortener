@@ -14,12 +14,6 @@ class PostbackModel
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function sendMessage($cid, $sum)
-    {
-        $for_telegram = "LosPollos🌖 $cid 💰 $sum";
-        fopen("https://api.telegram.org/bot1067255544:AAENEmI-DXxCm9pP_oZomApduRmLMtZyaUk/sendMessage?chat_id=379565079&text=$for_telegram", 'r');
-    }
-
     public function updateProfit($cid, $sum)
     {
         $link = $this->getLink($cid);
@@ -51,13 +45,7 @@ class PostbackModel
         }
     }
 
-   public function getProfit($login)
-   {
-        $today = date("d.m");
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$login'");
-        $statistic = $query->fetch(PDO::FETCH_ASSOC);
-        return $statistic['profit'];
-    }
+   
     
 
 }

@@ -15,7 +15,8 @@ class Home extends Controller
             'user' => $userModel->getUser(),
             'users_links' => $linkModel->getUsersLinks($userModel->getAllUsers()),
             'lang' => substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2),
-            'profit' => $postbackModel->getProfit($_COOKIE['login']),
+            'profit' => $userModel->getProfit($_COOKIE['login']),
+            'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
         ];
 
         $this->view('home/index', $data);

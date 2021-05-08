@@ -74,4 +74,25 @@ class UserModel
         $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
     }
 
+    public function getProfit()
+   {
+        $today = date("d.m");
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$_COOKIE[login]'");
+        $statistic = $query->fetch(PDO::FETCH_ASSOC);
+        return $statistic['profit'];
+    }
+
+    public function getUsersStatistics($users)
+    {
+        $today = date("d.m");
+        $profits = [];
+        foreach ($users as $user) {
+            $query = $this->_db->query("SELECT profit FROM `statistics` WHERE `date` = '$today' and `login` = '$user[login]'");
+            $profit = $query->fetch(PDO::FETCH_ASSOC);
+            $profits[$user['login']] = $profit['profit'];
+        }
+        
+        return $profits;
+    }
+
 }

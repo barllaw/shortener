@@ -24,12 +24,10 @@ class LinkModel
 
     public function getLinksToday()
     {
-        $dates = $this->getDates(1);
+        $today = date("d.m");
         $links = [];
-        foreach($dates as $date){
-            $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
-            $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$today' and `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        $links[$today] = $query->fetchAll(PDO::FETCH_ASSOC);
         return $links;
     }
 

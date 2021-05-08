@@ -70,7 +70,7 @@ class User extends Controller
             'domains' => $linkModel->getDomains(),
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
-            'profit' => $postbackModel->getProfit($_COOKIE['login']),
+            'profit' => $userModel->getProfit(),
         ];
 
         $this->view('user/dashboard', $data);

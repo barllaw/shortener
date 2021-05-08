@@ -7,73 +7,98 @@ class Postback extends Controller
         exit(header('location: /'));
     }
 
-    public function telegram($cid, $sum)
+    public function telegramBot($cid, $sum)
     {
         $postbackModel = $this->model('PostbackModel');
 
-        $postbackModel->sendMessage($cid, $sum);
         $postbackModel->updateProfit($cid, $sum);
         $postbackModel->updateStatistics($cid, $sum);
+
+        $geo =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+        $for_telegram = "LosPollos🌖 $geo $cid 💰 $sum";
+
+        $token = '1067255544:AAENEmI-DXxCm9pP_oZomApduRmLMtZyaUk';
+        $chat_id = '379565079';
         
+        fopen("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=$for_telegram", 'r');
+
     }
 
-    public function ultraLeads($geo, $sum, $os, $sub1)
+    public function ultraLeads($geo, $sum, $os, $sub1, $sub2 = '')
     {
 
         switch ($sub1) {
             case 'moom':
                 $login = 'moom';
-                $telegram_bot = 'https://api.telegram.org/bot1669490486:AAFKKHYDy8jY39kolav0XYlyFvlDfSEb8CA/sendMessage?chat_id=653793108&text=';
+                $token = '1669490486:AAFKKHYDy8jY39kolav0XYlyFvlDfSEb8CA';
+                $chat_id = '653793108';
                 break;
             
             case 'vitalikk':
                 $login = 'makeover';
-                $telegram_bot = 'https://api.telegram.org/bot803325728:AAEEJJC36ZgBa95WljOeLh7hnF4ubXBEpMI/sendMessage?chat_id=482242700&text=';
+                $token = '803325728:AAEEJJC36ZgBa95WljOeLh7hnF4ubXBEpMI';
+                $chat_id = '482242700';
                 break;
 
             case 'anya':
                 $login = 'anya';
-                $telegram_bot = 'https://api.telegram.org/bot1563149144:AAEeELFWU-GCnpxK4hWglL4liiMrN5YjYyA/sendMessage?chat_id=403424982&text=';
+                $token = '1563149144:AAEeELFWU-GCnpxK4hWglL4liiMrN5YjYyA';
+                $chat_id = '403424982';
                 break;
             case 'nazzar':
                 $login = 'nazar';
-                // $telegram_bot = 'https://api.telegram.org/bot1700797831:AAEz3hw0SVJjRNRXOrIjX03abYENzGE5M7k/sendMessage?chat_id=246354853&text=';
+                // $token = '1700797831:AAEz3hw0SVJjRNRXOrIjX03abYENzGE5M7k';
+                // $chat_id = '246354853';
                 break;
             case 'fech':
                 $login = 'ihor';
-                $telegram_bot = 'https://api.telegram.org/bot1681246759:AAEm_yLl30aISTlIf7RGgiilEDeKrTE2S3I/sendMessage?chat_id=569494276&text=';
+                $token = '1681246759:AAEm_yLl30aISTlIf7RGgiilEDeKrTE2S3I';
+                $chat_id = '569494276';
                 break;
             case 'fanj':
                 $login = 'andrii';
-                $telegram_bot = 'https://api.telegram.org/bot963131464:AAFhO_f_9ZR4vbZDyB6FOYpYek-tjrZig6o/sendMessage?chat_id=481733241&text=';
+                $token = '963131464:AAFhO_f_9ZR4vbZDyB6FOYpYek-tjrZig6o';
+                $chat_id = '481733241';
                 break;
             case 'emannon':
                 $login = 'emannon';
-                $telegram_bot = 'https://api.telegram.org/bot1625228851:AAHIPg9En0y50EUSWI-KZZQmW2Cr37q1N5M/sendMessage?chat_id=479909043&text=';
+                $token = '1625228851:AAHIPg9En0y50EUSWI-KZZQmW2Cr37q1N5M';
+                $chat_id = '479909043';
                 break;
             case 'sergey':
                 $login = 'sergiy';
-                $telegram_bot = 'https://api.telegram.org/bot1721756354:AAG9DTwpnmOKkoJF1OqASleTt_5nI2859u0/sendMessage?chat_id=445238530&text=';
+                $token = '1721756354:AAG9DTwpnmOKkoJF1OqASleTt_5nI2859u0';
+                $chat_id = '445238530';
                 break;
             case 'olegk':
                 $login = 'oleg';
-                $telegram_bot = 'https://api.telegram.org/bot1728224984:AAGTNgrhkwF4qSx972wvkvbQm57hsBW0aFU/sendMessage?chat_id=505758786&text=';
+                $token = '1728224984:AAGTNgrhkwF4qSx972wvkvbQm57hsBW0aFU';
+                $chat_id = '505758786';
                 break;
             case 'igorkach':
                 $login = 'igor2';
-                $telegram_bot = 'https://api.telegram.org/bot1756444727:AAFoRsOoKM24KQgE8hKPSsoGGoonwCTPHfE/sendMessage?chat_id=404713131&text=';
+                $token = '1756444727:AAFoRsOoKM24KQgE8hKPSsoGGoonwCTPHfE';
+                $chat_id = '404713131';
                 break;
-            
+            case 'test':
+                $login = 'londofff';
+                $token = '1067255544:AAENEmI-DXxCm9pP_oZomApduRmLMtZyaUk';
+                $chat_id = '379565079';
+                break;
+
             default:
                 header('location: /');
                 break;
         }
 
-
         $postbackModel = $this->model('PostbackModel');
-        $cid = '';
+        
+        $cid = $sub2;
         $postbackModel->updateStatistics($cid, $sum, $login);
-        $for_telegram = "ULTRA%F0%9F%8C%8D$geo%F0%9F%92%B0$sum$%F0%9F%92%BB$os%F0%9F%93%A1$sub1";
+        $postbackModel->updateProfit($cid, $sum, $login);
+        
+        $telegram_bot = "https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=";
+        $for_telegram = "ULTRA%F0%9F%8C%8D$geo%F0%9F%92%B0$sum$%F0%9F%92%BB$os%F0%9F%93%A1$sub1 🌚 $sub2";
         fopen($telegram_bot.$for_telegram, 'r');
     }
     
