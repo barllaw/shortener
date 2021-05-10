@@ -94,8 +94,8 @@ $user_domains = explode(',', $data['user']['domains']);
                         $sum_clicks = 0;
                         foreach($links as $link){  $sum_clicks += $link['clicks'];    }
                         $user_links = count($links);
-                        $profit = $data['users_profit'][$user];
-                        echo "<div class='user_row'><div class='user_today'>$user : links $user_links clicks $sum_clicks Profit: $profit</div><a href='/user/statistics/$user'>statistics</a></div>";
+                        $profit = ($data['users_profit'][$user]) ? 'Profit '.$data['users_profit'][$user] : '';
+                        echo "<div class='user_row'><div class='user_today'>$user : links $user_links clicks $sum_clicks $profit</div><a href='/user/statistics/$user'>statistics</a></div>";
                     }
                     echo '</div>';
                 }

@@ -53,7 +53,7 @@ class App{
         }
 
         // Check cookie
-        if( $url[1] != 'ultraLeads' and $url[1] != 'telegram' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
+        if( $url[1] != 'ultraLeads' and $url[1] != 'telegramBot' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));
         }
 

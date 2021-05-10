@@ -28,10 +28,14 @@ require_once 'public/blocks/header.php';
             foreach($links as $link):  ?>
 
                     <div class="link_row">
-                        <div class="link"><textarea wrap="hard" disabled><?=$link['link'] ?></textarea></div>
+                        <div class="link"><textarea wrap="hard" disabled><?=$link['link'] ?></textarea> </div>
                         <p class="shortlink"> <?=$link['short_link'] ?> </p>
                         <p class="tiktok"> <a target="blank" href="https://www.<?=$link['tiktok'] ?>"><?=$link['tiktok'] ?></a> <?php if($link['ban'] != '') echo '<span class="ban">'.$link['ban'].'</span>'; ?> <small> <?=$link['geo'] ?></small></p>
-                        <div class="span"><span> <b>Clicks</b> <?=$link['clicks'] ?></span><span class="time_created"><?=$link['time_created'] ?></span></div>
+                        <div class="span">
+                            <p> <b>Clicks</b> <?=$link['clicks']?> 
+                            <?php if($link['profit'] != '0') echo "<span class='profit'>$$link[profit]</span>"; if($link['last_click'] != '') echo "<span class='last_click'> Last click: <span>$link[last_click]</span></span>"; ?></p>
+                            <p class="time_created"><?=$link['time_created'] ?></p>
+                        </div>
                     </div>
             
             <?php endforeach; ?>
