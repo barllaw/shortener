@@ -7,16 +7,16 @@ class PostbackModel
             $this->_db = DB::getInstence();
     }
 
-    public function getLink($cid)
+    public function getLink($nickname)
     {
-        $tiktok = 'tiktok.com/@'.$cid;
+        $tiktok = 'tiktok.com/@'.$nickname;
         $query = $this->_db->query("SELECT * FROM `links` WHERE `tiktok` = '$tiktok'");
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateProfit($cid, $sum)
+    public function updateProfit($nickname, $sum)
     {
-        $link = $this->getLink($cid);
+        $link = $this->getLink($nickname);
 
         $id = $link['id'];
         $sum = $link['profit'] + $sum;
@@ -25,12 +25,13 @@ class PostbackModel
 
     }
 
-    public function updateStatistics($cid = '', $sum, $login = '')
+    public function updateStatistics($sum, $nickname = '', $login = '')
     {
         $today = date("d.m");
-        if($cid != ''){
-            $link = $this->getLink($cid);
+        if($login == ''){
+            $link = $this->getLink($nickname);
             $login = $link['login'];
+            if($login == '') return;
         }
 
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$login'");
