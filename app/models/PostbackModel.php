@@ -38,11 +38,19 @@ class PostbackModel
         $statistic = $query->fetch(PDO::FETCH_ASSOC);
 
         if($statistic == []){
+
+            $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            if($result == []) return;
+
             $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `date` ) VALUES ( ?, ?, ? ) ");
             $query->execute([ $login, $sum, $today ]);
+
         }else{
+
             $profit = $statistic['profit'] + $sum;
             $this->_db->query("UPDATE `statistics` SET `profit` = '$profit' WHERE `id` = '$statistic[id]'");
+
         }
     }
 

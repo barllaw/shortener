@@ -108,7 +108,8 @@ $user_domains = explode(',', $data['user']['domains']);
                 }
 
                 $count = count($links);
-                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks;  
+                $profit = ($data['statistics'][$date]) ? ' Profit <b>$' . $data['statistics'][$date] . '</b>' : '' ;
+                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks . $profit ;  
 
                 ?></p>
             <?php

@@ -21,7 +21,9 @@ require_once 'public/blocks/header.php';
 
                 $count = count($links);
 
-                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks ;  
+                $profit = ($data['statistics'][$date]) ? ' Profit <b>$' . $data['statistics'][$date] . '</b>' : '' ;
+
+                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks . $profit ;  
 
                 ?></p>
             <?php

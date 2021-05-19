@@ -108,6 +108,7 @@ switch ($lang) {
 	</body>
 
     <script>
+
         // var int = Math.floor(Math.random() * 4);
         // let bg_arr = document.querySelectorAll('.bg_blur');
         

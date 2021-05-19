@@ -71,6 +71,7 @@ class User extends Controller
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
             'profit' => $userModel->getProfit(),
+            'statistics' => $userModel->getAllProfit(),
         ];
 
         $this->view('user/dashboard', $data);
@@ -85,6 +86,7 @@ class User extends Controller
 
         $data = [
             'links' => $linkModel->getLinks($login),
+            'statistics' => $userModel->getAllProfit($login),
             'user' => $userModel->getUser($login),
         ];
 

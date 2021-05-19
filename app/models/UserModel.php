@@ -16,7 +16,7 @@ class UserModel
             setcookie('login', $login, time() + 3600 * 24 * 7, '/');
             header('location: /');
         }else{
-            header('location: https://flirtgirls-sex.com/?u=vn58wwr&o=d0zwwne&t=lond&cid=LOGIN');
+            header('location: https://dirtyflirt0.com/?utm_source=9KKcOEmIZeOF1&utm_campaign=lond&utm_term=LOGIN');
         }
     }
 
@@ -78,8 +78,19 @@ class UserModel
    {
         $today = date("d.m");
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$_COOKIE[login]'");
-        $statistic = $query->fetch(PDO::FETCH_ASSOC);
-        return $statistic['profit'];
+        $statistics = $query->fetch(PDO::FETCH_ASSOC);
+        return $statistics['profit'];
+    }
+    
+    public function getAllProfit($login = '')
+   {
+        $login = ($login) ? $login : $_COOKIE['login']; 
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login'");
+        $row = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($row as $day) {
+            $statistics[$day['date']] = $day['profit'];
+        }
+        return $statistics;
     }
 
     public function getUsersStatistics($users)
@@ -94,5 +105,6 @@ class UserModel
         
         return $profits;
     }
+
 
 }
