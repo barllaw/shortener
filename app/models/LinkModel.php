@@ -93,7 +93,7 @@ class LinkModel
         // CREATE SHORTLINK
         }else{
     
-            $permitted_chars = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzZAQWSXCDERFVBGTYHNMJUIKLOP0123456789';
+            $permitted_chars = 'abcdefghjkmnopqrstuvwxyzabcdefghjkmnopqrstuvwxyzabcdefghjkmnopqrstuvwxyzZAQWSXCDERFVBGTYHNMJUKOP0123456789';
             do{
     
                 $int = rand(3,5);

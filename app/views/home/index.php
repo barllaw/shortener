@@ -53,22 +53,7 @@ $user_domains = explode(',', $data['user']['domains']);
                 </div>
                 <select name="geo" id="geo">
                     <option value="">Choose country</option>
-                    <option value="Germany" <?php if( $data['lang'] == 'DE') echo 'selected'; ?>>Germany</option>
-                    <option value="Austria" <?php if( $data['lang'] == 'AT') echo 'selected'; ?>>Austria</option>
-                    <option value="Switzerland" <?php if( $data['lang'] == 'CH') echo 'selected'; ?>>Switzerland</option>
-                    <option value="Belgium" <?php if( $data['lang'] == 'BE') echo 'selected'; ?>>Belgium</option>
-                    <option value="New Zealand" <?php if( $data['lang'] == 'NZ') echo 'selected'; ?>>New Zealand</option>
-                    <option value="France" <?php if( $data['lang'] == 'FR') echo 'selected'; ?>>France</option>
-                    <option value="Netherlands" <?php if( $data['lang'] == 'NL') echo 'selected'; ?>>Netherlands</option>
-                    <option value="Spain" <?php if( $data['lang'] == 'ES') echo 'selected'; ?>>Spain</option>
-                    <option value="United State" <?php if( $data['lang'] == 'US') echo 'selected'; ?>>United State</option>
-                    <option value="Portugal" <?php if( $data['lang'] == 'PT') echo 'selected'; ?>>Portugal</option>
-                    <option value="Italy" <?php if( $data['lang'] == 'IT') echo 'selected'; ?>>Italy</option>
-                    <option value="Czech Republic" >Czech Republic</option>
-                    <option value="Poland" >Poland</option>
-                    <option value="Greece" >Greece</option>
-                    <option value="Croatia" >Croatia</option>
-                    <option value="Latvia" >Latvia</option>
+                    <?php require 'geo_options.php' ?>
                 </select>
                 <button type='submit' class="btn" id="shorten_btn">Shorten</button>
             </form>
@@ -98,41 +83,21 @@ $user_domains = explode(',', $data['user']['domains']);
                         foreach($links as $link){  $sum_clicks += $link['clicks'];    }
                         $user_links = count($links);
                         $profit = ($data['users_profit'][$user]) ? 'Profit '.$data['users_profit'][$user] : '';
-                        echo "<div class='user_row'><div class='user_today'>$user : links $user_links clicks $sum_clicks $profit</div><a href='/user/statistics/$user'>statistics</a></div>";
+
+                        echo "<div class='user_row'>
+                                <div class='user_login'>
+                                    $user   
+                                </div> 
+                                <div class='user_stats'>
+                                   <span>Links $user_links Clicks $sum_clicks $profit</span>
+                                   <a href='/user/statistics/$user'>stats</a>
+                                </div>
+                            </div>";
                     }
                     echo '</div>';
                 }
-            
-            foreach($data['links'] as $date => $links):  ?>
-            <p class="date_created"><?php 
-                $sum_clicks = 0;
-                foreach($links as $link){
-                    $sum_clicks += $link['clicks'];
-                }
-
-                $count = count($links);
-
-                $profit = ($data['profit']) ? ' Profit <b>$' . $data['profit'] . '</b>' : '' ;
-                echo '<b>'.$date.'</b> links '.$count.' clicks '.$sum_clicks . $profit ;  
-
-                ?></p>
-            <?php
-            foreach($links as $link):  ?>
-
-                    <div class="link_row">
-                        <div class="link"><textarea wrap="hard" disabled><?=$link['link'] ?></textarea></div>
-                        <p class="shortlink"> <?=$link['short_link'] ?> </p>
-                        <p class="tiktok"> <a target="blank" href="https://www.<?=$link['tiktok'] ?>"><?=$link['tiktok'] ?></a> <?php if($link['ban'] != '') echo '<span class="ban">'.$link['ban'].'</span>'; ?> <small> <?=$link['geo'] ?></small></p>
-                        <div class="span">
-                            <p> <b>Clicks</b> <?=$link['clicks']?> 
-                            <?php if($link['profit'] != '0') echo "<span class='profit'>$$link[profit]</span>"; if($link['last_click'] != '') echo "<span class='last_click'> Last click: <span>$link[last_click]</span></span>"; ?></p>
-                            <p class="time_created"><?=$link['time_created'] ?></p>
-                        </div>
-                    </div>
-            
-            <?php endforeach; ?>
-
-        <?php endforeach; ?>
+            ?>
+        <?php require 'app/views/links_array.php' ?>
     </div>
 
 </div>

@@ -73,19 +73,12 @@ class UserModel
     {
         $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
     }
-
-    public function getProfit()
-   {
-        $today = date("d.m");
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$_COOKIE[login]'");
-        $statistics = $query->fetch(PDO::FETCH_ASSOC);
-        return $statistics['profit'];
-    }
     
-    public function getAllProfit($login = '')
+    public function getProfit($login, $today = '')
    {
-        $login = ($login) ? $login : $_COOKIE['login']; 
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login'");
+        $today = ($today) ? ' LIMIT 1'  : $today; 
+        
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
         $row = $query->fetchAll(PDO::FETCH_ASSOC);
         foreach ($row as $day) {
             $statistics[$day['date']] = $day['profit'];
@@ -104,6 +97,13 @@ class UserModel
         }
         
         return $profits;
+    }
+
+    public function deleteUser($tables, $login)
+    {
+        foreach ($tables as $table ) {
+            $this->_db->query("DELETE FROM $table WHERE `login` = '$login'");
+        }
     }
 
 

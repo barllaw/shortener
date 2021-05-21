@@ -70,8 +70,7 @@ class User extends Controller
             'domains' => $linkModel->getDomains(),
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
-            'profit' => $userModel->getProfit(),
-            'statistics' => $userModel->getAllProfit(),
+            'profit' => $userModel->getProfit($_COOKIE['login']),
         ];
 
         $this->view('user/dashboard', $data);
@@ -85,12 +84,30 @@ class User extends Controller
 
 
         $data = [
+            'login' => $login,
             'links' => $linkModel->getLinks($login),
-            'statistics' => $userModel->getAllProfit($login),
+            'profit' => $userModel->getProfit($login),
             'user' => $userModel->getUser($login),
         ];
 
         $this->view('user/statistics', $data);
+    }
+
+    public function deleteUser($login)
+    {
+        $userModel = $this->model('UserModel');
+
+        $tables = [
+            'links',
+            'mainlinks',
+            'stairs',
+            'statistics',
+            'users',
+        ];
+        
+        $userModel->deleteUser($tables, $login);
+
+        exit(header('location: /'));
     }
 
     

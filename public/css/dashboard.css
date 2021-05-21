@@ -3,7 +3,7 @@
     text-transform: uppercase;
     font-size: 16px;
     letter-spacing: 1px;
-    margin-bottom: 40px;
+    margin: 20px 0;
 }
 
 .new_mainlink_btn{
@@ -94,7 +94,8 @@
     height: 40px;
 }
 .ios_btn_wrap .ios_btn_row .delete_btn{
-    height: 40px;
+    height: 100%;
+    margin-left: 10px;
 }
 .ios_btn_wrap label{
     display: flex;
@@ -158,9 +159,6 @@
 .domains_wrap label{
     font-size: 15px;
 }
-.domains_btn{
-    margin-bottom: 0;
-}
 .domains .btn, .stairs .btn{
     font-size: 12px;
     padding: 8px;
@@ -173,6 +171,9 @@
     text-transform: uppercase;
     cursor: pointer;
 }
+.stairs_wrap .ios_btn_row{
+    height: 65px;
+}
 .stairs .stairs_btns{
     display: flex;
 }
@@ -182,8 +183,8 @@
 .stairs .stairs_btns .add_link{
     background: #4568db;
 }
-@media only screen and (max-width: 1024px){
+/* @media only screen and (max-width: 1024px){
     .ios_btn_wrap label{
         font-size: 10px;
     }
-}
+} */
