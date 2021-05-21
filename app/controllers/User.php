@@ -71,6 +71,7 @@ class User extends Controller
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
             'profit' => $userModel->getProfit($_COOKIE['login']),
+            'ref' => $userModel->getRef($_COOKIE['login']),
         ];
 
         $this->view('user/dashboard', $data);
@@ -87,6 +88,7 @@ class User extends Controller
             'login' => $login,
             'links' => $linkModel->getLinks($login),
             'profit' => $userModel->getProfit($login),
+            'ref' => $userModel->getRef($login),
             'user' => $userModel->getUser($login),
         ];
 

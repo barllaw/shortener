@@ -85,6 +85,17 @@ class UserModel
         }
         return $statistics;
     }
+    public function getRef($login, $today = '')
+   {
+        $today = ($today) ? ' LIMIT 1'  : $today; 
+        
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
+        $row = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($row as $day) {
+            $statistics[$day['date']] = $day['ref'];
+        }
+        return $statistics;
+    }
 
     public function getUsersStatistics($users)
     {

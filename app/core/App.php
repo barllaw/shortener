@@ -12,12 +12,20 @@ class App{
         
 
         $url = $this->parseUrl();
-
-    // FINDING SHORTLINK IN DB with $url[0]
         $this->_db = DB::getInstence();
+
+        //CHECK USER WITH COOKIE
+        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+        if ($user == []) unset($_COOKIE);
+
+        // FINDING SHORTLINK IN DB with $url[0]
         $shortlink = $_SERVER['SERVER_NAME'].'/'.$url[0];
         $query = $this->_db->query("SELECT * FROM `links` WHERE `short_link` = '$shortlink'");
         $link = $query->fetch(PDO::FETCH_ASSOC);
+
+
+
         if($link != []) {
             // update clicks
             $clicks = $link['clicks'] + 1;
@@ -52,8 +60,8 @@ class App{
             exit(header('location: '.$redirect));
         }
 
-        // Check cookie
-        if( $url[1] != 'ultraLeads' and $url[1] != 'telegramBot' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
+        // access url
+        if( $url[1] != 'telegramBot' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));
         }
 

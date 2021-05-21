@@ -5,6 +5,7 @@
         foreach ($links as $link){ $sum_clicks += $link['clicks']; }
         $count = count($links);
         $profit = ($data['profit'][$date]) ? ' Profit $' . $data['profit'][$date] : '' ;
+        $ref = ($data['ref'][$date]) ? ' Ref $' . $data['ref'][$date] : '' ;
         $day = explode('.',$date);
         $day = '2021-'.$day[1].'-'.$day[0]; 
     ?>
@@ -16,7 +17,7 @@
         </div>
 
         <div class="day_stats">
-            <?php echo 'Links '.$count.' Clicks '.$sum_clicks . $profit ; ?>
+            <?php echo "<span>Links $count</span><span>Clicks $sum_clicks</span><span>$profit</span><span>$ref</span>" ; ?>
         </div>
 
     </div>

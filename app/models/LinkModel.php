@@ -111,8 +111,8 @@ class LinkModel
         $today = date("d.m");
         $time = date("H:i");
     
-        $query = $this->_db->prepare("INSERT INTO `links` ( `link`, `short_link`, `login`, `tiktok`, `geo`, `ban`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?) ");
-        $query->execute([ $link, $shortlink, $login, $tiktok, $geo, '', $today, $time ]);
+        $query = $this->_db->prepare("INSERT INTO `links` ( `link`, `short_link`, `login`, `tiktok`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?) ");
+        $query->execute([ $link, $shortlink, $login, $tiktok, $geo, $today, $time ]);
     
         $_SESSION['shortlink'] = $shortlink;
     }

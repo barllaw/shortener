@@ -9,6 +9,7 @@ class Home extends Controller
         $linkModel = $this->model('LinkModel');
         $postbackModel = $this->model('PostbackModel');
 
+
         $data = [
             'links' => $linkModel->getLinksToday(),
             'mainlinks' => $linkModel->getMainlinks(),
@@ -16,6 +17,7 @@ class Home extends Controller
             'users_links' => $linkModel->getUsersLinks($userModel->getAllUsers()),
             'lang' => substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2),
             'profit' => $userModel->getProfit($_COOKIE['login'], true),
+            'ref' => $userModel->getRef($_COOKIE['login'], true),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
         ];
 

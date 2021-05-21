@@ -292,7 +292,9 @@ header .account{
     margin: 30px auto;
     width: 130px;
 }
-
+#shortener_form input.custom_link{
+    margin-bottom: 20px;
+}
 
 .shortlink-wrap{
     padding: 20px 50px;
@@ -437,10 +439,19 @@ header .account{
 .all_links-wrap .links_top{
     font-size: 14px;
     text-align: center;
-    background: #ffffffaa;
+    background: #71a8ff;
     line-height: 20px;
     padding: 10px;
     margin: 10px 0;
+}
+.all_links-wrap .links_top .day_stats{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.all_links-wrap .links_top .day,
+.all_links-wrap .links_top .day_stats span{
+    color: #fff;
 }
 .all_links-wrap .link_row {
     margin-bottom: 5px;

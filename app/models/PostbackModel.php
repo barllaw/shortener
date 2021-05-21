@@ -25,9 +25,10 @@ class PostbackModel
 
     }
 
-    public function updateStatistics($sum, $nickname = '', $login = '')
+    public function updateStatistics($sum, $nickname = '', $login = '', $ref = '')
     {
         $today = date("d.m");
+
         if($login == ''){
             $link = $this->getLink($nickname);
             $login = $link['login'];
@@ -35,21 +36,21 @@ class PostbackModel
         }
 
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$login'");
-        $statistic = $query->fetch(PDO::FETCH_ASSOC);
+        $statistics = $query->fetch(PDO::FETCH_ASSOC);
 
-        if($statistic == []){
+        if($statistics == []){
 
             $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
             $result = $query->fetch(PDO::FETCH_ASSOC);
             if($result == []) return;
 
-            $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `date` ) VALUES ( ?, ?, ? ) ");
-            $query->execute([ $login, $sum, $today ]);
+            $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `ref`, `date` ) VALUES ( ?, ?, ?, ? ) ");
+            $query->execute([ $login, $sum, $ref, $today ]);
 
         }else{
-
-            $profit = $statistic['profit'] + $sum;
-            $this->_db->query("UPDATE `statistics` SET `profit` = '$profit' WHERE `id` = '$statistic[id]'");
+            $profit = $statistics['profit'] + $sum;
+            $ref = $statistics['ref'] + $ref;
+            $this->_db->query("UPDATE `statistics` SET `profit` = '$profit', `ref` = '$ref' WHERE `id` = '$statistics[id]'");
 
         }
     }
