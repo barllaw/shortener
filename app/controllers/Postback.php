@@ -82,8 +82,8 @@ class Postback extends Controller
             $login = 'londofff';
             $token = '1067255544:AAENEmI-DXxCm9pP_oZomApduRmLMtZyaUk';
             $chat_id = '379565079';
-            $for_telegram = "$pp 🌖 $geo $nickname 💰 $sum";
             $ref = [['andrii' , $sum * (20 / 100)]]; $sum = $sum * (80 / 100);
+            $for_telegram = "$pp 🌖 $geo $nickname 💰 $sum";
         }
 
         if( $ref != []){

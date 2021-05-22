@@ -6,14 +6,17 @@ function textAreaAdjust(element) {
 
 
 //COPY TEXT WITH CLIPBOARD.JS
-function copyLink(btn, msg){
-  let clipboard = new ClipboardJS(btn);
-  clipboard.on('success', function(e) {
-    msg = $(msg);
-    $(msg).addClass('active');
-    setTimeout(() => $(msg).removeClass('active'), 2000);
-    console.log('Copied');
-});
+btns = document.querySelectorAll('#copy_btn');
+for (let i = 0; i < btns.length; i++) {
+  btns[i].onclick = function(){
+    btn = btns[i].className;
+    let clipboard = new ClipboardJS('.'+btn);
+    clipboard.on('success', function(e) {
+        $('.copy_success').addClass('active');
+        setTimeout(() => $('.copy_success').removeClass('active'), 2000);
+        console.log('Copied');
+    })
+  }
 }
 
 //Show wrap

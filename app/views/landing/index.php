@@ -83,7 +83,7 @@ switch ($lang) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="http://go.ultratracker3.online/sl?id=5f5f82be1a6e4b187922520a&pid=459&sub1=EXIT">
+            <a class="exit_btn" href="http://go.ultratracker4.online/sl?id=5f5f82be1a6e4b187922520a&pid=459&sub1=EXIT">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>

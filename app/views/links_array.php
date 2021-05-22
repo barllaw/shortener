@@ -4,8 +4,8 @@
         $sum_clicks = 0;
         foreach ($links as $link){ $sum_clicks += $link['clicks']; }
         $count = count($links);
-        $profit = ($data['profit'][$date]) ? ' Profit $' . $data['profit'][$date] : '' ;
-        $ref = ($data['ref'][$date]) ? ' Ref $' . $data['ref'][$date] : '' ;
+        $profit = ($data['profit'][$date]) ? ' Profit $' . round($data['profit'][$date], 2) : '' ;
+        $ref = ($data['ref'][$date]) ? ' Ref $' . round($data['ref'][$date], 2) : '' ;
         $day = explode('.',$date);
         $day = '2021-'.$day[1].'-'.$day[0]; 
     ?>
@@ -28,7 +28,7 @@
                 <div class="link"><textarea wrap="hard" disabled><?=$link['link'] ?></textarea></div>
                 <p class="shortlink"> <?=$link['short_link'] ?> </p>
                 <p class="tiktok"> <a target="blank" href="https://www.<?=$link['tiktok'] ?>"><?=$link['tiktok'] ?></a><small> <?=$link['geo'] ?></small></p>
-                <div class="span">
+                <div class="clicks">
                     <p> <b>Clicks</b> <?=$link['clicks']?> 
                     <?php  if($link['last_click'] != '')
                         echo "<span class='last_click'> Last click: <span>$link[last_click]</span></span>"; 

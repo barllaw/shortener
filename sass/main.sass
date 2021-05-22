@@ -1,0 +1,394 @@
+$base-color: #efc600
+
+
+@import 'popup.sass'
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    text-decoration: none
+    font-family: 'Roboto'
+    -webkit-appearance: none
+    appearance: none
+    border-radius: 0
+    outline: none
+body
+    position: relative
+p, textarea
+    word-break: break-all
+label
+    font-size: 13px
+    font-weight: 300
+    margin-bottom: 5px
+    word-break: break-all
+input
+    border: 1px solid #bbb
+    padding: 5px 10px
+    font-size: 15px
+    height: 30px
+    background: #ffffff90
+    word-break: break-all
+header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 20px 25%
+    .logo a
+        color: #000
+    .account
+        width: 25px
+        height: 25px
+        background-image: url('../img/user.svg')
+        background-size: cover
+.container
+    margin: 0 auto
+    padding: 20px 50px
+    width: 55%
+    background: #00000010
+
+.copy_success
+    display: flex
+    justify-content: center
+    align-items: center
+    position: fixed
+    top: 0%
+    left: 50%
+    transform: translate(-50%, -150%)
+    height: 30px
+    width: 90%
+    background: #64d364db
+    font-size: 10px
+    letter-spacing: 1px
+    text-transform: uppercase
+    opacity: 0
+    visibility: hidden
+    transition: .25s
+    z-index: 2
+    border-radius: 3px
+.copy_success.active
+    opacity: 1
+    visibility: visible
+    top: 7%
+    transform: translate(-50%, -150%)
+.btn
+    border: none
+    background-color: #64d364
+    text-transform: uppercase
+    font-weight: 300
+    cursor: pointer
+    letter-spacing: 1px
+    display: flex
+    justify-content: center
+    align-items: center
+.second_btn
+    background-color: #ffffff60
+    background-image: url('../img/arrow.webp')
+    background-size: 15px
+    background-repeat: no-repeat
+    background-position: 98% 50%
+    padding: 10px
+    cursor: pointer
+    font-size: 13px
+    text-transform: uppercase
+    letter-spacing: 1px
+    width: 100%
+.alert
+    padding: 20px
+    text-align: center
+    background: #ffd642
+.delete_btn
+    font-weight: 300
+    text-transform: uppercase
+    font-size: 10px
+    letter-spacing: 1px
+    padding: 1px 5px
+    background: #dddddd90
+    display: flex
+    align-items: center
+
+
+#shortener_form
+    padding: 10px 0
+    display: flex
+    flex-direction: column
+    align-items: start
+    textarea
+        padding: 5px 10px
+        font-size: 15px
+        width: 100%
+        height: 30px
+        margin-bottom: 15px
+    .radio-wrap
+        width: 100%
+        label.radio_label
+            font-size: 15px
+            font-weight: 300
+            display: flex
+            justify-content: center
+            align-items: center
+            background: #fff
+            position: relative
+            padding: 5px 10px 5px 25px 
+            display: inline-block
+            margin: 0 20px 10px 0
+            cursor: pointer
+            border-radius: 3px
+        input.radio
+            border-radius: 50%
+            height: 8px
+            width: 8px
+            margin-right: 5px
+            border: 1px solid #ccc
+            transition: all .25s 
+            background: #fff
+            position: absolute
+            top: 37%
+            left: 8px
+            padding: 0
+        input.radio:checked
+            background: #64d364
+            border: 1px solid transparent
+            width: 10px
+            height: 10px
+            top: 33%
+    select
+        width: 100%
+        padding: 7px
+        background: #ffffff90
+        text-align-last: center
+        border: none
+        text-align: center
+    button 
+        height: 40px
+        margin: 30px auto
+        width: 130px
+    .nickname
+        margin-bottom: 15px
+    .custom_link
+        margin-bottom: 20px
+    
+    .links_radio 
+        margin-top: 10px
+        margin-bottom: 20px
+        width: 100%
+        display: flex
+        flex-direction: column
+        max-height: 0
+        overflow: hidden
+        visibility: hidden
+        .mainlink
+            display: flex
+            justify-content: center
+            align-items: center
+            margin-top: 5px
+            label.radio_label
+                padding: 7px 10px 7px 25px 
+                border-radius: 3px 0px 0px 3px
+                margin: 0
+                width: 100%
+    
+.domains_btn
+    margin-bottom: 10px
+.domains
+    display: grid
+    grid-template-columns: 1fr 1fr
+.domains, .stairs
+    margin-bottom: 15px
+    transition: .25s
+    max-height: 0
+    overflow: hidden
+    visibility: hidden
+
+.shortlink-wrap
+    padding: 20px 0px
+    h4
+        margin-bottom: 15px
+        letter-spacing: .5px
+
+    .shortlink_line
+        margin-bottom: 10px
+        display: flex
+        justify-content: center
+        align-items: center
+        position: relative
+        p
+            border: none
+            background: #ffffff90
+            padding: 0 10px
+            width: 95%
+            height: 40px
+            font-size: 16px
+            display: flex
+            justify-content: center
+            align-items: center
+        #copy_btn
+            display: flex
+            justify-content: center
+            align-items: center
+            background: #fff
+            height: 40px
+            padding: 0 10px
+            cursor: pointer
+        #copy_btn img
+            height: 20px
+        
+
+    .shortlink_line_https
+        margin-bottom: 50px
+
+.users-wrap
+    margin-bottom: 15px
+    max-height: 0
+    transition: .25s
+    background: #ffffff60
+    overflow: hidden
+    visibility: hidden
+    .user_row
+        font-size: 15px
+        font-weight: 300
+        padding: 10px 15px
+        display: flex
+        flex-direction: column
+        background: #ffffff85
+        margin: 5px 0
+        .user_login
+            text-align: center
+            letter-spacing: 1px
+            font-size: 13px
+            font-weight: bold
+        .user_stats
+            display: flex
+            align-items: center
+            justify-content: space-between
+        a
+            background: #4b8ef9
+            padding: 5px
+            text-transform: uppercase
+            letter-spacing: 1px
+            font-size: 10px
+            font-weight: 300
+            color: #fff
+
+//LOGIN STYLE
+.login
+    padding: 40px 0 
+    form
+        display: flex
+        align-items: center
+        justify-content: center
+        button
+            height: 30px
+            margin-left: 10px
+            border: none
+            cursor: pointer
+            text-transform: uppercase
+            background: #fff
+            padding: 0 15px
+
+
+
+.all_links-wrap
+    padding: 20px 0px
+    //stats classes
+    .all_links_title
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .delete_user
+            text-transform: uppercase
+            font-weight: 300
+            font-size: 12px
+            letter-spacing: 1px
+            background: #d9534f
+            padding: 5px 15px
+            cursor: pointer
+            color: #fff
+
+    .links_top
+        font-size: 14px
+        text-align: center
+        background: #71a8ff
+        line-height: 20px
+        padding: 10px
+        margin: 10px 0
+        color: #fff
+        .day_stats
+            display: grid
+            grid-auto-flow: column
+    .link_row 
+        margin-bottom: 5px
+        padding: 10px
+        background: #ffffff90
+        position: relative
+        .link 
+            display: flex
+            justify-content: space-between
+            textarea
+                font-size: 12px
+                width: 100%
+                border: none
+                background: transparent
+                resize: none
+                height: 100%
+                display: block
+                color: #555
+        .shortlink
+            font-weight: 300
+            font-size: 13px
+            color: #555
+        .tiktok
+            font-weight: 300
+            margin: 5px 0
+            font-size: 15px
+            a
+                color: #000
+            span
+                text-transform: uppercase
+                font-size: 10px
+                padding: 1px 3px
+                background: #ff8282
+                opacity: .8
+        .clicks
+            display: flex
+            text-align: center
+            justify-content: space-between
+            p
+                font-size: 14px
+            .last_click
+                font-weight: 300
+                text-transform: uppercase
+                font-size: 10px
+                letter-spacing: 1px
+                span
+                    font-size: 13px
+                    letter-spacing: 0
+            b
+                text-transform: uppercase
+                font-size: 10px
+                letter-spacing: 1px
+        .profit
+            margin-top: 5px
+            font-size: 14px
+            font-weight: 300
+            letter-spacing: 0.5px
+        .time_created
+            font-size: 12px
+            position: absolute
+            bottom: 50px
+            right: 20px
+        .delete_btn
+            position: absolute
+            right: 0
+            bottom: 0
+            padding: 5px 12px
+            cursor: pointer
+
+.show_wrap, #shortener_form .show_wrap
+    max-height: 100%
+    overflow: visible
+    visibility: visible
+
+
+
+@import 'media.sass'
+@import 'dashboard.sass'

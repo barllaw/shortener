@@ -2,7 +2,6 @@
 
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
-require_once 'public/blocks/popup.php';
 
 $preland = $data['user']['preland'];
 $custom = $data['user']['input_custom'];
@@ -11,7 +10,7 @@ $stairs = $data['user']['stairs'];
 $user_domains = explode(',', $data['user']['domains']);
 ?>
 
-<div class="container">
+<div class="container dashboard">
 
     <div class="login_title"><h3><?= $data['user']['login'] ?></h3></div>
     
@@ -112,4 +111,7 @@ $user_domains = explode(',', $data['user']['domains']);
 
 </div>
 
-<?php require_once 'public/blocks/footer.php'; ?>
+<?php
+require_once 'public/blocks/popup.php';
+require_once 'public/blocks/footer.php'; 
+?>
