@@ -4,7 +4,7 @@ require_once 'public/blocks/header.php';
 require_once 'public/blocks/popup.php';
 
 $preland = $data['user']['preland'];
-$user_domains = explode(',', $data['user']['domains']);
+$user_domains = explode(',', $data['settings']['domains']);
 
 
 
@@ -14,7 +14,7 @@ $user_domains = explode(',', $data['user']['domains']);
 <div class="container">
     
     
-        <?php if($data['user']['domains']==''): ?>
+        <?php if($data['settings']['domains']==''): ?>
             <div class="alert">
                 <h3>Warning</h3>
                 <p>Не вибрано домена для скорочення. <br> Зайдіть в профіль, нажміть DOMAINS:,
@@ -99,6 +99,7 @@ $user_domains = explode(',', $data['user']['domains']);
                     echo '</div>';
                 }
             ?>
+    <div class="postback_btn"><a href="/user/postback" class="btn">Postback</a></div>
     <div class="all_links-wrap">
         <?php require 'app/views/links_array.php' ?>
     </div>

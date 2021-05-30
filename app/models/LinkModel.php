@@ -132,6 +132,14 @@ class LinkModel
 
     public function deleteLink($db, $id)
     {
+        
+        $query = $this->_db->query("SELECT `count_links` FROM `users` WHERE `login` = '$_COOKIE[login]'");
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        $links = $row['count_links'] - 1;
+
+        $query = $this->_db->prepare("UPDATE `users` SET `count_links` = ? WHERE `login` = ? ");
+        $query->execute([ $links, $_COOKIE['login']]);
+
         $this->_db->query("DELETE FROM `$db` WHERE `id` = '$id'");
     }
 

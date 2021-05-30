@@ -1,5 +1,7 @@
 $base-color: #efc600
-
+$green: #64d364
+$blue: #71a8ff
+$purple: #6747c7
 
 @import 'popup.sass'
 *
@@ -68,7 +70,7 @@ header
 .copy_success.active
     opacity: 1
     visibility: visible
-    top: 7%
+    top: 10%
     transform: translate(-50%, -150%)
 .btn
     border: none
@@ -383,6 +385,18 @@ header
             padding: 5px 12px
             cursor: pointer
 
+.postback_btn
+    .btn
+        width: 100%
+        padding: 5px
+        color:#fff
+        background: darken($purple, 5)
+        float: right
+        font-size: 13px
+    
+    
+    
+    
 .show_wrap, #shortener_form .show_wrap
     max-height: 100%
     overflow: visible
@@ -392,3 +406,5 @@ header
 
 @import 'media.sass'
 @import 'dashboard.sass'
+@import 'settings.sass'
+@import 'postback.sass'

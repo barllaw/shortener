@@ -19,6 +19,7 @@ class Home extends Controller
             'profit' => $userModel->getProfit($_COOKIE['login'], true),
             'ref' => $userModel->getRef($_COOKIE['login'], true),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
+            'settings' => $userModel->getUserSettings(),
         ];
 
         $this->view('home/index', $data);

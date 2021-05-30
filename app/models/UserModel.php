@@ -25,6 +25,8 @@ class UserModel
         $login = strtolower($login);
         $query = $this->_db->prepare("INSERT INTO users (login) VALUES (?) ");
         $query->execute([$login]);
+        $query = $this->_db->prepare("INSERT INTO settings (login) VALUES (?) ");
+        $query->execute([$login]);
         header('location: /user/auth');
     }
 
@@ -58,20 +60,24 @@ class UserModel
 
     public function btnOff($btn)
     {
-        $query = $this->_db->prepare("UPDATE `users` SET `$btn` = ? WHERE `login` = ? ");
+        $query = $this->_db->prepare("UPDATE `settings` SET `$btn` = ? WHERE `login` = ? ");
         $query->execute([ 'Off', $_COOKIE['login']]);
         $this->_db->query("UPDATE `links` SET `next` = '0' WHERE `login` = '$_COOKIE[login]'");
     }
 
     public function btnOn($btn)
     {
-        $query = $this->_db->prepare("UPDATE `users` SET `$btn` = ? WHERE `login` = ? ");
+        $query = $this->_db->prepare("UPDATE `settings` SET `$btn` = ? WHERE `login` = ? ");
         $query->execute([ 'On', $_COOKIE['login']]);
     }
 
     public function updateDomains($domains)
     {
         $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
+    }
+    public function updateTelegramBot($token, $chat_id)
+    {
+        $this->_db->query("UPDATE `settings` SET `bot_token` = '$token', `bot_chat_id` = '$chat_id' WHERE `login` = '$_COOKIE[login]'");
     }
     
     public function getProfit($login, $today = '')
@@ -108,6 +114,19 @@ class UserModel
         }
         
         return $profits;
+    }
+
+    public function getUserSettings($login = '')
+    {
+        if($login == '') $login = $_COOKIE['login'];
+        $query = $this->_db->query("SELECT * FROM `settings` WHERE `login` = '$login'");
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserPostback()
+    {
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function deleteUser($tables, $login)

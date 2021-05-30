@@ -8,6 +8,8 @@
     <title>Lond URL Shortener</title>
 
 	<link rel="shortcut icon" type="image/png" href="/public/img/favicon.png"/>
+    <meta property="og:image" content="/public/img/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="/public/img/iphone_icon.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">

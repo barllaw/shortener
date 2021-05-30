@@ -54,7 +54,7 @@ class User extends Controller
             $userModel->updateDomains($_POST['domains']);
         
 
-        exit(header('location: /user/dashboard'));
+        exit(header('location: /user/settings'));
     }
     
     public function dashboard()
@@ -75,6 +75,24 @@ class User extends Controller
         ];
 
         $this->view('user/dashboard', $data);
+    }
+
+    public function settings()
+    {
+
+        $userModel = $this->model('UserModel');
+        $linkModel = $this->model('LinkModel');
+        $postbackModel = $this->model('PostbackModel');
+
+        $data = [
+            'mainlinks' => $linkModel->getMainlinks(),
+            'domains' => $linkModel->getDomains(),
+            'stairs' => $linkModel->getStairs(),
+            'user' => $userModel->getUser(),
+            'settings' => $userModel->getUserSettings(),
+        ];
+
+        $this->view('user/settings', $data);
     }
 
     public function statistics($login, $count = '')
@@ -102,6 +120,8 @@ class User extends Controller
         $tables = [
             'links',
             'mainlinks',
+            'postback',
+            'settings',
             'stairs',
             'statistics',
             'users',
@@ -110,6 +130,29 @@ class User extends Controller
         $userModel->deleteUser($tables, $login);
 
         exit(header('location: /'));
+    }
+
+    public function update_tg_bot()
+    {
+        $userModel = $this->model('UserModel');
+
+        $userModel->updateTelegramBot(
+            $_POST['bot_token'],
+            $_POST['bot_chat_id']
+        );
+
+        exit(header('location:/user/settings'));
+
+    }
+
+    public function postback()
+    {
+        $userModel = $this->model('UserModel');
+        $data = [
+            'postback' => $userModel->getUserPostback(),
+        ];
+
+        $this->view('user/postback', $data);
     }
 
     

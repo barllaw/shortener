@@ -18,11 +18,12 @@ class PostbackModel
     {
         $link = $this->getLink($nickname);
 
-        $id = $link['id'];
-        $sum = $link['profit'] + $sum;
-
-        $this->_db->query("UPDATE `links` SET `profit` = '$sum' WHERE `id` = '$id'");
-
+        if($link != []){
+            $id = $link['id'];
+            $sum = $link['profit'] + $sum;
+            $this->_db->query("UPDATE `links` SET `profit` = '$sum' WHERE `id` = '$id'");
+        }
+        
     }
 
     public function updateStatistics($sum, $nickname = '', $login = '', $ref = '')
@@ -55,7 +56,17 @@ class PostbackModel
         }
     }
 
-   
+    public function newPostback( $pp, $sum, $nickname = '', $login = '', $geo = '', $os = '', $ref = '' )
+    {
+        if($ref != []) {
+            foreach ($ref as $key ) {
+                $ref_result[] = implode(',', $key);
+            }
+            $ref = implode(' | ', $ref_result);
+        }
+        $query = $this->_db->prepare("INSERT INTO `postback` ( `pp`, `sum`, `nickname`, `login`, `geo`, `os`, `ref`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ");
+        $query->execute([ $pp, $sum, $nickname, $login, $geo, $os, $ref, time() ]);
+    }
     
 
 }

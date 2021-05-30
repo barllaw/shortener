@@ -61,7 +61,7 @@ class App{
         }
 
         // access url
-        if( $url[1] != 'telegramBot' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
+        if( $url[0] != 'postback' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));
         }
 
