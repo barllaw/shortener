@@ -8,6 +8,7 @@
 <option value="Spain" <?php if( $data['lang'] == 'ES') echo 'selected'; ?>>Spain</option>
 <option value="United State" <?php if( $data['lang'] == 'US') echo 'selected'; ?>>United State</option>
 <option value="Portugal" <?php if( $data['lang'] == 'PT') echo 'selected'; ?>>Portugal</option>
+<option value="Sweden" <?php if( $data['lang'] == 'SE') echo 'selected'; ?>>Sweden</option>
 <option value="Italy" <?php if( $data['lang'] == 'IT') echo 'selected'; ?>>Italy</option>
 <option value="Czech Republic" >Czech Republic</option>
 <option value="Poland" >Poland</option>

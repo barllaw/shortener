@@ -16,7 +16,6 @@ require_once 'public/blocks/header.php';
         <div>GEO</div>
         <div>NICKNAME</div>
         <div>SUM</div>
-        <div>OS</div>
         <div>DATE</div>
         </div>
         <?php foreach($data['postback'] as $postback): ?>
@@ -26,7 +25,6 @@ require_once 'public/blocks/header.php';
                 <div class="geo"><?= $postback['geo'] ?></div>
                 <div class="nickname"><?= $postback['nickname'] ?></div>
                 <div class="sum"><?= $postback['sum'] ?></div>
-                <div class="os"><?= $postback['os'] ?></div>
                 <div class="date"><?= date("d.m H:i", $postback['date']) ?></div>
             </div>
 

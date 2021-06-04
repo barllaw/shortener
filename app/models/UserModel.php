@@ -73,7 +73,7 @@ class UserModel
 
     public function updateDomains($domains)
     {
-        $this->_db->query("UPDATE `users` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
+        $this->_db->query("UPDATE `settings` SET `domains` = '$domains' WHERE `login` = '$_COOKIE[login]'");
     }
     public function updateTelegramBot($token, $chat_id)
     {

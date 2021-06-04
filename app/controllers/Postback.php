@@ -12,7 +12,7 @@ class Postback extends Controller
         $postbackModel = $this->model('PostbackModel');
         $userModel = $this->model('UserModel');
 
-        if($geo == '') $geo = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+        // if($geo == '') $geo = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
 
         if($login == 'lond')
             $login = 'londofff';
@@ -54,49 +54,18 @@ class Postback extends Controller
             $login = 'Edic';
 
 
+        $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os, $ref );
+
         $for_telegram = "$pp%F0%9F%8C%8D$geo%F0%9F%92%B0$sum$%F0%9F%92%BB$os%F0%9F%93%A1$login 🌚 $nickname";
         
         if ($login == 'londofff')
             $for_telegram = "$pp 🌖 $geo $nickname 💰 $sum";
-        
-        if($login == 'EXIT'){
-            $sum = $sum * (50 / 100);
-            $arr = [
-                [
-                    'login' => 'londofff',
-                    'for_telegram' => "$pp 🌖 $geo $nickname 💰 $sum",
-                ],
-                [
-                    'login' => 'andrii',
-                    'for_telegram' => "$pp%F0%9F%8C%8D$geo%F0%9F%92%B0$sum$%F0%9F%92%BB$os%F0%9F%93%A1$login 🌚 $nickname",
-                ]
-            ];
-            foreach ($arr as $key ) {
-                $login = $key['login'];
-                $settings = $userModel->getUserSettings($login);
-                $token = $settings['bot_token'];
-                $chat_id = $settings['bot_chat_id'];
-                $for_telegram = $key['for_telegram'];
 
-                $postbackModel->updateStatistics( 0, '', $login, $sum);
-                fopen("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=$for_telegram", 'r');
 
-                exit();
-            }
-        }
-
-        // if( $ref != []){
-        //     foreach ($ref as $item ) {
-        //         $postbackModel->updateStatistics( 0, '', $item[0], $item[1]);
-        //     }
-        // }
-        
-        $postbackModel->updateStatistics( $sum, $nickname, $login);
-
-        if($nickname != '') 
-            $postbackModel->updateProfit($nickname, $sum);
-
-        $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os, $ref );
+        // $postbackModel->updateStatistics( $sum, $nickname, $login);
+        // if($nickname != '') 
+        //     $postbackModel->updateProfit($nickname, $sum);
+            
         
         $settings = $userModel->getUserSettings($login);
 
