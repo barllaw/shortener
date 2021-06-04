@@ -125,7 +125,12 @@ class UserModel
 
     public function getUserPostback()
     {
-        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        $month = date('m');
+        $day = date('d');
+        $year = date('Y');
+
+        $d = mktime(00, 00, 00, $month, $day, $year);
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' and `date` >= '$d' ORDER BY `id` DESC");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 

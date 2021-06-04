@@ -3,6 +3,10 @@
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
 
+$sum = 0;
+foreach ($data['postback'] as $key) {
+    $sum += $key['sum'];
+}
 
 ?>
 
@@ -15,8 +19,8 @@ require_once 'public/blocks/header.php';
         <div>PP</div>
         <div>GEO</div>
         <div>NICKNAME</div>
-        <div>SUM</div>
-        <div>DATE</div>
+        <div>SUM $<?= round($sum, 2) ?></div>
+        <div>DATE <?= date("d.m", $postback['date']) ?></div>
         </div>
         <?php foreach($data['postback'] as $postback): ?>
 
@@ -24,8 +28,8 @@ require_once 'public/blocks/header.php';
                 <div class="pp"><?= $postback['pp'] ?></div>
                 <div class="geo"><?= $postback['geo'] ?></div>
                 <div class="nickname"><?= $postback['nickname'] ?></div>
-                <div class="sum"><?= $postback['sum'] ?></div>
-                <div class="date"><?= date("d.m H:i", $postback['date']) ?></div>
+                <div class="sum"><?= round($postback['sum'], 2) ?></div>
+                <div class="date"><?= date("H:i", $postback['date']) ?></div>
             </div>
 
         <?php endforeach; ?>
