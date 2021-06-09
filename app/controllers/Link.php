@@ -16,7 +16,7 @@ class Link extends Controller
         $linkModel = $this->model('LinkModel');
         $userModel = $this->model('UserModel');
 
-        $user = $userModel->getUser();
+        $user_settings = $userModel->getUserSettings();
         //Get stairs links
         $stairs_links = $linkModel->getStairs(" and `active` = '1' ");
         foreach($stairs_links as $el){
@@ -28,12 +28,11 @@ class Link extends Controller
         $domain = $_POST['domain'];
         $login = $_COOKIE['login'];
         $geo = $_POST['geo'];
-        $domains = $user['domains'];
-        if($user['stairs'] == 'On' and $stairs != '')
+        $domains = $user_settings['domains'];
+        if($user_settings['stairs'] == 'On' and $stairs != '')
             $stairs = true;
         else
             $stairs = false;
-
         $linkModel->shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links );
         
         $userModel->updateCountLinks();
@@ -79,6 +78,10 @@ class Link extends Controller
     public function update($param)
     {
         $linkModel = $this->model('LinkModel');
+
+        if($param == 'edit_link'){
+            $linkModel->updateLink(preg_replace('/\s+/', '',  trim($_POST['link-for_edit'])), $_POST['edit_link_id']);
+        }
 
         if($param == 'stairs'){
             $linkModel->inactiveStairs();

@@ -130,6 +130,12 @@ class LinkModel
         $query->execute([ $link_save, $_COOKIE['login'] ]);
     }
 
+    public function updateLink($link, $id)
+    {
+        $query = $this->_db->prepare("UPDATE `links` SET `link` = ? WHERE `id` = ? ");
+        $query->execute([ $link, $id]);
+    }
+
     public function deleteLink($db, $id)
     {
         

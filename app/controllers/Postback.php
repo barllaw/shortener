@@ -54,7 +54,7 @@ class Postback extends Controller
             $login = 'Edic';
 
 
-        $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os, $ref );
+        $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os);
 
         $for_telegram = "$pp%F0%9F%8C%8D$geo%F0%9F%92%B0$sum$%F0%9F%92%BB$os%F0%9F%93%A1$login 🌚 $nickname";
         
@@ -62,15 +62,15 @@ class Postback extends Controller
             $for_telegram = "$pp 🌖 $geo $nickname 💰 $sum";
 
 
-        // $postbackModel->updateStatistics( $sum, $nickname, $login);
-        // if($nickname != '') 
-        //     $postbackModel->updateProfit($nickname, $sum);
+        if($nickname != '') 
+            $postbackModel->updateProfit($nickname, $sum);
             
-        
+            
         $settings = $userModel->getUserSettings($login);
-
+            
         if($settings['telegram_bot'] == 'On')
             fopen("https://api.telegram.org/bot$settings[bot_token]/sendMessage?chat_id=$settings[bot_chat_id]&text=$for_telegram", 'r');
-
+            
+        $postbackModel->updateStatistics( $sum, $nickname, $login);
     }
 }

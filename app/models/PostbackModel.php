@@ -26,7 +26,7 @@ class PostbackModel
         
     }
 
-    public function updateStatistics($sum, $nickname = '', $login = '', $ref = '')
+    public function updateStatistics($sum, $nickname = '', $login = '')
     {
         $today = date("d.m");
 
@@ -45,27 +45,20 @@ class PostbackModel
             $result = $query->fetch(PDO::FETCH_ASSOC);
             if($result == []) return;
 
-            $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `ref`, `date` ) VALUES ( ?, ?, ?, ? ) ");
-            $query->execute([ $login, $sum, $ref, $today ]);
+            $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `date` ) VALUES ( ?, ?, ? ) ");
+            $query->execute([ $login, $sum, $today ]);
 
         }else{
             $profit = $statistics['profit'] + $sum;
-            $ref = $statistics['ref'] + $ref;
-            $this->_db->query("UPDATE `statistics` SET `profit` = '$profit', `ref` = '$ref' WHERE `id` = '$statistics[id]'");
+            $this->_db->query("UPDATE `statistics` SET `profit` = '$profit' WHERE `id` = '$statistics[id]'");
 
         }
     }
 
-    public function newPostback( $pp, $sum, $nickname = '', $login = '', $geo = '', $os = '', $ref = '' )
+    public function newPostback( $pp, $sum, $nickname = '', $login = '', $geo = '', $os = '')
     {
-        if($ref != []) {
-            foreach ($ref as $key ) {
-                $ref_result[] = implode(',', $key);
-            }
-            $ref = implode(' | ', $ref_result);
-        }
-        $query = $this->_db->prepare("INSERT INTO `postback` ( `pp`, `sum`, `nickname`, `login`, `geo`, `os`, `ref`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ");
-        $query->execute([ $pp, $sum, $nickname, $login, $geo, $os, $ref, time() ]);
+        $query = $this->_db->prepare("INSERT INTO `postback` ( `pp`, `sum`, `nickname`, `login`, `geo`, `os`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) ");
+        $query->execute([ $pp, $sum, $nickname, $login, $geo, $os, time() ]);
     }
     
 

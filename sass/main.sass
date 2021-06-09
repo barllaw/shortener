@@ -2,6 +2,7 @@ $base-color: #efc600
 $green: #64d364
 $blue: #71a8ff
 $purple: #6747c7
+$red: #d9534f
 
 @import 'popup.sass'
 *
@@ -16,6 +17,7 @@ $purple: #6747c7
     outline: none
 body
     position: relative
+    margin-bottom: 50px
 p, textarea
     word-break: break-all
 label
@@ -98,7 +100,7 @@ header
     padding: 20px
     text-align: center
     background: #ffd642
-.delete_btn
+.edit_btn
     font-weight: 300
     text-transform: uppercase
     font-size: 10px
@@ -108,7 +110,32 @@ header
     display: flex
     align-items: center
 
-
+.nav
+    width: 55%
+    background: #fbfbfb
+    display: flex
+    justify-content: space-around
+    align-items: center
+    position: fixed
+    bottom: 0
+    left: 50%
+    box-shadow: 0 0 5px #ddd
+    z-index: 3
+    transform: translate(-50%, 0px);
+    a
+        color: #777
+        display: block
+        width: 100%
+        height: 50px
+        display: flex
+        justify-content: center
+        align-items: center
+        i
+            font-size: 20px
+    a.home i
+        font-size: 25px
+    a.active
+        color: #222
 #shortener_form
     padding: 10px 0
     display: flex
@@ -290,12 +317,13 @@ header
 
 
 .all_links-wrap
-    padding: 20px 0px
+    padding: 0px
     //stats classes
     .all_links_title
         display: flex
         justify-content: space-between
         align-items: center
+        margin-bottom: 10px
         .delete_user
             text-transform: uppercase
             font-weight: 300
@@ -312,8 +340,8 @@ header
         background: #71a8ff
         line-height: 20px
         padding: 10px
-        margin: 10px 0
         color: #fff
+        margin-bottom: 5px
         .day_stats
             display: grid
             grid-auto-flow: column
@@ -378,7 +406,7 @@ header
             position: absolute
             bottom: 50px
             right: 20px
-        .delete_btn
+        .edit_btn
             position: absolute
             right: 0
             bottom: 0
@@ -388,10 +416,9 @@ header
 .postback_btn
     .btn
         width: 100%
-        padding: 5px
+        padding: 8px
         color:#fff
         background: darken($purple, 5)
-        float: right
         font-size: 13px
     
     

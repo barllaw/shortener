@@ -83,7 +83,7 @@ switch ($lang) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="http://go.ultratracker4.online/sl?id=5f5f82be1a6e4b187922520a&pid=459&sub1=EXIT&sub2=EXIT">
+            <a class="exit_btn" href="https://dirtyflirt0.com/?utm_source=9KKcOEmIZeOF1&utm_campaign=EXIT">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>

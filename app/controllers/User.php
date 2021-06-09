@@ -31,13 +31,13 @@ class User extends Controller
         $this->view('user/auth');
     }
 
-    public function londofffAuth()
+    public function logout()
     {
         $userModel = $this->model('UserModel');
 
-        $userModel->londofffLogin();
+        $userModel->logout();
 
-        exit(header('location: /'));
+        exit(header('location:/user/auth'));
     }
 
     public function update($param, $second_param = '')
@@ -71,7 +71,6 @@ class User extends Controller
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
             'profit' => $userModel->getProfit($_COOKIE['login']),
-            'ref' => $userModel->getRef($_COOKIE['login']),
         ];
 
         $this->view('user/dashboard', $data);
@@ -106,7 +105,6 @@ class User extends Controller
             'login' => $login,
             'links' => $linkModel->getLinks($login),
             'profit' => $userModel->getProfit($login),
-            'ref' => $userModel->getRef($login),
             'user' => $userModel->getUser($login),
         ];
 

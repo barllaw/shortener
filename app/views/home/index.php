@@ -1,12 +1,15 @@
 <?php 
+
+$url = explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_STRING));
+
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
 require_once 'public/blocks/popup.php';
+require_once 'public/blocks/navigation.php';
 
-$preland = $data['user']['preland'];
+
+
 $user_domains = explode(',', $data['settings']['domains']);
-
-
 
 ?>
 
@@ -39,7 +42,7 @@ $user_domains = explode(',', $data['settings']['domains']);
                 <label for="nickname">Nickname</label>
                 <input type="text" name="nickname" class="nickname" onkeyup="checkInput('nickname')">
 
-                <?php if($data['user']['input_custom'] == 'On'): ?>
+                <?php if($data['settings']['input_custom'] == 'On'): ?>
                     <label for="custom_link">Custom:</label>
                     <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
                 <?php endif; ?>
@@ -62,6 +65,7 @@ $user_domains = explode(',', $data['settings']['domains']);
                 <button type='submit' class="btn" id="shorten_btn">Shorten</button>
             </form>
 
+            <?php if($_SESSION['shortlink'] != ''): ?>
             <div class="shortlink-wrap">
                 <h4>Your short link:</h4>
                 <div class="shortlink_line">
@@ -73,6 +77,8 @@ $user_domains = explode(',', $data['settings']['domains']);
                     <div class="copy_btn_https" id="copy_btn" data-clipboard-text="https://<?=$_SESSION['shortlink']?>"> <img src="/public/img/copy_icon.png" alt=""></div>
                 </div>
             </div>        
+            <?php endif; ?>
+
         <?php endif; ?>
             <?php 
                 

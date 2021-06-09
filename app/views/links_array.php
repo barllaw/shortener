@@ -1,11 +1,11 @@
 <?php  foreach($data['links'] as $date => $links):  ?>
 
     <?php 
+    
         $sum_clicks = 0;
         foreach ($links as $link){ $sum_clicks += $link['clicks']; }
         $count = count($links);
         $profit = ($data['profit'][$date]) ? ' Profit $' . round($data['profit'][$date], 2) : '' ;
-        $ref = ($data['ref'][$date]) ? '<span>Ref $' . round($data['ref'][$date], 2).'</span>' : '' ;
         $day = explode('.',$date);
         $day = '2021-'.$day[1].'-'.$day[0]; 
     ?>
@@ -36,7 +36,7 @@
                 </div>
                 <p class="profit"> <?php if($link['profit'] != '0') echo "<span class='profit'>Profit <b>$$link[profit]</b></span>"; ?> </p>
                 <p class="time_created"><?=$link['time_created'] ?></p>
-                <div class="delete_btn" onclick="deleteShortlink(<?= '\''.$link['link'].'\',\''.$link['short_link'].'\',\''.$link['tiktok'].'\',\''.$link['id'].'\''?>)">Delete</div>
+                <div class="edit_btn" onclick="editShortlink(<?= '\''.$link['link'].'\',\''.$link['short_link'].'\',\''.$link['tiktok'].'\',\''.$link['id'].'\''?>)">edit</div>
             </div>
 
     <?php endforeach; ?>    

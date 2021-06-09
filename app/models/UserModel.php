@@ -30,6 +30,11 @@ class UserModel
         header('location: /user/auth');
     }
 
+    public function logout()
+    {
+        setcookie('login', $_COOKIE['login'], time() - 3600 * 24 * 7, '/');
+    }
+
     public function getUser($login = '')
     {
         if($login == '') $login = $_COOKIE['login'];
@@ -51,11 +56,6 @@ class UserModel
         $count_links = $user['count_links'] + 1;
 
         $this->_db->query("UPDATE `users` SET `count_links` = '$count_links' WHERE `login` = '$_COOKIE[login]'");
-    }
-
-    public function londofffLogin()
-    {
-        setcookie('login', 'londofff', time() + 3600 * 24 * 7, '/');
     }
 
     public function btnOff($btn)
@@ -82,23 +82,20 @@ class UserModel
     
     public function getProfit($login, $today = '')
    {
+
+        // $postback = $this->getUserPostback();
+
+        // $sum = 0;
+        // foreach ($postback as $key) {
+        //     $sum += $key['sum'];
+        // }
+
         $today = ($today) ? ' LIMIT 1'  : $today; 
         
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
         $row = $query->fetchAll(PDO::FETCH_ASSOC);
         foreach ($row as $day) {
             $statistics[$day['date']] = $day['profit'];
-        }
-        return $statistics;
-    }
-    public function getRef($login, $today = '')
-   {
-        $today = ($today) ? ' LIMIT 1'  : $today; 
-        
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
-        $row = $query->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($row as $day) {
-            $statistics[$day['date']] = $day['ref'];
         }
         return $statistics;
     }

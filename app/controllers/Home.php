@@ -17,7 +17,6 @@ class Home extends Controller
             'users_links' => $linkModel->getUsersLinks($userModel->getAllUsers()),
             'lang' => substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2),
             'profit' => $userModel->getProfit($_COOKIE['login'], true),
-            'ref' => $userModel->getRef($_COOKIE['login'], true),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
             'settings' => $userModel->getUserSettings(),
         ];

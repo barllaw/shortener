@@ -37,13 +37,13 @@ class App{
             $query->execute([ $time, $link['id']]);
             // get user
             $login = $link['login'];
-            $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
-            $user = $query->fetch(PDO::FETCH_ASSOC);
+            $query = $this->_db->query("SELECT * FROM `settings` WHERE `login` = '$login'");
+            $user_settings = $query->fetch(PDO::FETCH_ASSOC);
 
             $int = $link['next']; 
 
             $links = explode(',', $link['link']);
-            if($user['stairs'] == 'On'){
+            if($user_settings['stairs'] == 'On'){
 
                 if($int >= count($links)) $int = 0;
                 //Update next number
@@ -54,7 +54,7 @@ class App{
 
             $redirect = $links[$int];
             //landing check
-            if ( $user['preland'] == 'On' ) 
+            if ( $user_settings['preland'] == 'On' ) 
                 exit(require_once './app/views/landing/index.php');
 
             exit(header('location: '.$redirect));

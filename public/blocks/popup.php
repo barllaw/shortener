@@ -22,6 +22,24 @@
         </form>
     </div>
 
+    <div class="popup_wrap edit_link_popup_wrap">
+        <form action="/link/update/edit_link" method='post'>
+            <div class="close" >Close</div>
+            <h3>Edit link</h3>
+            <input type="hidden" name='edit_link_id' id="edit_link_id" value="">
+            <span>Link:</span>
+            <textarea name='link-for_edit' id="link-for_edit" wrap="hard" onkeyup="textAreaAdjust(this)"></textarea>
+            <span>Shortlink:</span>
+            <p id="shortlink-for_edit"></p>
+            <span>Tiktok:</span>
+            <p id="tiktok-for_edit"></p>
+            <div class="edit_btns">
+                <div class="delete_btn" onclick="deleteShortlink()">Delete</div>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+
     <div class="popup_wrap delete_link_popup_wrap">
         <form action="" method=''>
             <div class="close" >Close</div>

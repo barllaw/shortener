@@ -50,16 +50,30 @@ function addLink(param){
   popup_wrap.addClass('popup_wrap_show');
 }
 
-//DELETE SHORTLINK
-function deleteShortlink( link, shortlink, tiktok, id){
+//EDIT SHORTLINK
+function editShortlink( link, shortlink, tiktok, id){
   $('body').css('overflow', 'hidden');
-  popup_wrap = $('.delete_link_popup_wrap');
+  popup_wrap = $('.edit_link_popup_wrap');
 
   $('.popup').addClass('popup_show');
-  $('#link-for_delete').html(link);
-  $('#shortlink-for_delete').html(shortlink);
-  $('#tiktok-for_delete').html(tiktok);
-  $('#delete_shortlink_btn').attr('href', '/link/delete/links/'+id);
+  $('#link-for_edit').val(link);
+  $('#edit_link_id').val(id);
+  $('#shortlink-for_edit').html(shortlink);
+  $('#tiktok-for_edit').html(tiktok);
+  popup_wrap.addClass('popup_wrap_show');
+  
+}
+
+//DELETE SHORTLINK
+function deleteShortlink(){
+  $('.edit_link_popup_wrap').removeClass('popup_wrap_show');
+  popup_wrap = $('.delete_link_popup_wrap');
+  val = $('#edit_link_id').val();
+  
+  $('#link-for_delete').html($('#link-for_edit').val());
+  $('#shortlink-for_delete').html($('#shortlink-for_edit').text());
+  $('#tiktok-for_delete').html($('#tiktok-for_edit').text());
+  $('#delete_shortlink_btn').attr('href', '/link/delete/links/'+val);
   popup_wrap.addClass('popup_wrap_show');
   
 }
