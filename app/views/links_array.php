@@ -34,7 +34,7 @@
                         echo "<span class='last_click'> Last click: <span>$link[last_click]</span></span>"; 
                     ?></p>
                 </div>
-                <p class="profit"> <?php if($link['profit'] != '0') echo "<span class='profit'>Profit <b>$$link[profit]</b></span>"; ?> </p>
+                <p class="profit"> <?php if($link['profit'] != '0') echo "<span class='profit'>Profit <b>$$link[profit] </b></span><span class='leads'> Leads $link[leads]</span>"; ?> </p>
                 <p class="time_created"><?=$link['time_created'] ?></p>
                 <div class="edit_btn" onclick="editShortlink(<?= '\''.$link['link'].'\',\''.$link['short_link'].'\',\''.$link['tiktok'].'\',\''.$link['id'].'\''?>)">edit</div>
             </div>

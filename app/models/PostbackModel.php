@@ -21,7 +21,8 @@ class PostbackModel
         if($link != []){
             $id = $link['id'];
             $sum = $link['profit'] + $sum;
-            $this->_db->query("UPDATE `links` SET `profit` = '$sum' WHERE `id` = '$id'");
+            $leads = $link['leads'] + 1;
+            $this->_db->query("UPDATE `links` SET `profit` = '$sum', `leads` = '$leads'  WHERE `id` = '$id'");
         }
         
     }

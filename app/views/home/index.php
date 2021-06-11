@@ -24,6 +24,7 @@ $user_domains = explode(',', $data['settings']['domains']);
                      виберіть домени для скорочення і нажміть SAVE</p>
             </div>
         <?php else: ?>
+        <div class="block">
             <form action="/link/shorten" method='post' id="shortener_form">
                 <label for="link">Link:</label>
                 <textarea name='link' wrap="hard" onkeyup="textAreaAdjust(this)" class="link_textarea"></textarea>
@@ -78,37 +79,39 @@ $user_domains = explode(',', $data['settings']['domains']);
                 </div>
             </div>        
             <?php endif; ?>
+        </div>
+        <div class="block">
+            <?php endif; ?>
+                <?php 
+                    
+                    $usr_arr = ['londofff','andrii','makeover','emannon', 'moom'];
+                    if(in_array($_COOKIE['login'], $usr_arr)){
+                        echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
+                        echo '<div class="users-wrap">';
+                        foreach($data['users_links'] as $user => $links){
+                            $sum_clicks = 0;
+                            foreach($links as $link){  $sum_clicks += $link['clicks'];    }
+                            $user_links = count($links);
+                            $profit = ($data['users_profit'][$user]) ? 'Profit '.round($data['users_profit'][$user], 2) : '';
 
-        <?php endif; ?>
-            <?php 
-                
-                $usr_arr = ['londofff','andrii','makeover','emannon', 'moom'];
-                if(in_array($_COOKIE['login'], $usr_arr)){
-                    echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
-                    echo '<div class="users-wrap">';
-                    foreach($data['users_links'] as $user => $links){
-                        $sum_clicks = 0;
-                        foreach($links as $link){  $sum_clicks += $link['clicks'];    }
-                        $user_links = count($links);
-                        $profit = ($data['users_profit'][$user]) ? 'Profit '.round($data['users_profit'][$user], 2) : '';
-
-                        echo "<div class='user_row'>
-                                <div class='user_login'>
-                                    $user   
-                                </div> 
-                                <div class='user_stats'>
-                                   <span>Links $user_links Clicks $sum_clicks $profit</span>
-                                   <a href='/user/statistics/$user'>stats</a>
-                                </div>
-                            </div>";
+                            echo "<div class='user_row'>
+                                    <div class='user_login'>
+                                        $user   
+                                    </div> 
+                                    <div class='user_stats'>
+                                    <span>Links $user_links Clicks $sum_clicks $profit</span>
+                                    <a href='/user/statistics/$user'>stats</a>
+                                    </div>
+                                </div>";
+                        }
+                        echo '</div>';
                     }
-                    echo '</div>';
-                }
-            ?>
-    <div class="postback_btn"><a href="/user/postback" class="btn">Postback</a></div>
-    <div class="all_links-wrap">
-        <?php require 'app/views/links_array.php' ?>
-    </div>
+                ?>
+            <div class="postback_btn"><a href="/user/postback" class="btn">Postback</a></div>
+            <div class="all_links-wrap">
+                <?php require 'app/views/links_array.php' ?>
+            </div>
+        </div>
 </div>
 
 <?php require_once 'public/blocks/footer.php'; ?>
