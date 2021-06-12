@@ -43,8 +43,8 @@ switch ($lang) {
             body{overflow:hidden;filter: blur();}
             .exit_btn{position: absolute;top: 30px;left: 30px; background: #ff0000c7;padding: 5px 10px;color:#fff;text-transform: uppercase;font-size: 13px;letter-spacing: 1px; text-decoration: none;}
             .exit_btn i{color:#fff}
-            .bg_blur{background-image: url(/app/views/landing/1.gif);z-index: -1; position: absolute;top: 0;left: 0;height: 100vh;width: 100%;filter: blur(5px);background-size: cover;background-position: center;}
-            .container{z-index: 2; width: 100%;height: 100vh; background: linear-gradient(45deg, rgba(28,125,193,0.5074404761904762) 0%, rgba(54,9,121,0.5046393557422969) 51%, rgba(255,0,44,0.5018382352941176) 100%);}
+            .bg_blur{z-index: -1; position: absolute;top: 0;left: 0;height: 100vh;width: 100%;filter: blur(8px);background-size: cover;background-position: center;}
+            .container{background: linear-gradient(45deg, rgba(69,177,252,0.4) 0%, rgba(131,58,180,0.4) 25%, rgba(253,29,161,0.4) 50%, rgba(253,43,43,0.4) 75%, rgba(253,55,92,0.4) 100%);background-size: 400% 400%;animation: bg 20s ease infinite;z-index: 2; width: 100%;height: 100vh; transition: .25s;}
             .logo_wrap{display: flex;flex-direction: column;justify-content: center;align-items: center;padding-top: 30px;}
             .logo_wrap .logo img{width: 50px;}
             .logo_wrap .tiktok img{width: 150px;}
@@ -66,7 +66,18 @@ switch ($lang) {
             .popup .popup_wrap{ background: #fff; border-radius: 10px; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); padding: 20px; text-align: center; width: 80%; transition: .25s;}
             .popup .popup_wrap h2{ color:#521919 }
             .popup .popup_wrap p{ margin: 10px 0 20px 0; }
-
+            
+            @keyframes bg {
+                0%{
+                    background-position: 0 100%;
+                }
+                50%{
+                    background-position: 100% 0%;
+                }
+                100%{
+                    background-position: 0% 100%;
+                }
+            }
 
         </style>
 	</head>

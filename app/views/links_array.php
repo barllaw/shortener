@@ -37,6 +37,7 @@
                 <p class="profit"> <?php if($link['profit'] != '0') echo "<span class='profit'>Profit <b>$$link[profit] </b></span><span class='leads'> Leads $link[leads]</span>"; ?> </p>
                 <p class="time_created"><?=$link['time_created'] ?></p>
                 <div class="edit_btn" onclick="editShortlink(<?= '\''.$link['link'].'\',\''.$link['short_link'].'\',\''.$link['tiktok'].'\',\''.$link['id'].'\''?>)">edit</div>
+                <a href="/link/statistics/<?= $link['id'] ?>" class="stats_link_btn">stats</a>
             </div>
 
     <?php endforeach; ?>    

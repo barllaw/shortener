@@ -103,6 +103,25 @@ class Link extends Controller
 
         $this->view('link/domain');
     }
+    public function statistics($id_shortlink)
+    {
+        $linkModel = $this->model('LinkModel');
+
+        $visitors = $linkModel->getCountiesShortlink($id_shortlink);
+        $stats = [];
+        foreach($visitors as $visitor){
+            $count = $linkModel->getCountCountry($id_shortlink, $visitor['country']);
+            $stats[$visitor['country']] = $count;
+        }
+        array_multisort($stats, SORT_DESC);
+
+        $data = [
+            'stats' => $stats,
+        ];
+
+        $this->view('link/statistics', $data);
+
+    }
     
 
 }

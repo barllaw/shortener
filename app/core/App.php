@@ -27,14 +27,18 @@ class App{
 
 
         if($link != []) {
+            //New visitor
+            $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
+            if($visitor){
+                $query = $this->_db->prepare("INSERT INTO `visitors_shortlinks` ( `id_shortlink`, `country`, `region`, `city`, `ip`, `timezone`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) ");
+                $query->execute([ $link['id'], $visitor->country, $visitor->region, $visitor->city, $visitor->ip,$visitor->timezone, time() ]);
+            }
             // update clicks
             $clicks = $link['clicks'] + 1;
-            $query = $this->_db->prepare("UPDATE `links` SET `clicks` = ? WHERE `id` = ? ");
-            $query->execute([ $clicks, $link['id']]);
-            //Update last ckick
             $time = date("d.m").' '.date("H:i");
-            $query = $this->_db->prepare("UPDATE `links` SET `last_click` = ? WHERE `id` = ? ");
-            $query->execute([ $time, $link['id']]);
+            $query = $this->_db->prepare("UPDATE `links` SET `clicks` = ?, `last_click` = ? WHERE `id` = ? ");
+            $query->execute([ $clicks, $time, $link['id']]);
+
             // get user
             $login = $link['login'];
             $query = $this->_db->query("SELECT * FROM `settings` WHERE `login` = '$login'");

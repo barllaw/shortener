@@ -184,4 +184,14 @@ class LinkModel
     {
         $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
     }
+    public function getCountiesShortlink($id_shortlink)
+    {
+        $query = $this->_db->query("SELECT DISTINCT `country` FROM `visitors_shortlinks` WHERE `id_shortlink` = '$id_shortlink'");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getCountCountry($id_shortlink, $country)
+    {
+        $query = $this->_db->query("SELECT * FROM `visitors_shortlinks` WHERE `id_shortlink` = '$id_shortlink' AND `country` = '$country'");
+        return count($query->fetchAll(PDO::FETCH_ASSOC));
+    }
 }
