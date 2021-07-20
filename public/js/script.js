@@ -51,13 +51,14 @@ function addLink(param){
 }
 
 //EDIT SHORTLINK
-function editShortlink( link, shortlink, tiktok, id){
+function editShortlink( link, shortlink, tiktok, id, date){
   $('body').css('overflow', 'hidden');
   popup_wrap = $('.edit_link_popup_wrap');
 
   $('.popup').addClass('popup_show');
   $('#link-for_edit').val(link);
   $('#edit_link_id').val(id);
+  $('#edit_link_date').val(date);
   $('#shortlink-for_edit').html(shortlink);
   $('#tiktok-for_edit').html(tiktok);
   popup_wrap.addClass('popup_wrap_show');
@@ -68,12 +69,13 @@ function editShortlink( link, shortlink, tiktok, id){
 function deleteShortlink(){
   $('.edit_link_popup_wrap').removeClass('popup_wrap_show');
   popup_wrap = $('.delete_link_popup_wrap');
-  val = $('#edit_link_id').val();
+  id = $('#edit_link_id').val();
+  date = $('#edit_link_date').val();
   
   $('#link-for_delete').html($('#link-for_edit').val());
   $('#shortlink-for_delete').html($('#shortlink-for_edit').text());
   $('#tiktok-for_delete').html($('#tiktok-for_edit').text());
-  $('#delete_shortlink_btn').attr('href', '/link/delete/links/'+val);
+  $('#delete_shortlink_btn').attr('href', '/link/delete/links/'+id+'/'+date);
   popup_wrap.addClass('popup_wrap_show');
   
 }
@@ -99,3 +101,15 @@ for(let i = 0; i < close_btn.length;i++){
 
   })
 }
+
+//Change href for landing
+$('#link_to_land').attr('href','/app/views/landing/'+$('#landing').val()+'/index.php')
+$('#landing').change(function(){
+  land = $(this).val();
+  $('#link_to_land').attr('href','/app/views/landing/'+land+'/index.php')
+})
+
+//Change custom to nickname
+$('.nickname').change(function(){
+  $('.custom_link').val($('.nickname').val());
+})

@@ -40,7 +40,7 @@ class User extends Controller
         exit(header('location:/user/auth'));
     }
 
-    public function update($param, $second_param = '')
+    public function update($param = '', $second_param = '')
     {
         $userModel = $this->model('UserModel');
 
@@ -53,26 +53,24 @@ class User extends Controller
         if($_POST['domains'] != '')
             $userModel->updateDomains($_POST['domains']);
         
+        if($_POST['update_land'])
+            exit($userModel->updateLanding($_POST['land']));
 
         exit(header('location: /user/settings'));
     }
     
     public function dashboard()
     {
-
         $userModel = $this->model('UserModel');
         $linkModel = $this->model('LinkModel');
         $postbackModel = $this->model('PostbackModel');
-
+        
         $data = [
             'links' => $linkModel->getLinks(),
-            'mainlinks' => $linkModel->getMainlinks(),
-            'domains' => $linkModel->getDomains(),
-            'stairs' => $linkModel->getStairs(),
-            'user' => $userModel->getUser(),
-            'profit' => $userModel->getProfit($_COOKIE['login']),
+            'stats' => $userModel->getStatistics($_COOKIE['login']),
+            'names' => $userModel->getRandomeNames(),
         ];
-
+        
         $this->view('user/dashboard', $data);
     }
 
@@ -89,6 +87,7 @@ class User extends Controller
             'stairs' => $linkModel->getStairs(),
             'user' => $userModel->getUser(),
             'settings' => $userModel->getUserSettings(),
+            'landings' => $userModel->getLandings(),
         ];
 
         $this->view('user/settings', $data);
@@ -104,7 +103,7 @@ class User extends Controller
         $data = [
             'login' => $login,
             'links' => $linkModel->getLinks($login),
-            'profit' => $userModel->getProfit($login),
+            'stats' => $userModel->getStatistics($login),
             'user' => $userModel->getUser($login),
         ];
 

@@ -14,7 +14,7 @@ class PostbackModel
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateProfit($nickname, $sum)
+    public function updateLinkStats($nickname, $sum)
     {
         $link = $this->getLink($nickname);
 
@@ -40,20 +40,10 @@ class PostbackModel
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `date` = '$today' and `login` = '$login'");
         $statistics = $query->fetch(PDO::FETCH_ASSOC);
 
-        if($statistics == []){
+        $profit = $statistics['profit'] + $sum;
+        $leads = $statistics['leads'] + 1;
+        $this->_db->query("UPDATE `statistics` SET `profit` = '$profit', `leads` = '$leads' WHERE `id` = '$statistics[id]'");
 
-            $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
-            $result = $query->fetch(PDO::FETCH_ASSOC);
-            if($result == []) return;
-
-            $query = $this->_db->prepare("INSERT INTO `statistics` ( `login`, `profit`, `date` ) VALUES ( ?, ?, ? ) ");
-            $query->execute([ $login, $sum, $today ]);
-
-        }else{
-            $profit = $statistics['profit'] + $sum;
-            $this->_db->query("UPDATE `statistics` SET `profit` = '$profit' WHERE `id` = '$statistics[id]'");
-
-        }
     }
 
     public function newPostback( $pp, $sum, $nickname = '', $login = '', $geo = '', $os = '')

@@ -46,7 +46,7 @@ class Link extends Controller
         $linkModel = $this->model('LinkModel');
 
         if($_POST['link_save'] == '' and $_POST['link_name'] == ''){
-            exit(header('location: /user/dashboard'));
+            exit(header('location: /user/settings'));
         }
 
         if($param == 'mainlink')
@@ -55,16 +55,16 @@ class Link extends Controller
         if($param == 'stairs_link')
             $linkModel->saveStairslink( $_POST['link_save'] );
         
-        exit(header('location: /user/dashboard'));
+        exit(header('location: /user/settings'));
     }
 
-    public function delete($db, $id)
+    public function delete($db, $id, $date='')
     {
         $linkModel = $this->model('LinkModel');
 
-        $linkModel->deleteLink($db,$id);
+        $linkModel->deleteLink($db,$id,$date);
 
-        exit(header('location: /user/dashboard'));
+        exit(header('location: /'));
     }
     public function setDefault($id)
     {
@@ -72,7 +72,7 @@ class Link extends Controller
 
         $linkModel->setDefaultMainlink($id);
 
-        exit(header('location: /user/dashboard'));
+        exit(header('location: /user/settings'));
     }
 
     public function update($param)
@@ -90,7 +90,7 @@ class Link extends Controller
                 $linkModel->updateStairs($link);
             }
         }
-        exit(header('location: /user/dashboard'));
+        exit(header('location: /'));
     }
     public function domain()
     {
@@ -98,7 +98,7 @@ class Link extends Controller
         $linkModel = $this->model('LinkModel');
 
         if($_POST['domain']){
-            $linkModel->addDomain($_POST['domain']);
+            $linkModel->addDomain($_POST['domain'], $_POST['users']);
         }
 
         $this->view('link/domain');

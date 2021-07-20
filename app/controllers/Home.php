@@ -11,12 +11,11 @@ class Home extends Controller
 
 
         $data = [
-            'links' => $linkModel->getLinksToday(),
+            'links' => $linkModel->getLinks(),
             'mainlinks' => $linkModel->getMainlinks(),
             'user' => $userModel->getUser(),
             'users_links' => $linkModel->getUsersLinks($userModel->getAllUsers()),
-            'lang' => substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2),
-            'profit' => $userModel->getProfit($_COOKIE['login'], true),
+            'stats' => $userModel->getStatistics($_COOKIE['login'], true),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
             'settings' => $userModel->getUserSettings(),
         ];

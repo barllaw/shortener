@@ -16,43 +16,40 @@ class Postback extends Controller
 
         if($login == 'lond')
             $login = 'londofff';
-
         else if($login == 'vitalikk')
             $login = 'makeover';
-
         else if($login == 'nazzar')
             $login = 'nazar';
-
         else if($login == 'fech')
             $login = 'ihor';
-
-        else if($login == 'fanj')
+        else if($login == 'fanj' or $login == 'me')
             $login = 'andrii';
-
         else if($login == 'sergey')
             $login = 'sergiy';
-
         else if($login == 'olegk')
             $login = 'oleg';
-
         else if($login == 'igorkach')
             $login = 'igor2';
-
         else if($login == 'Artur')
             $login = 'artur';
-
         else if($login == 'VA1')
             $login = 'vadim';
-
         else if($login == 'Danya')
             $login = 'danya';
-
         else if($login == 'DEN4IK')
             $login = 'den4ik';
 
-        else if($login == 'edic')
-            $login = 'Edic';
+        $eighty = ['londofff','makeover','emannon'];
+        $sixtyfive = ['nazar'];
+        $sixty = ['sergiy','oleg','igor2','michael','artur','vadim','danya','den4ik','edic','vova1','andriy888'];
 
+        if(in_array($login, $eighty)){
+            $sum  = $sum * 80 / 100;
+        }else if(in_array($login, $sixtyfive)){
+            $sum  = $sum * 65 / 100;
+        }else if(in_array($login, $sixty)){
+            $sum  = $sum * 60 / 100;   
+        }
 
         $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os);
 
@@ -63,7 +60,7 @@ class Postback extends Controller
 
 
         if($nickname != '') 
-            $postbackModel->updateProfit($nickname, $sum);
+            $postbackModel->updateLinkStats($nickname, $sum);
             
             
         $settings = $userModel->getUserSettings($login);

@@ -80,24 +80,25 @@ class UserModel
         $this->_db->query("UPDATE `settings` SET `bot_token` = '$token', `bot_chat_id` = '$chat_id' WHERE `login` = '$_COOKIE[login]'");
     }
     
-    public function getProfit($login, $today = '')
+//     public function getProfit($login, $today = '')
+//    {
+//         $today = ($today) ? ' LIMIT 1'  : $today; 
+        
+//         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
+//         $row = $query->fetchAll(PDO::FETCH_ASSOC);
+//         foreach ($row as $day) {
+//             $statistics[$day['date']] = $day['profit'];
+//         }
+//         return $statistics;
+//     }
+
+    public function getStatistics($login, $today = '')
    {
-
-        // $postback = $this->getUserPostback();
-
-        // $sum = 0;
-        // foreach ($postback as $key) {
-        //     $sum += $key['sum'];
-        // }
-
         $today = ($today) ? ' LIMIT 1'  : $today; 
         
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
-        $row = $query->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($row as $day) {
-            $statistics[$day['date']] = $day['profit'];
-        }
-        return $statistics;
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function getUsersStatistics($users)
@@ -136,6 +137,39 @@ class UserModel
         foreach ($tables as $table ) {
             $this->_db->query("DELETE FROM $table WHERE `login` = '$login'");
         }
+    }
+
+    public function getLandings()
+    {
+        $query = $this->_db->query("SELECT * FROM `landings`");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateLanding($land)
+    {
+        $this->_db->query("UPDATE `settings` SET `landing` = '$land' WHERE `login` = '$_COOKIE[login]'");
+        return 'ok';
+    }
+    
+    public function getRandomeNames()
+    {
+        $url = 'https://www.behindthename.com/random/random.php?number=2&sets=5&gender=f&surname=&usage_dut=1&usage_eng=1&usage_fre=1&usage_ger=1';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($curl);
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($result);
+        libxml_clear_errors();
+        $xpath = new DomXPath($dom);
+        $class = 'random-result';
+        $divs = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
+
+        $names = [];
+        foreach($divs as $div) {
+            $names[] = preg_replace('/\s+/', '',  trim($div->nodeValue));
+        }
+        return $names;
     }
 
 

@@ -197,6 +197,8 @@ header
         height: 40px
         margin: 30px auto
         width: 130px
+        color: #fff
+        box-shadow: 0 0 5px #64d364
     .nickname
         margin-bottom: 15px
     .custom_link
@@ -412,7 +414,7 @@ header
             right: 20px
         .edit_btn
             position: absolute
-            right: 50px
+            right: 0px
             bottom: 0
             padding: 5px 12px
             cursor: pointer
@@ -468,7 +470,19 @@ header
     overflow: visible
     visibility: visible
 
-
+.new_domain
+    form
+        display: flex
+        flex-direction: column
+        input
+            margin-bottom: 10px
+        button
+            border: none
+            background: $green
+            color: #fff
+            padding: 10px
+            text-transform: uppercase
+            cursor: pointer
 
 @import 'media.sass'
 @import 'dashboard.sass'

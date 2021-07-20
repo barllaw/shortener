@@ -9,16 +9,9 @@ class LinkModel
 
     public function getDates($param = '')
     {
-        if($param != '')
-        {
-            $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created`  LIMIT $param ");
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        }
-        else
-        {
-            $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created` ");
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        }
+
+        $query = $this->_db->query("SELECT DISTINCT `date_created`, MAX(`id`) FROM `links` GROUP BY `date_created` ORDER BY MAX(`id`) DESC, `date_created` ");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
         
     }
 
@@ -35,12 +28,16 @@ class LinkModel
     {
         if($login == '') $login = $_COOKIE['login'];
 
-        $dates = $this->getDates();
-        foreach($dates as $date){
-            $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$login' ORDER BY `id` DESC");
-            $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
-        }
-        return $links;
+        // $dates = $this->getDates();
+        // foreach($dates as $date){
+        //     $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$login' ORDER BY `id` DESC");
+        //     $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
+        // }
+        // return $links;
+
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
     public function getMainlinks()
@@ -114,6 +111,12 @@ class LinkModel
         $query = $this->_db->prepare("INSERT INTO `links` ( `link`, `short_link`, `login`, `tiktok`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?) ");
         $query->execute([ $link, $shortlink, $login, $tiktok, $geo, $today, $time ]);
     
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' and `date` = '$today'");
+        $stats = $query->fetch(PDO::FETCH_ASSOC);
+        $links = $stats['links'] + 1;
+        $query = $this->_db->prepare("UPDATE `statistics` SET `links` = ? WHERE `id` = ? ");
+        $query->execute([ $links, $stats['id'] ]);
+
         $_SESSION['shortlink'] = $shortlink;
     }
 
@@ -136,17 +139,30 @@ class LinkModel
         $query->execute([ $link, $id]);
     }
 
-    public function deleteLink($db, $id)
+    public function deleteLink($db, $id, $date = '')
     {
-        
-        $query = $this->_db->query("SELECT `count_links` FROM `users` WHERE `login` = '$_COOKIE[login]'");
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        $links = $row['count_links'] - 1;
+        if($db = 'mainlinks'){
+            $this->_db->query("DELETE FROM `mainlinks` WHERE `id` = '$id'");
+        }
+        if($db = 'links'){
+            //Update user count links
+            $query = $this->_db->query("SELECT `count_links` FROM `users` WHERE `login` = '$_COOKIE[login]'");
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            $links = $row['count_links'] - 1;
+            $query = $this->_db->prepare("UPDATE `users` SET `count_links` = ? WHERE `login` = ? ");
+            $query->execute([ $links, $_COOKIE['login']]);
 
-        $query = $this->_db->prepare("UPDATE `users` SET `count_links` = ? WHERE `login` = ? ");
-        $query->execute([ $links, $_COOKIE['login']]);
+            $this->_db->query("DELETE FROM `links` WHERE `id` = '$id'");
+            
+            //Update stats count links
+            $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' and `date` = '$date'");
+            $stats = $query->fetch(PDO::FETCH_ASSOC);
+            $links = $stats['links'] - 1;
+            $query = $this->_db->prepare("UPDATE `statistics` SET `links` = ? WHERE `id` = ? ");
+            $query->execute([ $links, $stats['id']]);
 
-        $this->_db->query("DELETE FROM `$db` WHERE `id` = '$id'");
+
+        }
     }
 
     public function setDefaultMainlink($id)
@@ -158,15 +174,19 @@ class LinkModel
         $query->execute([ '1', $id]);
     }
 
-    public function addDomain($domain)
+    public function addDomain($domain, $users)
     {
-        $query = $this->_db->prepare("INSERT INTO `domains` ( `domain`) VALUES ( ? ) ");
-        $query->execute([ $domain ]);
+        $users = explode(',', $users);
+
+        foreach($users as $user){
+            $query = $this->_db->prepare("INSERT INTO `domains` ( `domain`, `login`) VALUES ( ?, ? ) ");
+            $query->execute([ $domain, trim($user) ]);
+        }
     }
 
     public function getDomains()
     {
-        $query = $this->_db->query("SELECT `domain` FROM `domains`");
+        $query = $this->_db->query("SELECT * FROM `domains` WHERE `login` = '$_COOKIE[login]'");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 

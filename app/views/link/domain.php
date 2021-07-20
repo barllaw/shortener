@@ -3,9 +3,10 @@ require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
 ?>
 <div class="container">
-    <div class="login">
+    <div class="new_domain">
         <form action="/link/domain" method="post">
-            <input type="text" name="domain" class="login_input" onkeyup="checkInput('login_input')" autofocus>
+            <input type="text" name="domain" autofocus>
+            <input type="text" name="users">
             <button type="submit">add</button>
         </form>
     </div>

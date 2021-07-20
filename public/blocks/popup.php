@@ -27,6 +27,7 @@
             <div class="close" >Close</div>
             <h3>Edit link</h3>
             <input type="hidden" name='edit_link_id' id="edit_link_id" value="">
+            <input type="hidden" name='edit_link_date' id="edit_link_date" value="">
             <span>Link:</span>
             <textarea name='link-for_edit' id="link-for_edit" wrap="hard" onkeyup="textAreaAdjust(this)"></textarea>
             <span>Shortlink:</span>

@@ -28,16 +28,24 @@ class App{
 
         if($link != []) {
             //New visitor
-            $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
-            if($visitor){
-                $query = $this->_db->prepare("INSERT INTO `visitors_shortlinks` ( `id_shortlink`, `country`, `region`, `city`, `ip`, `timezone`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) ");
-                $query->execute([ $link['id'], $visitor->country, $visitor->region, $visitor->city, $visitor->ip,$visitor->timezone, time() ]);
-            }
-            // update clicks
+            // $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
+            // if($visitor){
+            //     $query = $this->_db->prepare("INSERT INTO `visitors_shortlinks` ( `id_shortlink`, `country`, `region`, `city`, `ip`, `timezone`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) ");
+            //     $query->execute([ $link['id'], $visitor->country, $visitor->region, $visitor->city, $visitor->ip,$visitor->timezone, time() ]);
+            // }
+
+            // update link clicks
             $clicks = $link['clicks'] + 1;
-            $time = date("d.m").' '.date("H:i");
+            $last_click = date("d.m").' '.date("H:i");
             $query = $this->_db->prepare("UPDATE `links` SET `clicks` = ?, `last_click` = ? WHERE `id` = ? ");
-            $query->execute([ $clicks, $time, $link['id']]);
+            $query->execute([ $clicks, $last_click, $link['id']]);
+            //update stats clicks
+            $today = date("d.m");
+            $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$link[login]' and `date` = '$today'");
+            $stats = $query->fetch(PDO::FETCH_ASSOC);
+            $clicks = $stats['clicks'] + 1;
+            $query = $this->_db->prepare("UPDATE `statistics` SET `clicks` = ? WHERE `id` = ? ");
+            $query->execute([ $clicks, $stats['id']]);
 
             // get user
             $login = $link['login'];
@@ -58,12 +66,11 @@ class App{
 
             $redirect = $links[$int];
             //landing check
-            if ( $user_settings['preland'] == 'On' ) 
-                exit(require_once './app/views/landing/index.php');
+            if ( $user_settings['preland'] == 'On' and $user_settings['landing'] != '' ) 
+                exit(require_once './app/views/landing/'.$user_settings['landing'].'/index.php');
 
             exit(header('location: '.$redirect));
         }
-
         // access url
         if( $url[0] != 'postback' and $url[1] != 'auth' and !isset($_COOKIE['login'])){
             exit(header('location: /user/auth'));

@@ -42,8 +42,6 @@ $user_domains = explode(',', $data['settings']['domains']);
 
     <div class="buttons">
         <a href="/user/update/input_custom/<?=$custom?>" class="btn  <?=$custom?>">Custom: <?=$custom?></a>
-        <a href="/user/update/preland/<?=$preland?>" class="btn  <?=$preland?>">Preland: <?=$preland?></a>
-        <a href="/user/update/stairs/<?=$stairs?>" class="btn  <?=$stairs?>">Stairs: <?=$stairs?></a>
         <?php if($_COOKIE['login'] == 'londofff'): ?>
             <a href="/link/domain/" class="btn preland_btn">add domain</a>
         <?php endif; ?>
@@ -52,6 +50,24 @@ $user_domains = explode(',', $data['settings']['domains']);
         <?php endif; ?>
     </div>
     
+    <div class="preland">
+        <div class="preland_title">
+            <h4>Preland</h4>
+            <a href="/user/update/preland/<?=$preland?>" class="btn  <?=$preland?>"><?=$preland?></a>
+        </div>
+        <div class="preland_list">
+
+            <select name="landing" id="landing">
+
+            <?php foreach($data['landings'] as $land): ?>
+                <option value="<?=$land['name']?>" <?php if($land['name'] == $data['settings']['landing']) echo 'selected'; ?> ><?=$land['name']?></option>
+            <?php endforeach; ?>
+            </select>
+            <a href="/" id="link_to_land"><i class="far fa-eye"></i> View</a>
+        </div>
+        <div class="btn_land_save">Save</div>
+    </div>
+
     <div class="domains_btn second_btn" onclick="showWrap('domains')">Domains: </div>
     <div class="domains">
 
@@ -75,24 +91,24 @@ $user_domains = explode(',', $data['settings']['domains']);
 
     <div class="stairs_btn second_btn" onclick="showWrap('stairs')">Stairs: </div>
     <div class="stairs">
-
-       <div class="stairs_wrap ios_btn_wrap">
-            <?php 
-                $i = 0;
-                foreach($data['stairs'] as $stairs): ?>
-            <?php 
-                $checked = ''; $i++; 
-                if($stairs['active'] == 1) $checked = 'checked';
-            ?>
-            
-            <div class="ios_btn_row">
-                <div><input type="checkbox" class="link" id="link<?=$i?>" value="<?=$stairs['smartlink']?>" <?=$checked?>/><label for="link<?=$i?>"><?=$stairs['smartlink']?></label></div>
-                <a href="/link/delete/stairs/<?=$stairs['id']?>" class="delete_btn">Delete</a>
-            </div>
-            
-            
-            <?php endforeach; ?>
-       </div>
+        <a href="/user/update/stairs/<?=$stairs?>" class="btn  <?=$stairs?>">Stairs: <?=$stairs?></a>
+        <div class="stairs_wrap ios_btn_wrap">
+                <?php 
+                    $i = 0;
+                    foreach($data['stairs'] as $stairs): ?>
+                <?php 
+                    $checked = ''; $i++; 
+                    if($stairs['active'] == 1) $checked = 'checked';
+                ?>
+                
+                <div class="ios_btn_row">
+                    <div><input type="checkbox" class="link" id="link<?=$i?>" value="<?=$stairs['smartlink']?>" <?=$checked?>/><label for="link<?=$i?>"><?=$stairs['smartlink']?></label></div>
+                    <a href="/link/delete/stairs/<?=$stairs['id']?>" class="delete_btn">Delete</a>
+                </div>
+                
+                
+                <?php endforeach; ?>
+        </div>
         <div class="stairs_btns">
             <div class="add_link btn" id="add_link_stairs" onclick="addLink('stairs_link')">Add link</div>
             <div class="save btn" id="save_stairs">Save</div>

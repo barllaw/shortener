@@ -48,3 +48,22 @@ $('#save_stairs').click(function (){
     })
 
 })
+//Update landing
+$('.btn_land_save').click(function(){
+    land = $('#landing').val();
+
+    $.ajax({
+        url: '/user/update',
+        type: 'POST',
+        data: {
+            'update_land' : true,
+            'land': land
+        },
+        success: function(response){
+            if(response == 'ok'){
+                alert('Landing was updated');
+            }
+        }
+
+    })
+})
