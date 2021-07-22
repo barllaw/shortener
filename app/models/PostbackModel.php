@@ -14,6 +14,13 @@ class PostbackModel
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getLoginFromTT($nickname)
+    {
+        $link = $this->getLink($nickname);
+        $login = $link['login'];
+        return $login;
+    }
+
     public function updateLinkStats($nickname, $sum)
     {
         $link = $this->getLink($nickname);
