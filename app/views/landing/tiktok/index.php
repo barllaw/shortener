@@ -2,10 +2,11 @@
 
 $tiktok = explode('@', $link['tiktok']);
 
-$lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+// $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['HTTP_CF_CONNECTING_IP']));
 
 
-switch ($lang) {
+switch ($ipdat->geoplugin_countryCode) {
     case 'FR':
         $title = 'Pour regarder TikTok pour adulte, vous devez';
         $text = '1. Inscrivez-vous <br>
@@ -60,6 +61,9 @@ switch ($lang) {
         break;
     case 'UA':
         exit(header("location: $redirect"));
+        break;
+    case 'MY':
+        exit(header("location: https://www.youtube.com/watch?v=FTu_ndnh-wc"));
         break;
     default:
         $title = 'For watching TikTok for adult you must';

