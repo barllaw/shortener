@@ -114,7 +114,7 @@ switch ($lang) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="https://hot-ladies-here.com/?u=586k60a&o=g9hpl0n&t=exit">
+            <a class="exit_btn" href="https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=exit">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>

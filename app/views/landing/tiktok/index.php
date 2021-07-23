@@ -240,7 +240,7 @@ switch ($lang) {
         <div class="bg"><img src="" id="bg" alt=""></div>
 
         <div class="top">
-            <div class="back-btn"> <a href="https://hot-ladies-here.com/?u=586k60a&o=g9hpl0n&t=exit"><i class="fas fa-chevron-left"></i></a></div>
+            <div class="back-btn"> <a href="https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=exit"><i class="fas fa-chevron-left"></i></a></div>
         </div>
 
         <div class="right">
