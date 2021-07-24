@@ -50,6 +50,7 @@ $user_domains = explode(',', $data['settings']['domains']);
         <?php endif; ?>
     </div>
     
+    <?php if($_COOKIE['login'] != 'test' ): ?>
     <div class="preland">
         <div class="preland_title">
             <h4>Preland</h4>
@@ -67,6 +68,7 @@ $user_domains = explode(',', $data['settings']['domains']);
         </div>
         <div class="btn_land_save">Save</div>
     </div>
+    <?php endif; ?>
 
     <div class="domains_btn second_btn" onclick="showWrap('domains')">Domains: </div>
     <div class="domains">

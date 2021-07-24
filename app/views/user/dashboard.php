@@ -5,11 +5,6 @@ require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
 require_once 'public/blocks/navigation.php';
 
-$profit_last7days = 0;
-for($i = 0; $i < 7; $i++){
-    $profit_last7days = $profit_last7days + $data['stats'][$i]['profit'];
-}
-
 ?>
 <div class="copy_success">copied</div>
 
@@ -29,7 +24,7 @@ for($i = 0; $i < 7; $i++){
 
     <div class="all_links-wrap">
 
-        <div class="last7days">Profit last 7 days: <b>$<?= round($profit_last7days, 2) ?></b></div>
+        <div class="last7days">Profit current week: <b>$<?= round($data['profit_week'], 2) ?></b></div>
         <div class="all_links_title">
             <h4>All links: <?=$data['user']['count_links']?></h4>
         </div>

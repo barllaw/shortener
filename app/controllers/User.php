@@ -69,6 +69,8 @@ class User extends Controller
             'links' => $linkModel->getLinks(),
             'stats' => $userModel->getStatistics($_COOKIE['login']),
             'names' => $userModel->getRandomeNames(),
+            'user' => $userModel->getUser(),
+            'profit_week' => $userModel->getProfitCurrentWeek(),
         ];
         
         $this->view('user/dashboard', $data);

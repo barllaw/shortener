@@ -79,24 +79,26 @@ class UserModel
     {
         $this->_db->query("UPDATE `settings` SET `bot_token` = '$token', `bot_chat_id` = '$chat_id' WHERE `login` = '$_COOKIE[login]'");
     }
-    
-//     public function getProfit($login, $today = '')
-//    {
-//         $today = ($today) ? ' LIMIT 1'  : $today; 
-        
-//         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
-//         $row = $query->fetchAll(PDO::FETCH_ASSOC);
-//         foreach ($row as $day) {
-//             $statistics[$day['date']] = $day['profit'];
-//         }
-//         return $statistics;
-//     }
 
-    public function getStatistics($login, $today = '')
-   {
-        $today = ($today) ? ' LIMIT 1'  : $today; 
+    public function getProfitCurrentWeek()
+    {
+        $week_start = date("d", strtotime('monday this week'));
+        $week_end = date("d", strtotime('today'));
+        $day = ($week_end - $week_start) + 1;
+
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC LIMIT $day");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $row){
+            $profit = $profit + $row['profit'];
+        }
         
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
+        return $profit;
+
+    }
+    public function getStatistics($login)
+   {
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
