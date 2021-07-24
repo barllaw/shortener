@@ -28,13 +28,6 @@ class LinkModel
     {
         if($login == '') $login = $_COOKIE['login'];
 
-        // $dates = $this->getDates();
-        // foreach($dates as $date){
-        //     $query = $this->_db->query("SELECT * FROM `links` WHERE `date_created` = '$date[date_created]' and `login` = '$login' ORDER BY `id` DESC");
-        //     $links[$date['date_created']] = $query->fetchAll(PDO::FETCH_ASSOC);
-        // }
-        // return $links;
-
         $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' ORDER BY `id` DESC");
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -161,7 +154,9 @@ class LinkModel
             $query = $this->_db->prepare("UPDATE `statistics` SET `links` = ? WHERE `id` = ? ");
             $query->execute([ $links, $stats['id']]);
 
-
+        }
+        if($db = 'stairs'){
+            $this->_db->query("DELETE FROM `stairs` WHERE `id` = '$id'");
         }
     }
 

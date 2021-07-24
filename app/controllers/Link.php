@@ -64,7 +64,7 @@ class Link extends Controller
 
         $linkModel->deleteLink($db,$id,$date);
 
-        exit(header('location: /'));
+        exit(header('location: /user/settings'));
     }
     public function setDefault($id)
     {
