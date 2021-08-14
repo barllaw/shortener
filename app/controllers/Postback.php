@@ -44,7 +44,7 @@ class Postback extends Controller
 
         $eighty = ['londofff','makeover','emannon'];
         $sixtyfive = ['nazar'];
-        $sixty = ['sergiy','oleg','igor2','michael','artur','vadim','danya','den4ik','edic','vova1','andriy888'];
+        $sixty = ['sergiy','oleg','igor2','michael','artur','vadim','danya','den4ik','edic','vova1','andriy888','igorbyb'];
 
         if(in_array($login, $eighty)){
             $sum  = $sum * 80 / 100;

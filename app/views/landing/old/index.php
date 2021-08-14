@@ -1,7 +1,7 @@
 <?php 
 
 // $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['HTTP_CF_CONNECTING_IP']));
+$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
 
 
 switch ($ipdat->geoplugin_countryCode) {
@@ -117,7 +117,7 @@ switch ($ipdat->geoplugin_countryCode) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=exit">
+            <a class="exit_btn" href="https://rgqwdj.flndmyiove.net/c/da57dc555e50572d?s1=136572&s2=1309953&s3=EXIT&j1=1&j3=1">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>

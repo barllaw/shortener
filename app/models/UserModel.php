@@ -16,7 +16,7 @@ class UserModel
             setcookie('login', $login, time() + 3600 * 24 * 7, '/');
             header('location: /');
         }else{
-            header('location: https://dirtyflirt0.com/?utm_source=9KKcOEmIZeOF1&utm_campaign=lond&utm_term=LOGIN');
+            header('location: https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=lond&cid=LOGIN');
         }
     }
 
@@ -96,9 +96,11 @@ class UserModel
         return $profit;
 
     }
-    public function getStatistics($login)
+    public function getStatistics($login, $today = false)
    {
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC");
+        $today = ($today) ? ' LIMIT 1'  : $today; 
+
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

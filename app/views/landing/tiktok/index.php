@@ -3,7 +3,7 @@
 $tiktok = explode('@', $link['tiktok']);
 
 // $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['HTTP_CF_CONNECTING_IP']));
+$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
 
 
 switch ($ipdat->geoplugin_countryCode) {
@@ -244,7 +244,7 @@ switch ($ipdat->geoplugin_countryCode) {
         <div class="bg"><img src="" id="bg" alt=""></div>
 
         <div class="top">
-            <div class="back-btn"> <a href="https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=exit"><i class="fas fa-chevron-left"></i></a></div>
+            <div class="back-btn"> <a href="https://rgqwdj.flndmyiove.net/c/da57dc555e50572d?s1=136572&s2=1309953&s3=EXIT&j1=1&j3=1"><i class="fas fa-chevron-left"></i></a></div>
         </div>
 
         <div class="right">
