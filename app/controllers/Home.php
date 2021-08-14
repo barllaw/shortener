@@ -18,6 +18,7 @@ class Home extends Controller
             'stats' => $userModel->getStatistics($_COOKIE['login'], true),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
             'settings' => $userModel->getUserSettings(),
+            'profit_week' => $userModel->getProfitCurrentWeek(),
         ];
 
         $this->view('home/index', $data);

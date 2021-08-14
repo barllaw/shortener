@@ -24,7 +24,7 @@ require_once 'public/blocks/navigation.php';
 
     <div class="all_links-wrap">
 
-        <div class="last7days">Profit current week: <b>$<?= round($data['profit_week'], 2) ?></b></div>
+        <!-- <div class="last7days">Profit current week: <b>$<?= round($data['profit_week'], 2) ?></b></div> -->
         <div class="all_links_title">
             <h4>All links: <?=$data['user']['count_links']?></h4>
         </div>

@@ -90,6 +90,7 @@ class User extends Controller
             'user' => $userModel->getUser(),
             'settings' => $userModel->getUserSettings(),
             'landings' => $userModel->getLandings(),
+            'profit_week' => $userModel->getProfitCurrentWeek(),
         ];
 
         $this->view('user/settings', $data);
@@ -107,6 +108,7 @@ class User extends Controller
             'links' => $linkModel->getLinks($login),
             'stats' => $userModel->getStatistics($login),
             'user' => $userModel->getUser($login),
+            'profit_week' => $userModel->getProfitCurrentWeek(),
         ];
 
         $this->view('user/statistics', $data);
@@ -149,6 +151,7 @@ class User extends Controller
         $userModel = $this->model('UserModel');
         $data = [
             'postback' => $userModel->getUserPostback(),
+            'profit_week' => $userModel->getProfitCurrentWeek(),
         ];
 
         $this->view('user/postback', $data);
