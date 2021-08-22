@@ -1,6 +1,6 @@
 .image_block{
-    height: 75vw;
-    width: 80vw;
+    height: 65vw;
+    width: 65vw;
     margin: auto;
     border-radius: 50%;
     background-image: url(/app/views/landing/titstok/images/nn10.gif);
@@ -31,3 +31,23 @@
     width: 65%;
     z-index: 7;
 }
+
+.step-btn{
+    animation: 1s ease-in infinite pulse;
+}
+@keyframes pulse {
+    0%{
+        box-shadow: 0 0 15px red;
+    }
+    50%{
+        box-shadow: 0 0 0px red;
+    }
+    100%{
+        box-shadow: 0 0 15px red;
+    }
+}
+
+
+.exit_btn{position: absolute;top: 20px;left: 20px; background: #ff37379e;padding: 5px 10px;     color:#fff;text-transform: uppercase;font-size: 13px;letter-spacing: 1px; text-decoration: none;
+    border-radius: 1px; z-index: 10;}
+    .exit_btn i{color:#fff}

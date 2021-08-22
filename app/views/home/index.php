@@ -84,7 +84,7 @@ $user_domains = explode(',', $data['settings']['domains']);
             <?php endif; ?>
                 <?php 
                     
-                    $usr_arr = ['londofff','andrii','makeover','emannon', 'moom'];
+                    $usr_arr = ['andrii','emannon', 'moom', 'ihor'];
                     if(in_array($_COOKIE['login'], $usr_arr)){
                         echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
                         echo '<div class="users-wrap">';

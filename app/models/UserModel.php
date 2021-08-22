@@ -176,5 +176,22 @@ class UserModel
         return $names;
     }
 
+    public function getTexts()
+    {
+        $query = $this->_db->query("SELECT * FROM `texts` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addNewText( $text, $geo )
+    {
+        $query = $this->_db->prepare("INSERT INTO texts (login,text,geo) VALUES (?,?,?) ");
+        $query->execute([$_COOKIE['login'], $text, $geo]);
+    }
+
+    public function removeText($id)
+    {
+        $this->_db->query("DELETE FROM texts WHERE `id` = '$id'");
+    }
+
 
 }

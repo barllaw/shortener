@@ -117,7 +117,7 @@ switch ($ipdat->geoplugin_countryCode) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="https://rgqwdj.flndmyiove.net/c/da57dc555e50572d?s1=136572&s2=1309953&s3=EXIT&j1=1&j3=1">
+            <a class="exit_btn" href="https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>

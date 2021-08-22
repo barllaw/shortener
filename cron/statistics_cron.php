@@ -1,4 +1,6 @@
 <?php 
+date_default_timezone_set('Europe/Kiev');
+
     require_once '../app/core/DB.php';
     $db = DB::getInstence();
 

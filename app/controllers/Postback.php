@@ -42,7 +42,7 @@ class Postback extends Controller
         if($login == 'none')
             $login = $postbackModel->getLoginFromTT($nickname);
 
-        $eighty = ['londofff','makeover','emannon'];
+        $eighty = ['makeover','emannon'];
         $sixtyfive = ['nazar'];
         $sixty = ['sergiy','oleg','igor2','michael','artur','vadim','danya','den4ik','edic','vova1','andriy888','igorbyb'];
 

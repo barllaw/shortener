@@ -10,7 +10,11 @@ class User extends Controller
             exit($userModel->reg($_POST['login']));
         }
 
-        $this->view('user/reg');
+        $data = [
+            'profit_week' => $userModel->getProfitCurrentWeek(),
+        ];
+
+        $this->view('user/reg', $data);
     }
     public function auth($param = '')
     {
@@ -157,6 +161,35 @@ class User extends Controller
         $this->view('user/postback', $data);
     }
 
+    public function text()
+    {
+        $userModel = $this->model('UserModel');
+        $data = [
+            'profit_week' => $userModel->getProfitCurrentWeek(),
+            'texts' => $userModel->getTexts(),
+        ];
+
+        $this->view('user/text', $data);
+    }
+
+    public function addText()
+    {
+        $userModel = $this->model('UserModel');
+
+        $userModel->addNewText($_POST['text'],$_POST['geo']);
+        
+
+        exit(header('location: /user/text'));
+    }
+
+    public function removeText($id)
+    {
+        $userModel = $this->model('UserModel');
+
+        $userModel->removeText($id);
+
+        exit(header('location: /user/text'));
+    }
     
 
 }

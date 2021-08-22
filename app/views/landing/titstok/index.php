@@ -77,9 +77,14 @@ switch ($ipdat->geoplugin_countryCode) {
         <link rel="stylesheet" type="text/css" href="/app/views/landing/titstok/style/style.css">
         <link rel="stylesheet" type="text/css" href="/app/views/landing/titstok/style/main.css">
         <link rel="shortcut icon" href="" type="images/png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
 
     </head>
     <body style="" cz-shortcut-listen="true">
+        <a class="exit_btn" href="https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1">
+            <i class="fas fa-arrow-left"></i>
+            Exit
+        </a>
         <div class="wrapper">
             <div class="center">
                 <div class="content-block">
