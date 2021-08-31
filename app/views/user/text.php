@@ -16,6 +16,7 @@ require_once 'public/blocks/navigation.php';
             <div class="text_geo">
                 <select name="geo" id="geo">
                     <option value="">none</option>
+                    <option value="FR">ES</option>
                     <option value="FR">FR</option>
                     <option value="DE">DE</option>
                     <option value="NL">NL</option>
