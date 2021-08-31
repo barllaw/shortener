@@ -21,10 +21,14 @@ require_once 'public/blocks/navigation.php';
             </div>
         <?php endforeach; ?>
     </div>
+    
+    <div class="dashboard_btns">
+        <a class="postback_btn" href="/user/postback">Postback</a>
+        <a class="images_btn" href="/user/images">Images</a>
+    </div>
 
     <div class="all_links-wrap">
 
-        <!-- <div class="last7days">Profit current week: <b>$<?= round($data['profit_week'], 2) ?></b></div> -->
         <div class="all_links_title">
             <h4>All links: <?=$data['user']['count_links']?></h4>
         </div>

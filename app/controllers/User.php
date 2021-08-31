@@ -29,7 +29,7 @@ class User extends Controller
         
 
         if($_POST['login']){
-            exit($userModel->auth($_POST['login']));
+            exit($userModel->auth(trim($_POST['login'])));
         }
 
         $this->view('user/auth');
@@ -112,7 +112,7 @@ class User extends Controller
             'links' => $linkModel->getLinks($login),
             'stats' => $userModel->getStatistics($login),
             'user' => $userModel->getUser($login),
-            'profit_week' => $userModel->getProfitCurrentWeek(),
+            'profit_week' => $userModel->getProfitCurrentWeek($login),
         ];
 
         $this->view('user/statistics', $data);
@@ -172,6 +172,25 @@ class User extends Controller
         $this->view('user/text', $data);
     }
 
+    public function images($action='',$image='')
+    {
+        $userModel = $this->model('UserModel');
+
+        if($action == 'download'){
+            $userModel->downloadImage($image);
+            exit(header('location:/user/images'));
+        }else if($action == 'remove'){
+            $userModel->removeImage($image);
+            exit(header('location:/user/images'));
+        }
+
+        $data = [
+            'profit_week' => $userModel->getProfitCurrentWeek(),
+        ];
+
+        $this->view('user/images', $data);
+    }
+
     public function addText()
     {
         $userModel = $this->model('UserModel');
@@ -189,6 +208,15 @@ class User extends Controller
         $userModel->removeText($id);
 
         exit(header('location: /user/text'));
+    }
+
+    public function addImages()
+    {
+
+        $userModel = $this->model('UserModel');
+        
+        $userModel->addImages($_FILES['images']);
+
     }
     
 

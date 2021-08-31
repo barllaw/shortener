@@ -80,13 +80,15 @@ class UserModel
         $this->_db->query("UPDATE `settings` SET `bot_token` = '$token', `bot_chat_id` = '$chat_id' WHERE `login` = '$_COOKIE[login]'");
     }
 
-    public function getProfitCurrentWeek()
+    public function getProfitCurrentWeek($login = '')
     {
+        if($login == '') $login = $_COOKIE['login'];
+
         $week_start = date("d", strtotime('monday this week'));
         $week_end = date("d", strtotime('today'));
         $day = ($week_end - $week_start) + 1;
 
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC LIMIT $day");
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($result as $row){
@@ -191,6 +193,49 @@ class UserModel
     public function removeText($id)
     {
         $this->_db->query("DELETE FROM texts WHERE `id` = '$id'");
+    }
+
+    public function addImages($images)
+    {
+        $dir = "public/img/users_img/$_COOKIE[login]";
+        if(!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        for($i = 0; $i < count($images['tmp_name']); $i++){
+            move_uploaded_file($images['tmp_name'][$i], $dir.'/'.basename($images['name'][$i]));
+        }
+
+        exit(header('location: /user/images'));
+
+    }
+
+    public function downloadImage($image)
+    {
+        $filepath = "./public/img/users_img/$_COOKIE[login]/$image";
+
+        // Process download
+        if(file_exists($filepath)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($filepath));
+            flush(); // Flush system output buffer
+            readfile($filepath);
+            die();
+        } else {
+            http_response_code(404);
+	        die();
+        }
+    
+    }
+
+    public function removeImage($image)
+    {
+        unlink("./public/img/users_img/$_COOKIE[login]/$image");
     }
 
 

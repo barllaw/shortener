@@ -113,3 +113,13 @@ $('#landing').change(function(){
 $('.nickname').change(function(){
   $('.custom_link').val($('.nickname').val());
 })
+
+//style input change
+$('#images').change(function() {
+  if ($(this).val() != '') {
+      $(this).prev().text('Selected photo: ' + $(this)[0].files.length).addClass('success_image')
+  }
+  else {
+      $(this).prev().text('Добавити...').removeClass('success_image');
+  };
+});
