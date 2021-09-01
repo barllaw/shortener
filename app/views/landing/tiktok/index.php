@@ -244,7 +244,7 @@ switch ($ipdat->geoplugin_countryCode) {
         <div class="bg"><img src="" id="bg" alt=""></div>
 
         <div class="top">
-            <div class="back-btn"> <a href="https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1"><i class="fas fa-chevron-left"></i></a></div>
+            <div class="back-btn"> <a href="<?=$exit_link?>"><i class="fas fa-chevron-left"></i></a></div>
         </div>
 
         <div class="right">

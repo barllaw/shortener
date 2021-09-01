@@ -36,17 +36,58 @@ header
     display: flex
     justify-content: space-between
     align-items: center
-    padding: 20px 25%
+    padding: 20px
+    position: fixed
+    width: 55.2%
+    background: #fff
+    z-index: 2
+    box-shadow: 0 4px 2px -2px #ddd;
+    left: 50%
+    transform: translateX(-50%)
     .logo a
         color: #000
-    .account
-        width: 25px
-        height: 25px
-        background-image: url('../img/user.svg')
-        background-size: cover
+    .menu_wrap
+        position: relative
+        .menu_btn
+            width: 25px
+            height: 25px
+            background-image: url('../img/user.svg')
+            background-size: cover
+            cursor: pointer
+.menu
+    position: absolute
+    background: #fff
+    padding: 20px 
+    border-radius: 3px 
+    box-shadow: 0 0 15px #ddd
+    width: 200px
+    top: 45px
+    right: 0px
+    z-index: 3
+    transition: .25s
+    display: none
+    a
+        color: #000
+        padding: 5px
+        border-bottom: 1px solid #ddd
+        display: inline-block
+        width: 100%
+        margin-bottom: 3px
+        transition: .25s
+        span
+            display: inline-block
+            width: 35px
+            text-align: center
+        &:hover
+            border-bottom: 1px solid $blue
+            color: $blue
+.show_menu
+    visibility: visible
+    opacity: 1
+
 .container
-    margin: 0 auto
-    padding: 20px 50px
+    margin: 0 auto 
+    padding: 70px 50px 20px 50px
     width: 55%
     background: #00000010
 
@@ -116,32 +157,6 @@ header
     display: flex
     align-items: center
 
-.nav
-    width: 55%
-    background: #fbfbfb
-    display: flex
-    justify-content: space-around
-    align-items: center
-    position: fixed
-    bottom: 0
-    left: 50%
-    box-shadow: 0 0 5px #ddd
-    z-index: 3
-    transform: translate(-50%, 0px);
-    a
-        color: #777
-        display: block
-        width: 100%
-        height: 50px
-        display: flex
-        justify-content: center
-        align-items: center
-        i
-            font-size: 20px
-    a.home i
-        font-size: 25px
-    a.active
-        color: #222
 #shortener_form
     padding: 10px 0
     display: flex

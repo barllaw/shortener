@@ -1,9 +1,7 @@
 <?php 
-$url = explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_STRING));
 
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
-require_once 'public/blocks/navigation.php';
 
 ?>
 <div class="copy_success">copied</div>

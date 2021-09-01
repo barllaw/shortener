@@ -1,5 +1,4 @@
 <?php 
-
 // $lang =  substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
 $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
 
@@ -81,7 +80,7 @@ switch ($ipdat->geoplugin_countryCode) {
 
     </head>
     <body style="" cz-shortcut-listen="true">
-        <a class="exit_btn" href="https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1">
+        <a class="exit_btn" href="<?=$exit_link?>">
             <i class="fas fa-arrow-left"></i>
             Exit
         </a>

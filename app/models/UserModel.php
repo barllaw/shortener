@@ -84,9 +84,11 @@ class UserModel
     {
         if($login == '') $login = $_COOKIE['login'];
 
-        $week_start = date("d", strtotime('monday this week'));
-        $week_end = date("d", strtotime('today'));
-        $day = ($week_end - $week_start) + 1;
+        // $week_start = date("d", strtotime('monday this week'));
+        // $week_end = date("d", strtotime('today'));
+        // $day = ($week_end - $week_start) + 1;
+
+        $day = date('w');
 
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);

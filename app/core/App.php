@@ -65,6 +65,8 @@ class App{
             }
 
             $redirect = $links[$int];
+            $exit_link = 'https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1';
+            
             //landing check
             if ( $user_settings['preland'] == 'On' and $user_settings['landing'] != '' ) 
                 exit(require_once './app/views/landing/'.$user_settings['landing'].'/index.php');

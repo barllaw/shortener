@@ -1,9 +1,7 @@
 <?php 
-$url = explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_STRING));
 
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
-require_once 'public/blocks/navigation.php';
 
 $sum = 0;
 foreach ($data['postback'] as $key) {
@@ -14,8 +12,6 @@ foreach ($data['postback'] as $key) {
 
 <div class="container dashboard">
 
-    <div class="login_title"><h3><?= $data['postback'][0]['login'] ?></h3></div>
-    
     <div class="postback_wrap">
         <div class="postback_title postback_row">
         <div>PP</div>
@@ -40,6 +36,5 @@ foreach ($data['postback'] as $key) {
 </div>
 
 <?php
-require_once 'public/blocks/popup.php';
 require_once 'public/blocks/footer.php'; 
 ?>

@@ -1,12 +1,10 @@
 <?php 
-$url = explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_STRING));
 // $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
 $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
 
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
 require_once 'public/blocks/popup.php';
-require_once 'public/blocks/navigation.php';
 
 
 $user_domains = explode(',', $data['settings']['domains']);

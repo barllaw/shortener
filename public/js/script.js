@@ -123,3 +123,15 @@ $('#images').change(function() {
       $(this).prev().text('Добавити...').removeClass('success_image');
   };
 });
+
+// Menu
+$('#menu_btn').click(function(){
+  $('#menu').show();
+});
+
+$(document).click(function (e){
+  if ( $(e.target).closest('#menu_btn').length ) {
+    return;
+  }
+  $('#menu').hide();
+});
