@@ -14,8 +14,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/public/css/dashboard.css">
     <link rel="stylesheet" href="/public/css/main.min.css">
+    <link rel="stylesheet" href="/public/css/main<?php 
+            if($data)
+                if ($data['settings']['theme'] == 'dark') echo '_dark';?>.min.css">
 </head>
 <body>
+

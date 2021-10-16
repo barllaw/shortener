@@ -23,7 +23,7 @@ class Postback extends Controller
         else if($login == 'fech')
             $login = 'ihor';
         else if($login == 'fanj' or $login == 'me')
-            $login = 'andrii';
+            $login = 'fanj77';
         else if($login == 'sergey')
             $login = 'sergiy';
         else if($login == 'olegk')
@@ -42,10 +42,9 @@ class Postback extends Controller
         if($login == 'none')
             $login = $postbackModel->getLoginFromTT($nickname);
 
-        $eighty = ['makeover'];
+        $eighty = ['makeover','londofff','emannon'];
         $sixtyfive = ['nazar'];
-        $sixty = ['sergiy','oleg','igor2','michael','artur','vadim',
-        'danya','den4ik','edic','vova1','andriy888','igorbyb','aron','sanya','vadic','artem','stass'];
+        $sixty = ['sergiy','oleg','igor2','michael','artur','danya','den4ik','vova1','igorbyb','sanya','vadic','artem','stass','vanya1','pasha','nazar2','asyaa','lilcut'];
 
         if(in_array($login, $eighty)){
             $sum  = $sum * 80 / 100;

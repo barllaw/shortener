@@ -89,7 +89,7 @@ class UserModel
         // $day = ($week_end - $week_start) + 1;
 
         $day = date('w');
-
+        if($day == 0) $day = 7;
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -108,7 +108,29 @@ class UserModel
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function getWeekStatistics($login='')
+    {
+        if($login == '') $login = $_COOKIE['login'];
 
+        $day = date('w');
+        if($day == 0) $day = 7;
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $row){
+            $links = $links + $row['links'];
+            $clicks = $clicks + $row['clicks'];
+            $leads = $leads + $row['leads'];
+            $profit = $profit + $row['profit'];
+        }
+        $result = [
+            'links' => $links,
+            'clicks' => $clicks,
+            'leads' => $leads,
+            'profit' => $profit,
+        ];
+        return $result;
+    }
     public function getUsersStatistics($users)
     {
         $today = date("d.m");
@@ -161,7 +183,7 @@ class UserModel
     
     public function getRandomeNames()
     {
-        $url = 'https://www.behindthename.com/random/random.php?number=2&sets=5&gender=f&surname=&usage_dut=1&usage_eng=1&usage_fre=1&usage_ger=1';
+        $url = 'https://www.behindthename.com/random/random.php?number=2&sets=5&gender=f&surname=&usage_eng=1&usage_fre=1&usage_spa=1&usage_ger=1';
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($curl);
@@ -170,13 +192,14 @@ class UserModel
         $dom->loadHTML($result);
         libxml_clear_errors();
         $xpath = new DomXPath($dom);
-        $class = 'random-result';
+        $class = 'random-results';
         $divs = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
 
         $names = [];
         foreach($divs as $div) {
             $names[] = preg_replace('/\s+/', '',  trim($div->nodeValue));
         }
+
         return $names;
     }
 
@@ -238,6 +261,11 @@ class UserModel
     public function removeImage($image)
     {
         unlink("./public/img/users_img/$_COOKIE[login]/$image");
+    }
+
+    public function changeTheme($theme)
+    {
+        $this->_db->query("UPDATE `settings` SET `theme` = '$theme' WHERE `login` = '$_COOKIE[login]'");
     }
 
 

@@ -72,9 +72,11 @@ class User extends Controller
         $data = [
             'links' => $linkModel->getLinks(),
             'stats' => $userModel->getStatistics($_COOKIE['login']),
+            'week_stats' => $userModel->getWeekStatistics(),
             'names' => $userModel->getRandomeNames(),
             'user' => $userModel->getUser(),
             'profit_week' => $userModel->getProfitCurrentWeek(),
+            'settings' => $userModel->getUserSettings(),
         ];
         
         $this->view('user/dashboard', $data);
@@ -86,6 +88,9 @@ class User extends Controller
         $userModel = $this->model('UserModel');
         $linkModel = $this->model('LinkModel');
         $postbackModel = $this->model('PostbackModel');
+
+        if($_POST['change_theme'])
+            $userModel->changeTheme($_POST['theme']);
 
         $data = [
             'mainlinks' => $linkModel->getMainlinks(),
@@ -113,6 +118,8 @@ class User extends Controller
             'stats' => $userModel->getStatistics($login),
             'user' => $userModel->getUser($login),
             'profit_week' => $userModel->getProfitCurrentWeek($login),
+            'settings' => $userModel->getUserSettings(),
+            'week_stats' => $userModel->getWeekStatistics($login),
         ];
 
         $this->view('user/statistics', $data);
@@ -156,6 +163,8 @@ class User extends Controller
         $data = [
             'postback' => $userModel->getUserPostback(),
             'profit_week' => $userModel->getProfitCurrentWeek(),
+            'settings' => $userModel->getUserSettings(),
+
         ];
 
         $this->view('user/postback', $data);
@@ -167,6 +176,8 @@ class User extends Controller
         $data = [
             'profit_week' => $userModel->getProfitCurrentWeek(),
             'texts' => $userModel->getTexts(),
+            'settings' => $userModel->getUserSettings(),
+
         ];
 
         $this->view('user/text', $data);
@@ -186,6 +197,8 @@ class User extends Controller
 
         $data = [
             'profit_week' => $userModel->getProfitCurrentWeek(),
+            'settings' => $userModel->getUserSettings(),
+
         ];
 
         $this->view('user/images', $data);

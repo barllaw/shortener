@@ -40,14 +40,26 @@ $user_domains = explode(',', $data['settings']['domains']);
 
     <div class="buttons">
         <a href="/user/update/input_custom/<?=$custom?>" class="btn  <?=$custom?>">Custom: <?=$custom?></a>
-        <?php if($_COOKIE['login'] == 'londofff'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77'): ?>
             <a href="/link/domain/" class="btn preland_btn">add domain</a>
         <?php endif; ?>
-        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'andrii'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77'): ?>
             <a href="/user/reg/" class="btn preland_btn">add user</a>
         <?php endif; ?>
     </div>
     
+    <div class="themes_wrap">
+        <h3>Theme</h3>
+        <form action="/user/settings/" method="post">
+            <input type="hidden" value="true" name="change_theme">
+            <select name="theme" id="theme">
+                <option value="light" <?php if($data['settings']['theme'] == 'light') echo 'selected'; ?> >Light</option>
+                <option value="dark" <?php if($data['settings']['theme'] == 'dark') echo 'selected'; ?> >Dark</option>
+            </select>
+            <button type="submit" class="btn" >Change</button>    
+        </form>
+    </div>
+
     <?php if($_COOKIE['login'] != 'test' ): ?>
     <div class="preland">
         <div class="preland_title">

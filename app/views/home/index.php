@@ -69,11 +69,11 @@ $user_domains = explode(',', $data['settings']['domains']);
                 <h4>Your short link:</h4>
                 <div class="shortlink_line">
                     <p id="shortlink"><?= $_SESSION['shortlink'] ?></p>
-                    <div class="copy_btn" id="copy_btn" data-clipboard-text="<?=$_SESSION['shortlink']?>"> <img src="/public/img/copy_icon.png" ></div>
+                    <div class="copy_btn" id="copy_btn" data-clipboard-text="<?=$_SESSION['shortlink']?>"> <span class="img_copy"></span></div>
                 </div>
                 <div class="shortlink_line shortlink_line_https">
                     <p id="shortlink_http">https://<?= $_SESSION['shortlink'] ?></p>
-                    <div class="copy_btn_https" id="copy_btn" data-clipboard-text="https://<?=$_SESSION['shortlink']?>"> <img src="/public/img/copy_icon.png" alt=""></div>
+                    <div class="copy_btn_https" id="copy_btn" data-clipboard-text="https://<?=$_SESSION['shortlink']?>"> <span class="img_copy"></span></div>
                 </div>
             </div>        
             <?php endif; ?>
@@ -82,7 +82,7 @@ $user_domains = explode(',', $data['settings']['domains']);
             <?php endif; ?>
                 <?php 
                     
-                    $usr_arr = ['andrii','emannon', 'moom', 'ihor','londofff','makeover'];
+                    $usr_arr = ['fanj77','emannon', 'moom', 'ihor','londofff','makeover'];
                     if(in_array($_COOKIE['login'], $usr_arr)){
                         echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
                         echo '<div class="users-wrap">';

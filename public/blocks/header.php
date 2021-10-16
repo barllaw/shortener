@@ -8,13 +8,13 @@
         <div class="menu_wrap" id="">
             <div class="menu_btn" id="menu_btn"></div>
             <div class="menu" id="menu">
-                <p><a href="/"><span><i class="fas fa-home"></i></span>Main</a></p>
-                <p><a href="/user/dashboard"><span><i class="fas fa-user-circle"></i></span>Profile</a></p>
-                <p><a href="/user/text"><span><i class="fas fa-file-alt"></i></span>Texts</a></p>
-                <p><a href="/user/images"><span><i class="fas fa-images"></i></span>Images</a></p>
-                <p><a href="/user/postback"><span><i class="fas fa-coins"></i></span>Postaback</a></p>
-                <p><a href="/user/settings"><span><i class="fas fa-cog"></i></span>Settings</a></p>
-                <p><a href="/user/logout"><span><i class="fas fa-sign-out-alt"></i></span>Exit</a></p>
+                <p><a href="/"><span></span>Main</a></p>
+                <p><a href="/user/dashboard"><span></span>Profile</a></p>
+                <p><a href="/user/text"><span></span>Texts</a></p>
+                <p><a href="/user/images"><span></span>Images</a></p>
+                <p><a href="/user/postback"><span></span>Leads</a></p>
+                <p><a href="/user/settings"><span></span>Settings</a></p>
+                <p><a href="/user/logout"><span></span>Exit</a></p>
             </div>
         </div>
     

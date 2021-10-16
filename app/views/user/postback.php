@@ -10,7 +10,7 @@ foreach ($data['postback'] as $key) {
 
 ?>
 
-<div class="container dashboard">
+<div class="container postback">
 
     <div class="postback_wrap">
         <div class="postback_title postback_row">

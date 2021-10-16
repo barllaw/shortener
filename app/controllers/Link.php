@@ -96,12 +96,18 @@ class Link extends Controller
     {
 
         $linkModel = $this->model('LinkModel');
+        $userModel = $this->model('UserModel');
 
         if($_POST['domain']){
             $linkModel->addDomain($_POST['domain'], $_POST['users']);
         }
 
-        $this->view('link/domain');
+        $data = [
+            'profit_week' => $userModel->getProfitCurrentWeek(),
+            'settings' => $userModel->getUserSettings(),
+        ];
+
+        $this->view('link/domain', $data);
     }
     public function statistics($id_shortlink)
     {
