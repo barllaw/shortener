@@ -34,12 +34,14 @@ require_once 'public/blocks/header.php';
                 $num_array[] = $num; 
             }
         }        
-        echo '<h4>Random images</h4><div class="images_wrap">';
+        echo '<div class="r_img_title img_title"><h4>Random images</h4>';
+        if($_COOKIE['login'] == "londofff") echo "<div id='r_img-download'>DOWNLOAD</div>";
+        echo '</div><div class="images_wrap">';
         foreach($random_images as $image): ?>
             <?php  if($image != '.' and $image!='..'): ?>
                 <div class='image'>
                     <img src='<?= "/public/img/users_img/$_COOKIE[login]/" . $image ?>'>
-                    <a href="/user/images/download/<?= $image ?>" class="download_img"><i class="fas fa-download"></i> Download</a>
+                    <a href="/user/images/download/<?= $image ?>" class="download_img r_img"><i class="fas fa-download"></i> Download</a>
                     <a href="/user/images/remove/<?= $image ?>" class="remove_img"><i class="fas fa-trash-alt"></i></a>
                 </div>
             <?php endif; ?>
@@ -48,13 +50,13 @@ require_once 'public/blocks/header.php';
         //END
 
         
-        echo '<h4>All images</h4><div class="images_wrap">';
+        echo '<h4 class="img_title">All images</h4><div class="images_wrap">';
         foreach($images as $image): ?>
             <?php  if($image != '.' and $image!='..'): ?>
                 <div class='image'>
                     <img src='<?= "/public/img/users_img/$_COOKIE[login]/" . $image ?>'>
-                    <a href="/user/images/download/<?= $image ?>" class="download_img"><i class="fas fa-download"></i> Download</a>
-                    <a href="/user/images/remove/<?= $image ?>" class="remove_img"><i class="fas fa-trash-alt"></i></a>
+                    <a href="/user/images/download/<?=$image?>" class="download_img"><i class="fas fa-download"></i> Download</a>
+                    <a href="/user/images/remove/<?=$image?>" class="remove_img"><i class="fas fa-trash-alt"></i></a>
                 </div>
             <?php endif; ?>
         <?php endforeach;

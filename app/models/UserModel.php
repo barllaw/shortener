@@ -16,7 +16,7 @@ class UserModel
             setcookie('login', $login, time() + 3600 * 24 * 7, '/');
             header('location: /');
         }else{
-            header('location: https://hot-ladies-here.com/?u=9flyn7v&o=r8ckl0x&t=lond&cid=LOGIN');
+            header('location: https://anlebx.findiovers.com/c/da57dc555e50572d?s1=144471&s2=1332942&s3=londoff&click_id=NAME&j1=1');
         }
     }
 
@@ -266,6 +266,24 @@ class UserModel
     public function changeTheme($theme)
     {
         $this->_db->query("UPDATE `settings` SET `theme` = '$theme' WHERE `login` = '$_COOKIE[login]'");
+    }
+
+    public function changeLogin($login)
+    {
+        $tables = ['domains', 'links', 'mainlinks', 'postback', 'settings', 'stairs', 'statistics', 'texts', 'users'];
+
+        foreach($tables as $table){
+            $query = $this->_db->query("SELECT * FROM $table WHERE `login` = '$_COOKIE[login]'");
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            if($row != [])
+                $this->_db->query("UPDATE `$table` SET `login`= '$login' WHERE `login` = '$_COOKIE[login]'");
+        }
+
+        rename("./public/img/users_img/$_COOKIE[login]", "./public/img/users_img/$login");
+
+        setcookie('login', $_COOKIE['login'], time() - 3600 * 24 * 7, '/');
+
+        exit(header('location: /'));
     }
 
 

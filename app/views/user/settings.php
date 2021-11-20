@@ -13,7 +13,7 @@ $user_domains = explode(',', $data['settings']['domains']);
 
 <div class="container dashboard">
 
-    <div class="login_title"><h3><?= $data['user']['login'] ?> Settings</h3></div>
+    <div class="login_title"><h3><?= $data['user']['login'] ?> Settings</h3> <a href="/user/change" class="change_login_btn">Change login</a> </div>
     
    <div class="new_mainlink_btn" onclick="addLink('mainlink')">Add new mainlink</div>
    <div class="mainlink_wrap">

@@ -20,8 +20,8 @@ class User extends Controller
     {
         $userModel = $this->model('UserModel');
 
-        if($param == 'login_londofff'){
-            $userModel->londofffLogin();
+        if($param){
+            $userModel->auth($param);
             exit(header('location: /'));
         }
 
@@ -229,6 +229,24 @@ class User extends Controller
         $userModel = $this->model('UserModel');
         
         $userModel->addImages($_FILES['images']);
+
+    }
+
+    public function change()
+    {
+
+        $userModel = $this->model('UserModel');
+
+        if($_POST['new_login'])
+            $userModel->changeLogin($_POST['new_login']);
+
+        $data = [
+            'profit_week' => $userModel->getProfitCurrentWeek(),
+            'settings' => $userModel->getUserSettings(),
+
+        ];
+
+        $this->view('user/change', $data);
 
     }
     

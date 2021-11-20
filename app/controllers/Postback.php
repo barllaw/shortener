@@ -12,47 +12,13 @@ class Postback extends Controller
         $postbackModel = $this->model('PostbackModel');
         $userModel = $this->model('UserModel');
 
-        // if($geo == '') $geo = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 3, 2);
-
-        if($login == 'lond')
-            $login = 'londofff';
-        else if($login == 'vitalikk')
-            $login = 'makeover';
-        else if($login == 'nazzar')
-            $login = 'nazar';
-        else if($login == 'fech')
-            $login = 'ihor';
-        else if($login == 'fanj' or $login == 'me')
-            $login = 'fanj77';
-        else if($login == 'sergey')
-            $login = 'sergiy';
-        else if($login == 'olegk')
-            $login = 'oleg';
-        else if($login == 'igorkach')
-            $login = 'igor2';
-        else if($login == 'Artur')
-            $login = 'artur';
-        else if($login == 'VA1')
-            $login = 'vadim';
-        else if($login == 'Danya')
-            $login = 'danya';
-        else if($login == 'DEN4IK')
-            $login = 'den4ik';
 
         if($login == 'none')
             $login = $postbackModel->getLoginFromTT($nickname);
 
-        $eighty = ['makeover','londofff','emannon'];
-        $sixtyfive = ['nazar'];
-        $sixty = ['sergiy','oleg','igor2','michael','artur','danya','den4ik','vova1','igorbyb','sanya','vadic','artem','stass','vanya1','pasha','nazar2','asyaa','lilcut'];
+        $settings = $userModel->getUserSettings($login);
 
-        if(in_array($login, $eighty)){
-            $sum  = $sum * 80 / 100;
-        }else if(in_array($login, $sixtyfive)){
-            $sum  = $sum * 65 / 100;
-        }else if(in_array($login, $sixty)){
-            $sum  = $sum * 60 / 100;   
-        }
+        $sum  = $sum * $settings['percent'] / 100;
 
         $postbackModel->newPostback( $pp, $sum, $nickname, $login, $geo, $os);
 
@@ -66,7 +32,6 @@ class Postback extends Controller
             $postbackModel->updateLinkStats($nickname, $sum);
             
             
-        $settings = $userModel->getUserSettings($login);
             
         if($settings['telegram_bot'] == 'On')
             fopen("https://api.telegram.org/bot$settings[bot_token]/sendMessage?chat_id=$settings[bot_chat_id]&text=$for_telegram", 'r');

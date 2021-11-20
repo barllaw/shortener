@@ -135,3 +135,13 @@ $(document).click(function (e){
   }
   $('#menu').hide();
 });
+
+//Download random images
+$('#r_img-download').click(function (){
+  r_imgs = document.querySelectorAll('.r_img');
+  for (let i = 0; i < r_imgs.length; i++) {
+    href = $(r_imgs[i]).attr('href');
+    // window.location.href = 'http://google.com', '_blank';
+    window.open('https://londoff.site' + href, '_blank');
+  }
+})
