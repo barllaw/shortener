@@ -6,7 +6,7 @@ class DB{
     public static function getInstence()
     {
         if(self::$_db == null){
-            self::$_db = new PDO('mysql:host=localhost;dbname=ywgyjdgk_shortener1;charset=utf8', 'ywgyjdgk_admin', 'andriy12', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+            self::$_db = new PDO('mysql:host=localhost;dbname=byochwhn_shortener;charset=utf8', 'byochwhn_admin', 'eG0dA2gR6auC6x', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         }return self::$_db;
     }
     private function __construct(){}

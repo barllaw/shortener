@@ -171,12 +171,28 @@ class LinkModel
 
     public function addDomain($domain, $users)
     {
-        $users = explode(',', $users);
+        if($domain == '' or $users == '') exit(header('location: /'));
 
-        foreach($users as $user){
-            $query = $this->_db->prepare("INSERT INTO `domains` ( `domain`, `login`) VALUES ( ?, ? ) ");
-            $query->execute([ $domain, trim($user) ]);
+        if($users == '*'){
+            $query = $this->_db->query("SELECT `login` FROM `users`");
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+            $users = [];
+            foreach($res as $user){
+                $users[] = $user['login'];
+            }
+        }else{
+            $users = explode(',', $users);
         }
+        
+        $domains = explode(',', $domain);
+
+        foreach($domains as $domain){
+            foreach($users as $user){
+                $query = $this->_db->prepare("INSERT INTO `domains` ( `domain`, `login`) VALUES ( ?, ? ) ");
+                $query->execute([ $domain, trim($user) ]);
+            }
+        }
+        
     }
 
     public function getDomains()
@@ -199,14 +215,24 @@ class LinkModel
     {
         $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
     }
+    public function getVisitorsOfShortlink($id_shortlink)
+    {
+        $query = $this->_db->query("SELECT `id`,`country_code`,`city`,`date` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getShortlinkDomain($id_shortlink)
+    {
+        $query = $this->_db->query("SELECT `shortlink` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' limit 1");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getCountiesShortlink($id_shortlink)
     {
-        $query = $this->_db->query("SELECT DISTINCT `country` FROM `visitors_shortlinks` WHERE `id_shortlink` = '$id_shortlink'");
+        $query = $this->_db->query("SELECT DISTINCT `country` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink'");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getCountCountry($id_shortlink, $country)
     {
-        $query = $this->_db->query("SELECT * FROM `visitors_shortlinks` WHERE `id_shortlink` = '$id_shortlink' AND `country` = '$country'");
+        $query = $this->_db->query("SELECT * FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' AND `country` = '$country'");
         return count($query->fetchAll(PDO::FETCH_ASSOC));
     }
 }

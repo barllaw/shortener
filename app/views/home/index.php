@@ -1,5 +1,5 @@
 <?php 
-// $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
+
 $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
 
 require_once 'public/blocks/head.php';
@@ -18,8 +18,8 @@ $user_domains = explode(',', $data['settings']['domains']);
         <?php if($data['settings']['domains']==''): ?>
             <div class="alert">
                 <h3>Warning</h3>
-                <p>Не вибрано домена для скорочення. <br> Зайдіть в профіль, нажміть DOMAINS:,
-                     виберіть домени для скорочення і нажміть SAVE</p>
+                <p>No domains selected. </br>
+                    Go to settings, press DOMAINS, select domains and press SAVE</p>
             </div>
         <?php else: ?>
         <div class="block">
@@ -82,7 +82,7 @@ $user_domains = explode(',', $data['settings']['domains']);
             <?php endif; ?>
                 <?php 
                     
-                    $usr_arr = ['fanj77','emannon', 'moom', 'ihor','londofff','makeover'];
+                    $usr_arr = ['fanjq','emannon', 'moom', 'ihor','londofff','makeover'];
                     if(in_array($_COOKIE['login'], $usr_arr)){
                         echo '<div class="second_btn " onclick="showWrap(\'users-wrap\')">Users</div>';
                         echo '<div class="users-wrap">';

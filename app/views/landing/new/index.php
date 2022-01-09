@@ -70,7 +70,7 @@ switch ($ipdat->geoplugin_countryCode) {
     <title>The largest database of TikTok Girls!</title>
     <link rel="shortcut icon" href="/app/views/landing/new/images/favicon.ico" type="image/x-icon">
     <style>
-        .exit_btn{position: absolute;top: 30px;left: 30px; background: #ff37379e;padding: 5px 10px;     color:#fff;text-transform: uppercase;font-size: 13px;letter-spacing: 1px; text-decoration: none;
+        .exit_btn{z-index: 2;position: absolute;top: 30px;left: 30px; background: #ff37379e;padding: 5px 10px;     color:#fff;text-transform: uppercase;font-size: 13px;letter-spacing: 1px; text-decoration: none;
         border-radius: 1px;}
         .exit_btn i{color:#fff}
         body,

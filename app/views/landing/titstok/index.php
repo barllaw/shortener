@@ -77,7 +77,12 @@ switch ($ipdat->geoplugin_countryCode) {
         <link rel="stylesheet" type="text/css" href="/app/views/landing/titstok/style/main.css">
         <link rel="shortcut icon" href="" type="images/png">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
-
+        <script>
+            w = window.screen.width;
+            if(w > 1024){
+                location.href = "https://www.youtube.com/watch?v=6ZqaXHSE7gY";
+            }
+        </script>
     </head>
     <body style="" cz-shortcut-listen="true">
         <a class="exit_btn" href="<?=$exit_link?>">

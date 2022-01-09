@@ -6,15 +6,20 @@ class UserModel
     {
             $this->_db = DB::getInstence();
     }
-    public function auth($login)
+    public function auth($login, $pass)
     {
         $login = strtolower($login);
         $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$login'");
         $row = $query->fetch(PDO::FETCH_ASSOC);
 
         if($row != []){
-            setcookie('login', $login, time() + 3600 * 24 * 7, '/');
-            header('location: /');
+            if($pass == $row['pass']){
+                setcookie('login', $login, time() + 3600 * 24 * 7, '/');
+                setcookie('password', true, time() + 3600 * 24 * 7, '/');
+                header('location: /');
+            }else{
+                header('location: /user/auth');
+            }
         }else{
             header('location: https://anlebx.findiovers.com/c/da57dc555e50572d?s1=144471&s2=1332942&s3=londoff&click_id=NAME&j1=1');
         }
@@ -22,17 +27,23 @@ class UserModel
 
     public function reg($login)
     {
+        $today = date("d.m");
+
         $login = strtolower($login);
-        $query = $this->_db->prepare("INSERT INTO users (login) VALUES (?) ");
+        $query = $this->_db->prepare("INSERT INTO `users` (`login`) VALUES (?) ");
         $query->execute([$login]);
-        $query = $this->_db->prepare("INSERT INTO settings (login) VALUES (?) ");
+        $query = $this->_db->prepare("INSERT INTO `settings` (`login`) VALUES (?) ");
         $query->execute([$login]);
-        header('location: /user/auth');
+        $query = $this->_db->prepare("INSERT INTO `statistics` (`login`, `date`) VALUES (?, ?) ");
+        $query->execute([$login,$today]);
+
+        exit(header('location: /'));
     }
 
     public function logout()
     {
         setcookie('login', $_COOKIE['login'], time() - 3600 * 24 * 7, '/');
+        setcookie('password', true, time() - 3600 * 24 * 7, '/');
     }
 
     public function getUser($login = '')
@@ -162,11 +173,48 @@ class UserModel
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteUser($tables, $login)
+    public function deleteUser($login)
     {
+        $tables = [
+            'domains',
+            'links',
+            'mainlinks',
+            'postback',
+            'settings',
+            'stairs',
+            'statistics',
+            'texts',
+            'users',
+        ];
+        $dir = "./public/img/users_img/$login";
+
         foreach ($tables as $table ) {
             $this->_db->query("DELETE FROM $table WHERE `login` = '$login'");
         }
+
+
+        function rrmdir($dir)
+        {
+            if (is_dir($dir))
+            {
+            $objects = scandir($dir);
+
+            foreach ($objects as $object)
+            {
+            if ($object != '.' && $object != '..')
+            {
+                if (filetype($dir.'/'.$object) == 'dir') {rrmdir($dir.'/'.$object);}
+                else {unlink($dir.'/'.$object);}
+            }
+            }
+
+            reset($objects);
+            rmdir($dir);
+            }
+        }
+        
+        rrmdir($dir);
+
     }
 
     public function getLandings()
@@ -268,22 +316,50 @@ class UserModel
         $this->_db->query("UPDATE `settings` SET `theme` = '$theme' WHERE `login` = '$_COOKIE[login]'");
     }
 
-    public function changeLogin($login)
+    public function changeLogin($current_login, $new_login)
     {
-        $tables = ['domains', 'links', 'mainlinks', 'postback', 'settings', 'stairs', 'statistics', 'texts', 'users'];
+        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$current_login'");
+        $current = $query->fetch(PDO::FETCH_ASSOC);
+        if($current == []) exit('User is not found');
 
-        foreach($tables as $table){
-            $query = $this->_db->query("SELECT * FROM $table WHERE `login` = '$_COOKIE[login]'");
-            $row = $query->fetch(PDO::FETCH_ASSOC);
-            if($row != [])
-                $this->_db->query("UPDATE `$table` SET `login`= '$login' WHERE `login` = '$_COOKIE[login]'");
+        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$new_login'");
+        $new = $query->fetch(PDO::FETCH_ASSOC);
+
+        if($new == []){
+            $tables = ['domains', 'links', 'mainlinks', 'postback', 'settings', 'stairs', 'statistics', 'texts', 'users'];
+
+            foreach($tables as $table){
+                $query = $this->_db->query("SELECT * FROM $table WHERE `login` = '$current_login'");
+                $row = $query->fetch(PDO::FETCH_ASSOC);
+                if($row != [])
+                    $this->_db->query("UPDATE `$table` SET `login`= '$new_login' WHERE `login` = '$current_login'");
+            }
+
+            rename("./public/img/users_img/$current_login", "./public/img/users_img/$new_login");
+
+            exit('ok');
+
+        }else{
+            exit('This login is already in use');
+        }
+        
+        // setcookie('login', $current_login, time() - 3600 * 24 * 7, '/');
+        // setcookie('pass', true, time() - 3600 * 24 * 7, '/');
+    }
+
+    public function changePassword($current_password, $new_passwors)
+    {
+
+        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+
+        if($row['pass'] == $current_password){
+            $this->_db->query("UPDATE `users` SET `pass`= '$new_passwors' WHERE `login` = '$_COOKIE[login]'");
+        }else{
+            exit('Current password is not correct!');
         }
 
-        rename("./public/img/users_img/$_COOKIE[login]", "./public/img/users_img/$login");
-
-        setcookie('login', $_COOKIE['login'], time() - 3600 * 24 * 7, '/');
-
-        exit(header('location: /'));
+        exit('ok');
     }
 
 

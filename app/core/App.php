@@ -15,9 +15,20 @@ class App{
         $this->_db = DB::getInstence();
 
         //CHECK USER WITH COOKIE
-        $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
-        $user = $query->fetch(PDO::FETCH_ASSOC);
-        if ($user == []) unset($_COOKIE);
+        // $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
+        // $user = $query->fetch(PDO::FETCH_ASSOC);
+        // if ($user == []) unset($_COOKIE);
+
+        //CHECK USER WITH COOKIE
+        if($_COOKIE['login']){
+            $query = $this->_db->query("SELECT * FROM `users` WHERE `login` = '$_COOKIE[login]'");
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+            if ($user == [] or !$_COOKIE['password']){ 
+                setcookie('login', $_COOKIE['login'], time() - 3600 * 24 * 7, '/');
+                setcookie('password', true, time() - 3600 * 24 * 7, '/');
+                exit(header('location: /'));
+            }
+        }
 
         // FINDING SHORTLINK IN DB with $url[0]
         $shortlink = $_SERVER['SERVER_NAME'].'/'.$url[0];
@@ -28,10 +39,18 @@ class App{
 
         if($link != []) {
             //New visitor
-            // $visitor = json_decode(file_get_contents("http://ipinfo.io/$_SERVER[REMOTE_ADDR]"));
+            // $visitor = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $_SERVER['REMOTE_ADDR']));
             // if($visitor){
-            //     $query = $this->_db->prepare("INSERT INTO `visitors_shortlinks` ( `id_shortlink`, `country`, `region`, `city`, `ip`, `timezone`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) ");
-            //     $query->execute([ $link['id'], $visitor->country, $visitor->region, $visitor->city, $visitor->ip,$visitor->timezone, time() ]);
+            //     $query = $this->_db->prepare("INSERT INTO `visitors_shortlinks` ( `shortlink_id`, `shortlink`, `country`, `country_code`, `region`, `city`, `ip`, `date` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ");
+            //     $query->execute([ 
+            //         $link['id'],
+            //         $link['short_link'], 
+            //         $visitor->geoplugin_countryName, 
+            //         $visitor->geoplugin_countryCode, 
+            //         $visitor->geoplugin_regionName, 
+            //         $visitor->geoplugin_city, 
+            //         $visitor->geoplugin_request,
+            //         time() ]);
             // }
 
             // update link clicks
@@ -65,7 +84,7 @@ class App{
             }
 
             $redirect = $links[$int];
-            $exit_link = 'https://kgjvzv.flndmyiove.net/c/da57dc555e50572d?s1=138434&s2=1312449&s3=EXIT&j1=1&j3=1';
+            $exit_link = 'https://enqddb.findiovers.com/c/da57dc555e50572d?s1=147078&s2=1356013&s3=EXIT&j1=1';
             
             //landing check
             if ( $user_settings['preland'] == 'On' and $user_settings['landing'] != '' ) 

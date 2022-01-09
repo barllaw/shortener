@@ -16,20 +16,20 @@ class User extends Controller
 
         $this->view('user/reg', $data);
     }
-    public function auth($param = '')
+    public function auth($param='', $second_param='')
     {
         $userModel = $this->model('UserModel');
 
         if($param){
-            $userModel->auth($param);
+            $userModel->auth($param,$second_param);
             exit(header('location: /'));
         }
 
-        if(isset($_COOKIE['login'])) exit(header('location: /'));
+        if(isset($_COOKIE['login']) and isset($_COOKIE['pass'])) exit(header('location: /'));
         
 
-        if($_POST['login']){
-            exit($userModel->auth(trim($_POST['login'])));
+        if($_POST['login'] and $_POST['pass']){
+            exit($userModel->auth(trim($_POST['login']),trim($_POST['pass'])));
         }
 
         $this->view('user/auth');
@@ -129,17 +129,7 @@ class User extends Controller
     {
         $userModel = $this->model('UserModel');
 
-        $tables = [
-            'links',
-            'mainlinks',
-            'postback',
-            'settings',
-            'stairs',
-            'statistics',
-            'users',
-        ];
-        
-        $userModel->deleteUser($tables, $login);
+        $userModel->deleteUser($login);
 
         exit(header('location: /'));
     }
@@ -232,23 +222,34 @@ class User extends Controller
 
     }
 
-    public function change()
+    public function change($param='')
     {
-
         $userModel = $this->model('UserModel');
 
-        if($_POST['new_login'])
-            $userModel->changeLogin($_POST['new_login']);
+        if($_POST['param'] == 'login'){
+            $userModel->changeLogin($_POST['current'], $_POST['new']);
+        }
 
-        $data = [
-            'profit_week' => $userModel->getProfitCurrentWeek(),
-            'settings' => $userModel->getUserSettings(),
+        if($_POST['param'] == 'password'){
+            $userModel->changePassword($_POST['current'], $_POST['new']);
+        }
 
-        ];
+        if($param == 'login' or $param == 'password'){
 
-        $this->view('user/change', $data);
+            $data = [
+                'profit_week' => $userModel->getProfitCurrentWeek(),
+                'settings' => $userModel->getUserSettings(),
+                'param' => $param
+            ];
+
+            $this->view('user/change', $data);
+        }else{
+            header('location: /');
+        }
 
     }
+   
+
     
 
 }

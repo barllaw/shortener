@@ -1,12 +1,24 @@
 <?php 
 require_once 'public/blocks/head.php';
 require_once 'public/blocks/header.php'; 
+
+if($data['param'] == 'login' and $_COOKIE['login'] != 'londofff') header('location: /');
+
 ?>
 <div class="container change">
-    <p>Change login</p>
+    <p>Change <?=$data['param']?></p>
     <div class="login">
-        <form action="/user/change" method="post">
-            <input type="text" name="new_login" class="login_input" onkeyup="checkInput('login_input')" autofocus>
+        <form action="" method="post">
+            <input type="hidden" name="param" value="<?=$data['param']?>">
+            <div>
+                <label for="current_<?=$data['param']?>">Current <?=$data['param']?></label>
+                <input type="<?php if($data['param'] == 'login'){ echo 'text';}else{ echo $data['param'];}?>" name="current" class="login_input" autofocus>
+            </div>
+            <div>
+                <label for="new_<?=$data['param']?>">New <?=$data['param']?></label>
+                <input type="<?php if($data['param'] == 'login'){ echo 'text';}else{ echo $data['param'];}?>" name="new" class="login_input">
+            </div>
+            <p class="msg_error"></p>
             <button type="submit">Change</button>
         </form>
     </div>

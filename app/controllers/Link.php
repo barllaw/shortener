@@ -60,11 +60,13 @@ class Link extends Controller
 
     public function delete($db, $id, $date='')
     {
+        $referer = $_SERVER['HTTP_REFERER'];
+
         $linkModel = $this->model('LinkModel');
 
         $linkModel->deleteLink($db,$id,$date);
 
-        exit(header('location: /user/settings'));
+        exit(header('location: ' . $referer));
     }
     public function setDefault($id)
     {
@@ -77,6 +79,8 @@ class Link extends Controller
 
     public function update($param)
     {
+        $referer = $_SERVER['HTTP_REFERER'];
+
         $linkModel = $this->model('LinkModel');
 
         if($param == 'edit_link'){
@@ -90,7 +94,7 @@ class Link extends Controller
                 $linkModel->updateStairs($link);
             }
         }
-        exit(header('location: /'));
+        exit(header('location: ' . $referer));
     }
     public function domain()
     {
@@ -109,23 +113,29 @@ class Link extends Controller
 
         $this->view('link/domain', $data);
     }
-    public function statistics($id_shortlink)
+    public function statistic($id_shortlink)
     {
         $linkModel = $this->model('LinkModel');
-
-        $visitors = $linkModel->getCountiesShortlink($id_shortlink);
+        $userModel = $this->model('UserModel');
+        
+        $shortlink = $linkModel->getShortlinkDomain($id_shortlink);
+        $visitors = $linkModel->getVisitorsOfShortlink($id_shortlink);
+        $counties = $linkModel->getCountiesShortlink($id_shortlink);
         $stats = [];
-        foreach($visitors as $visitor){
-            $count = $linkModel->getCountCountry($id_shortlink, $visitor['country']);
-            $stats[$visitor['country']] = $count;
+        foreach($counties as $country){
+            $count = $linkModel->getCountCountry($id_shortlink, $country['country']);
+            $stats[$country['country']] = $count;
         }
         array_multisort($stats, SORT_DESC);
 
         $data = [
+            'visitors' => $visitors,
             'stats' => $stats,
+            'shortlink' => $shortlink[0]['shortlink'],
+            'settings' => $userModel->getUserSettings(),
         ];
 
-        $this->view('link/statistics', $data);
+        $this->view('link/statistic', $data);
 
     }
     

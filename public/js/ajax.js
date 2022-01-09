@@ -67,4 +67,44 @@ $('.btn_land_save').click(function(){
 
     })
 })
+//Change login or password
+$('.change form button').click(function(e){
+    e.preventDefault();
+
+    param = $('input[name="param"]').val();
+    current_ = $('input[name="current"]').val();
+    new_ = $('input[name="new"]').val();
+    let msg = $('.msg_error');
+
+    if(current_.length < 4 || current_.length > 25){
+        $(msg).css('opacity', '1').html('Current '+ param +' must be from 4 to 25 symbols');
+        return
+    }
+    if(new_.length < 4 || new_.length > 25){
+        $(msg).css('opacity', '1').html('New '+ param +' must be from 4 to 25 symbols');
+        return
+    }
+    if(current_ == new_){
+        $(msg).css('opacity', '1').html('Current '+ param +' and new password are the same');
+        return
+    }
+    $.ajax({
+        url: '/user/change/',
+        type: 'POST',
+        data: {
+            'param' : param,
+            'current': current_,
+            'new': new_
+        },
+        success: function(response){
+            if(response == 'ok'){
+                alert(param + ' was updated');
+                location.href = document.domain;
+            }else{
+                $(msg).css('opacity', '1').html(response);
+            }
+        }
+
+    })
+})
 

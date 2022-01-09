@@ -35,7 +35,7 @@ require_once 'public/blocks/header.php';
             }
         }        
         echo '<div class="r_img_title img_title"><h4>Random images</h4>';
-        if($_COOKIE['login'] == "londofff") echo "<div id='r_img-download'>DOWNLOAD</div>";
+        echo "<div id='r_img-download'>DOWNLOAD</div>";
         echo '</div><div class="images_wrap">';
         foreach($random_images as $image): ?>
             <?php  if($image != '.' and $image!='..'): ?>

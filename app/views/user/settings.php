@@ -13,7 +13,7 @@ $user_domains = explode(',', $data['settings']['domains']);
 
 <div class="container dashboard">
 
-    <div class="login_title"><h3><?= $data['user']['login'] ?> Settings</h3> <a href="/user/change" class="change_login_btn">Change login</a> </div>
+    <div class="login_title"><h3><?= $data['user']['login'] ?> Settings</h3> <?php if($_COOKIE['login'] == 'londofff') echo '<a href="/user/change/login" class="change_login_btn">Change login</a>';?> </div>
     
    <div class="new_mainlink_btn" onclick="addLink('mainlink')">Add new mainlink</div>
    <div class="mainlink_wrap">
@@ -40,10 +40,10 @@ $user_domains = explode(',', $data['settings']['domains']);
 
     <div class="buttons">
         <a href="/user/update/input_custom/<?=$custom?>" class="btn  <?=$custom?>">Custom: <?=$custom?></a>
-        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq'): ?>
             <a href="/link/domain/" class="btn preland_btn">add domain</a>
         <?php endif; ?>
-        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq'): ?>
             <a href="/user/reg/" class="btn preland_btn">add user</a>
         <?php endif; ?>
     </div>
@@ -139,6 +139,9 @@ $user_domains = explode(',', $data['settings']['domains']);
             <input type="text" name="bot_chat_id" value="<?=$data['settings']['bot_chat_id']?>">
             <button class="btn">Save</button>
         </form>
+    </div>
+    <div class="change_password_wrap">
+        <a href="/user/change/password">Change Password</a>
     </div>
 
 </div>
