@@ -40,10 +40,10 @@ $user_domains = explode(',', $data['settings']['domains']);
 
     <div class="buttons">
         <a href="/user/update/input_custom/<?=$custom?>" class="btn  <?=$custom?>">Custom: <?=$custom?></a>
-        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq' or $_COOKIE['login'] == 'ihor'): ?>
             <a href="/link/domain/" class="btn preland_btn">add domain</a>
         <?php endif; ?>
-        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq'): ?>
+        <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq' or $_COOKIE['login'] == 'ihor'): ?>
             <a href="/user/reg/" class="btn preland_btn">add user</a>
         <?php endif; ?>
     </div>

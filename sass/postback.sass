@@ -1,16 +1,46 @@
 .postback
     padding-top: 90px
-.postback_wrap
-    .postback_row
-        display: grid
-        grid-template-columns: repeat( 5, 1fr )
-        background: #ffffff90
-        padding: 5px
-        text-align: center
-        margin-bottom: 8px
-        font-weight: 300
-        font-size: 13px
-        .date
+    .postback_stats_wrap
+        margin-bottom: 30px 
+        .titles
+            display: grid
+            grid-template-columns: repeat(3, 1fr )
+            grid-gap: 2px
+            text-align: center
             font-size: 13px
-    .postback_title
-        font-weight: 400
+            text-transform: uppercase
+            color: #fff
+            margin-bottom: 5px
+            .geo_title, .leads_title, .profit_title
+                background: $blue
+                padding: 5px
+                color: #fff
+        .stats_wrap
+            .stats
+                display: grid
+                grid-template-columns: repeat(3, 1fr )
+                grid-gap: 2px
+                text-align: center
+                margin-bottom: 2px
+                .geo, .leads, .profit
+                    padding: 5px
+                    background: #ffffffdf
+                .geo
+                    text-align: left
+                    padding-left: 10%
+                &:hover
+                    background: #999
+    .postback_wrap
+        .postback_row
+            display: grid
+            grid-template-columns: repeat( 5, 1fr )
+            background: #ffffff90
+            padding: 5px
+            text-align: center
+            margin-bottom: 8px
+            font-weight: 300
+            font-size: 13px
+            .date
+                font-size: 13px
+        .postback_title
+            font-weight: 400

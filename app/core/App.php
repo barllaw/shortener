@@ -84,7 +84,7 @@ class App{
             }
 
             $redirect = $links[$int];
-            $exit_link = 'https://enqddb.findiovers.com/c/da57dc555e50572d?s1=147078&s2=1356013&s3=EXIT&j1=1';
+            $exit_link = 'https://anaaad.sweetmlif.net/c/da57dc555e50572d?s1=151371&s2=1387467&s3=EXIT&j1=1';
             
             //landing check
             if ( $user_settings['preland'] == 'On' and $user_settings['landing'] != '' ) 

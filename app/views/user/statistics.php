@@ -24,7 +24,7 @@ require_once 'public/blocks/popup.php';
 
         <div class="all_links_title">
             <h4><?= $data['login'] ?></h4>
-            <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77'): ?>
+            <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanj77' or $_COOKIE['login'] == 'ihor'): ?>
                 <div class="delete_user" onclick="deleteUser('<?=$data['login']?>')">Delete user</div>
             <?php endif; ?>
         </div>

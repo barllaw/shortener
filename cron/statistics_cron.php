@@ -6,8 +6,6 @@ date_default_timezone_set('Europe/Kiev');
 
     $today = date("d.m");
     
-    $query = $db->query("DELETE FROM `postback`");
-
     $query = $db->query("SELECT * FROM `users`");
     $row = $query->fetchAll(PDO::FETCH_ASSOC);
 

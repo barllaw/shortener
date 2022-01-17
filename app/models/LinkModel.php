@@ -50,7 +50,7 @@ class LinkModel
         return $users_links;
     }
 
-    public function shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links )
+    public function shortenLink( $soft, $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links )
     {
         $tiktok = '';
         
@@ -101,8 +101,8 @@ class LinkModel
         $today = date("d.m");
         $time = date("H:i");
     
-        $query = $this->_db->prepare("INSERT INTO `links` ( `link`, `short_link`, `login`, `tiktok`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?) ");
-        $query->execute([ $link, $shortlink, $login, $tiktok, $geo, $today, $time ]);
+        $query = $this->_db->prepare("INSERT INTO `links` ( `soft`, `link`, `short_link`, `login`, `tiktok`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?) ");
+        $query->execute([ $soft, $link, $shortlink, $login, $tiktok, $geo, $today, $time ]);
     
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' and `date` = '$today'");
         $stats = $query->fetch(PDO::FETCH_ASSOC);
@@ -215,24 +215,24 @@ class LinkModel
     {
         $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
     }
-    public function getVisitorsOfShortlink($id_shortlink)
-    {
-        $query = $this->_db->query("SELECT `id`,`country_code`,`city`,`date` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' ORDER BY `id` DESC");
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function getShortlinkDomain($id_shortlink)
-    {
-        $query = $this->_db->query("SELECT `shortlink` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' limit 1");
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function getCountiesShortlink($id_shortlink)
-    {
-        $query = $this->_db->query("SELECT DISTINCT `country` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink'");
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function getCountCountry($id_shortlink, $country)
-    {
-        $query = $this->_db->query("SELECT * FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' AND `country` = '$country'");
-        return count($query->fetchAll(PDO::FETCH_ASSOC));
-    }
+    // public function getVisitorsOfShortlink($id_shortlink)
+    // {
+    //     $query = $this->_db->query("SELECT `id`,`country_code`,`city`,`date` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' ORDER BY `id` DESC");
+    //     return $query->fetchAll(PDO::FETCH_ASSOC);
+    // }
+    // public function getShortlinkDomain($id_shortlink)
+    // {
+    //     $query = $this->_db->query("SELECT `shortlink` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' limit 1");
+    //     return $query->fetchAll(PDO::FETCH_ASSOC);
+    // }
+    // public function getCountiesShortlink($id_shortlink)
+    // {
+    //     $query = $this->_db->query("SELECT DISTINCT `country` FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink'");
+    //     return $query->fetchAll(PDO::FETCH_ASSOC);
+    // }
+    // public function getCountCountry($id_shortlink, $country)
+    // {
+    //     $query = $this->_db->query("SELECT * FROM `visitors_shortlinks` WHERE `shortlink_id` = '$id_shortlink' AND `country` = '$country'");
+    //     return count($query->fetchAll(PDO::FETCH_ASSOC));
+    // }
 }

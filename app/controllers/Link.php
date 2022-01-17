@@ -23,6 +23,10 @@ class Link extends Controller
             $stairs .= ','.$el['smartlink'];
         }
         $stairs_links = substr($stairs, 1);
+        $soft = '1';
+        if($_POST['soft'] == '0'){
+            $soft = '0';
+        }
         $nickname = strtolower(trim($_POST['nickname']));
         $custom_link = $_POST['custom_link'];
         $domain = $_POST['domain'];
@@ -33,7 +37,7 @@ class Link extends Controller
             $stairs = true;
         else
             $stairs = false;
-        $linkModel->shortenLink( $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links );
+        $linkModel->shortenLink( $soft, $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links );
         
         $userModel->updateCountLinks();
     
@@ -113,31 +117,31 @@ class Link extends Controller
 
         $this->view('link/domain', $data);
     }
-    public function statistic($id_shortlink)
-    {
-        $linkModel = $this->model('LinkModel');
-        $userModel = $this->model('UserModel');
+    // public function statistic($id_shortlink)
+    // {
+    //     $linkModel = $this->model('LinkModel');
+    //     $userModel = $this->model('UserModel');
         
-        $shortlink = $linkModel->getShortlinkDomain($id_shortlink);
-        $visitors = $linkModel->getVisitorsOfShortlink($id_shortlink);
-        $counties = $linkModel->getCountiesShortlink($id_shortlink);
-        $stats = [];
-        foreach($counties as $country){
-            $count = $linkModel->getCountCountry($id_shortlink, $country['country']);
-            $stats[$country['country']] = $count;
-        }
-        array_multisort($stats, SORT_DESC);
+    //     $shortlink = $linkModel->getShortlinkDomain($id_shortlink);
+    //     $visitors = $linkModel->getVisitorsOfShortlink($id_shortlink);
+    //     $counties = $linkModel->getCountiesShortlink($id_shortlink);
+    //     $stats = [];
+    //     foreach($counties as $country){
+    //         $count = $linkModel->getCountCountry($id_shortlink, $country['country']);
+    //         $stats[$country['country']] = $count;
+    //     }
+    //     array_multisort($stats, SORT_DESC);
 
-        $data = [
-            'visitors' => $visitors,
-            'stats' => $stats,
-            'shortlink' => $shortlink[0]['shortlink'],
-            'settings' => $userModel->getUserSettings(),
-        ];
+    //     $data = [
+    //         'visitors' => $visitors,
+    //         'stats' => $stats,
+    //         'shortlink' => $shortlink[0]['shortlink'],
+    //         'settings' => $userModel->getUserSettings(),
+    //     ];
 
-        $this->view('link/statistic', $data);
+    //     $this->view('link/statistic', $data);
 
-    }
+    // }
     
 
 }

@@ -39,6 +39,8 @@ input
     font-weight: 300
     transition: .25s
     opacity: 0
+.soft_0
+    border-left: 2px solid
 header
     display: flex
     justify-content: space-between
@@ -493,7 +495,7 @@ header
                 background: #dddddd
         .edit_btn
             position: absolute
-            right: 60px
+            right: 0px
             bottom: 0
             cursor: pointer
             width: 50px
@@ -506,61 +508,61 @@ header
                 background: #dddddd
 
 
-.shortlink_stats
-    .counties_clicks_wrap
-        .shortlink_title
-            padding: 10px
-            text-align: center
-            color: #000
-            background: #ffffffdf
-        .titles
-            display: grid
-            grid-template-columns: repeat(2, 1fr )
-            grid-gap: 2px
-            text-align: center
-            font-size: 13px
-            text-transform: uppercase
-            color: #fff
-            margin-bottom: 5px
-            .geo_title, .clicks_title
-                background: $blue
-                padding: 5px
-        .stats_wrap
-            .stats
-                display: grid
-                grid-template-columns: repeat(2, 1fr )
-                grid-gap: 2px
-                text-align: center
-                margin-bottom: 2px
-                .geo, .clicks
-                    padding: 5px
-                    background: #ffffffdf
-                .geo
-                    text-align: left
-                    padding-left: 10%
-                &:hover
-                    background: #999
-    .visitors_wrap
-        margin-top: 20px
-        .visitor_row
-            display: flex
-            justify-content: space-between
-            align-items: center
-            background: #ffffffdf
-            margin: 2px 0px 
-            border-left: 3px solid #333
-            font-size: 14px
-            .country_code,.city,.date
-                padding: 5px 10px
-                width: 100%
-            .date
-                text-align: center
-            &:first-child
-                border-left: none
-                background: #444
-                color: #fff
-                font-weight: 300
-                text-transform: uppercase
+// .shortlink_stats
+//     .counties_clicks_wrap
+//         .shortlink_title
+//             padding: 10px
+//             text-align: center
+//             color: #000
+//             background: #ffffffdf
+//         .titles
+//             display: grid
+//             grid-template-columns: repeat(2, 1fr )
+//             grid-gap: 2px
+//             text-align: center
+//             font-size: 13px
+//             text-transform: uppercase
+//             color: #fff
+//             margin-bottom: 5px
+//             .geo_title, .clicks_title
+//                 background: $blue
+//                 padding: 5px
+//         .stats_wrap
+//             .stats
+//                 display: grid
+//                 grid-template-columns: repeat(2, 1fr )
+//                 grid-gap: 2px
+//                 text-align: center
+//                 margin-bottom: 2px
+//                 .geo, .clicks
+//                     padding: 5px
+//                     background: #ffffffdf
+//                 .geo
+//                     text-align: left
+//                     padding-left: 10%
+//                 &:hover
+//                     background: #999
+    // .visitors_wrap
+    //     margin-top: 20px
+    //     .visitor_row
+    //         display: flex
+    //         justify-content: space-between
+    //         align-items: center
+    //         background: #ffffffdf
+    //         margin: 2px 0px 
+    //         border-left: 3px solid #333
+    //         font-size: 14px
+    //         .country_code,.city,.date
+    //             padding: 5px 10px
+    //             width: 100%
+    //         .date
+    //             text-align: center
+    //         &:first-child
+    //             border-left: none
+    //             background: #444
+    //             color: #fff
+    //             font-weight: 300
+    //             text-transform: uppercase
 
                 
 .show_wrap, #shortener_form .show_wrap

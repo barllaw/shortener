@@ -147,15 +147,35 @@ class User extends Controller
 
     }
 
-    public function postback()
+    public function postback($sort_field='1')
     {
         $userModel = $this->model('UserModel');
+        $counties = $userModel->getCountiesPostback();
         $data = [
             'postback' => $userModel->getUserPostback(),
+            'stats' => [],
             'profit_week' => $userModel->getProfitCurrentWeek(),
             'settings' => $userModel->getUserSettings(),
 
         ];
+        foreach($counties as $country){
+            $count = $userModel->getCountCountryPostback($country['geo']);
+            $profit = $userModel->getProfitCountryPostback($country['geo']);
+            $data['stats'][] = [$country['geo'], $count, $profit];
+        }
+
+        function customMultiSort($array,$field) {
+            $sortArr = array();
+            foreach($array as $key=>$val){
+                $sortArr[$key] = $val[$field];
+            }
+        
+            array_multisort($sortArr,$array);
+        
+            return $array;
+        }
+
+        $data['stats'] = array_reverse(customMultiSort($data['stats'], $sort_field));
 
         $this->view('user/postback', $data);
     }

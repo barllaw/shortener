@@ -24,6 +24,7 @@ $user_domains = explode(',', $data['settings']['domains']);
         <?php else: ?>
         <div class="block">
             <form action="/link/shorten" method='post' id="shortener_form">
+                <input type="text" value="0" name="soft" hidden>
                 <label for="link">Link:</label>
                 <textarea name='link' wrap="hard" onkeyup="textAreaAdjust(this)" class="link_textarea"></textarea>
                 <div class="links_radio_btn second_btn" onclick="showWrap('links_radio')">Mainlinks:</div>

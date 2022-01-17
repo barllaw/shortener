@@ -95,10 +95,6 @@ class UserModel
     {
         if($login == '') $login = $_COOKIE['login'];
 
-        // $week_start = date("d", strtotime('monday this week'));
-        // $week_end = date("d", strtotime('today'));
-        // $day = ($week_end - $week_start) + 1;
-
         $day = date('w');
         if($day == 0) $day = 7;
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
@@ -124,10 +120,18 @@ class UserModel
         if($login == '') $login = $_COOKIE['login'];
 
         $day = date('w');
+        // $m = date("m");
+        // $d = date("d");
+        // $temp = $d - $day .'.'.$m;
+
         if($day == 0) $day = 7;
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC LIMIT $day");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
+        // $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' and `date_created` > $temp ORDER BY `id` DESC");
+        // $res_links = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        // exit(print_r($res_links));
         foreach($result as $row){
             $links = $links + $row['links'];
             $clicks = $clicks + $row['clicks'];
@@ -165,12 +169,35 @@ class UserModel
     public function getUserPostback()
     {
         $month = date('m');
-        $day = date('d');
         $year = date('Y');
 
+        $w = date('w');
+        if($w == '0') $w = 7;
+        $day = date('d', strtotime('-'.$w.' days'));
         $d = mktime(00, 00, 00, $month, $day, $year);
+
         $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' and `date` >= '$d' ORDER BY `id` DESC");
         return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getCountiesPostback()
+    {
+        $query = $this->_db->query("SELECT DISTINCT `geo` FROM `postback` WHERE `login` = '$_COOKIE[login]'");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getCountCountryPostback($country)
+    {
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country'");
+        return count($query->fetchAll(PDO::FETCH_ASSOC));
+    }
+    public function getProfitCountryPostback($country)
+    {
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country'");
+        $leads = $query->fetchAll(PDO::FETCH_ASSOC);
+        $profit = 0;
+        foreach($leads as $lead){
+            $profit = $profit + $lead['sum'];
+        }
+        return $profit;
     }
 
     public function deleteUser($login)
