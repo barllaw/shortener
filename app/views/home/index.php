@@ -39,13 +39,35 @@ $user_domains = explode(',', $data['settings']['domains']);
                     ?>
 
                 </div>
-                <label for="nickname">Nickname</label>
-                <input type="text" name="nickname" class="nickname" onkeyup="checkInput('nickname')">
+                <div class="shortener_inputs">
+                    <div>
+                        <label for="nickname">Nickname</label>
+                        <input type="text" name="nickname" class="nickname" onkeyup="checkInput('nickname')">
+                    </div>
 
-                <?php if($data['settings']['input_custom'] == 'On'): ?>
-                    <label for="custom_link">Custom:</label>
-                    <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
-                <?php endif; ?>
+                    <div>
+                        <?php if($data['settings']['input_custom'] == 'On'): ?>
+                            <label for="custom_link">Custom:</label>
+                            <input type="text" name="custom_link" class="custom_link" onkeyup="checkInput('custom_link')">
+                        <?php endif; ?>
+                    </div>
+
+                    <div>
+                        <label for="main_acc">Main account</label>
+                        <input type="text" name="main_acc" class="main_acc">
+                    </div>
+                </div>
+
+                <div class="service_radio_wrap">
+                    <label class="container_service">Tiktok
+                        <input type="radio" checked="checked" name="service" value="tiktok.com/@">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_service">Instagram
+                        <input type="radio" name="service" value="instagram.com/">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
 
                 <div class="radio-wrap">
                     <div class="domains_btn second_btn" onclick="showWrap('domains')">Domains: </div>
@@ -62,6 +84,13 @@ $user_domains = explode(',', $data['settings']['domains']);
                     <option value="">Choose country</option>
                     <?php require 'geo_options.php' ?>
                 </select>
+                <div class="tag_wrap">
+                    <label for="tag" class="container_tag">
+                        Tag
+                        <input type="checkbox" name="tag" id="tag" value="1">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
                 <button type='submit' class="btn" id="shorten_btn">Shorten</button>
             </form>
 

@@ -39,6 +39,7 @@ $user_domains = explode(',', $data['settings']['domains']);
     </div>
 
     <div class="buttons">
+        <a href="/link/editAllLink/" class="btn edit_all_links">Edit All</a>
         <a href="/user/update/input_custom/<?=$custom?>" class="btn  <?=$custom?>">Custom: <?=$custom?></a>
         <?php if($_COOKIE['login'] == 'londofff' or $_COOKIE['login'] == 'fanjq' or $_COOKIE['login'] == 'ihor'): ?>
             <a href="/link/domain/" class="btn preland_btn">add domain</a>

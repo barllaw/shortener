@@ -63,22 +63,63 @@ class User extends Controller
         exit(header('location: /user/settings'));
     }
     
-    public function dashboard()
+    public function dashboard($search_by='', $value='')
     {
         $userModel = $this->model('UserModel');
         $linkModel = $this->model('LinkModel');
-        $postbackModel = $this->model('PostbackModel');
         
+        $value = trim($value);
+
         $data = [
-            'links' => $linkModel->getLinks(),
-            'stats' => $userModel->getStatistics($_COOKIE['login']),
+            // 'links' => $linkModel->getLinks($_COOKIE['login']),
+            // 'stats' => $userModel->getStatistics($_COOKIE['login'], $value),
             'week_stats' => $userModel->getWeekStatistics(),
             'names' => $userModel->getRandomeNames(),
             'user' => $userModel->getUser(),
             'profit_week' => $userModel->getProfitCurrentWeek(),
             'settings' => $userModel->getUserSettings(),
+            'dates' => $userModel->getDates(),
         ];
-        
+
+        if($search_by == 'account'){
+            $data['links'] = $linkModel->getLinks($_COOKIE['login'], $value);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login'], $data['links'][0]['date_created']);
+        }else if($search_by == 'date'){
+            $data['links'] = $linkModel->getLinks($_COOKIE['login']);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login'], $value);
+        }else if($search_by == 'tagged'){
+            $data['links'] = $linkModel->getLinks($_COOKIE['login'],'',true);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login']);
+            foreach($data['stats'] as $k => $val){
+                $n = 0;
+                foreach($data['links'] as $item){
+                    if($val['date'] == $item['date_created']) $n = 1;
+                }
+                if($n == 0) unset($data['stats'][$k]);
+            }
+        }else if($search_by=='more' and is_numeric($value)){
+            $data['links'] = $linkModel->getLinks($_COOKIE['login']);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login'], '', $value);
+            $data['count_dates'] = $value;
+        }else if($search_by=='accs_under'){
+            $data['links'] = $linkModel->getUnderAccs($_COOKIE['login'], $value);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login']);
+            foreach($data['stats'] as $k => $val){
+                $n = 0;
+                foreach($data['links'] as $item){
+                    if($val['date'] == $item['date_created']) $n = 1;
+                }
+                if($n == 0) unset($data['stats'][$k]);
+            }
+        }else{
+            $data['links'] = $linkModel->getLinks($_COOKIE['login']);
+            $data['stats'] = $userModel->getStatistics($_COOKIE['login'], '', 7);
+        }
+
+        if($search_by)
+            $data[$search_by] = $value;
+
+
         $this->view('user/dashboard', $data);
     }
 
@@ -115,7 +156,7 @@ class User extends Controller
         $data = [
             'login' => $login,
             'links' => $linkModel->getLinks($login),
-            'stats' => $userModel->getStatistics($login),
+            'stats' => $userModel->getStatistics($login,$value=''),
             'user' => $userModel->getUser($login),
             'profit_week' => $userModel->getProfitCurrentWeek($login),
             'settings' => $userModel->getUserSettings(),

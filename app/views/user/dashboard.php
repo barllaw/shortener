@@ -35,13 +35,34 @@ require_once 'public/blocks/header.php';
         </div>
     </div>
 
+    <div class="search_dashboard">
+            <div><a class="search_tagged_wrap" href="/user/dashboard/tagged">Tagged</a></div>
+            <div><a class="clear_search_btn" href="/user/dashboard/">Clear</a></div>
+            <div class="search_date_wrap">
+                <label for="date">Search by date</label>
+                <select name="date" id="val_date">
+                    <option value="none">*</option>
+
+                    <?php foreach($data['dates'] as $item):?>
+                        <option value="<?=$item['date']?>" <?php if($item['date'] == $data['date']) echo 'selected';?>><?=$item['date']?></option>
+                    <?php endforeach;?>
+
+                </select>
+                <div id="search_by_date" class="search_btn_date">Search</div>
+            </div>
+            <div class="search_acc_wrap">
+                <label for="date">Search by account</label>
+                <input type="text" class="search_val" id="val_account" value="<?= $data['account']?>">
+                <div id="search_by_account" class="search_btn">Search</div>
+            </div>
+    </div>
 
     <div class="all_links-wrap">
 
         <?php require 'app/views/links_array.php'; ?>
 
     </div>
-
+    <a href="/user/dashboard/more/<?php if($data['count_dates']==''){echo '9';}else{echo $data['count_dates'] + 3;}?>" class="btn more_btn">more</a>
 </div>
 
 <?php

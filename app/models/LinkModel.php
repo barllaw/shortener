@@ -24,13 +24,20 @@ class LinkModel
         return $links;
     }
 
-    public function getLinks($login = '')
+    public function getLinks($login,$account='',$tag='')
     {
-        if($login == '') $login = $_COOKIE['login'];
+        $condition='';
+        if($account) $condition = "AND `account` = 'tiktok.com/@$account' OR `account` = 'instagram.com/$account' ";
+        if($tag) $condition = "AND `tag` = '1'";
 
-        $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' ORDER BY `id` DESC");
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' $condition ORDER BY `id` DESC");
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
+    }
+    public function getUnderAccs($login, $nickname)
+    {
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `login` = '$login' AND `main_acc` = '$nickname' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getMainlinks()
@@ -50,9 +57,10 @@ class LinkModel
         return $users_links;
     }
 
-    public function shortenLink( $soft, $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links )
+    public function shortenLink( $soft, $link, $nickname, $custom_link, $main_acc, $service, $domain, $login, $geo, $domains, $stairs, $stairs_links, $tag )
     {
-        $tiktok = '';
+        $account = '';
+        if($service == '') $service = 'tiktok.com/@';
         
         if($domain == ''){
             $domains = explode(',', $domains);
@@ -61,13 +69,21 @@ class LinkModel
         }
         
         if($nickname != ''){
-            $tiktok = 'tiktok.com/@'.$nickname;
+            $account = $service.$nickname;
             $link = str_replace('NAME', $nickname,  $link);
         }
         if($stairs){
             if($stairs_links == '') exit(header('location: /'));
             $link = str_replace('NAME', $nickname,  $stairs_links);
         }
+        if($main_acc){
+            $query = $this->_db->query("SELECT * FROM `links` WHERE `account` = 'tiktok.com/@$main_acc' OR `account` = 'instagram.com/$main_acc' ");
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            if($row){
+                $this->_db->query("UPDATE `links` SET `accs_under` = `accs_under` + 1 WHERE `id` = '$row[id]'");
+            }
+        }
+
         // CUSTOM SHORTLINK
         if($custom_link != ''){
             $shortlink = $domain.'/'.$custom_link;
@@ -80,8 +96,8 @@ class LinkModel
                 exit(header('location: /'));
             }
             
-        // CREATE SHORTLINK
         }else{
+            // CREATE SHORTLINK
     
             $permitted_chars = 'abcdefghjkmnopqrstuvwxyzabcdefghjkmnopqrstuvwxyzabcdefghjkmnopqrstuvwxyzZAQWSXCDERFVBGTYHNMJUKOP0123456789';
             do{
@@ -101,8 +117,8 @@ class LinkModel
         $today = date("d.m");
         $time = date("H:i");
     
-        $query = $this->_db->prepare("INSERT INTO `links` ( `soft`, `link`, `short_link`, `login`, `tiktok`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?) ");
-        $query->execute([ $soft, $link, $shortlink, $login, $tiktok, $geo, $today, $time ]);
+        $query = $this->_db->prepare("INSERT INTO `links` ( `soft`,`tag`, `link`, `short_link`, `login`, `account`, `main_acc`, `geo`, `date_created`, `time_created` ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+        $query->execute([ $soft, $tag, $link, $shortlink, $login, $account, $main_acc, $geo, $today, $time ]);
     
         $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' and `date` = '$today'");
         $stats = $query->fetch(PDO::FETCH_ASSOC);
@@ -145,8 +161,14 @@ class LinkModel
             $query = $this->_db->prepare("UPDATE `users` SET `count_links` = ? WHERE `login` = ? ");
             $query->execute([ $links, $_COOKIE['login']]);
 
+            // update accs 
+            $query = $this->_db->query("SELECT * FROM `links` WHERE `id` = '$id'");
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            $query = $this->_db->query("UPDATE `links` SET `accs_under` = `accs_under` - 1 WHERE `account` = 'tiktok.com/@$row[main_acc]' OR `account` = 'instagram.com/$row[main_acc]' ");
+
+            //Delete link
             $this->_db->query("DELETE FROM `links` WHERE `id` = '$id'");
-            
+
             //Update stats count links
             $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$_COOKIE[login]' and `date` = '$date'");
             $stats = $query->fetch(PDO::FETCH_ASSOC);
@@ -214,6 +236,14 @@ class LinkModel
     public function updateStairs($link)
     {
         $this->_db->query("UPDATE `stairs` SET `active` = '1' WHERE `login` = '$_COOKIE[login]' and `smartlink` = '$link'");
+    }
+    public function changeUserAllLink($link)
+    {
+        $this->_db->query("UPDATE `links` SET `link` = '$link' WHERE `login` = '$_COOKIE[login]'");
+    }
+    public function taggingLink($tag,$id)
+    {
+        $this->_db->query("UPDATE `links` SET `tag` = '$tag' WHERE `id` = '$id'");
     }
     // public function getVisitorsOfShortlink($id_shortlink)
     // {

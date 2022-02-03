@@ -9,8 +9,7 @@ class PostbackModel
 
     public function getLink($nickname)
     {
-        $tiktok = 'tiktok.com/@'.$nickname;
-        $query = $this->_db->query("SELECT * FROM `links` WHERE `tiktok` = '$tiktok'");
+        $query = $this->_db->query("SELECT * FROM `links` WHERE `account` = 'tiktok.com/@$nickname' or `account` = 'instagram.com/$nickname'");
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 

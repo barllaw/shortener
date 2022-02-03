@@ -241,6 +241,62 @@ header
             width: 10px
             height: 10px
             top: 33%
+    .shortener_inputs
+        display: grid
+        grid-template-columns: repeat(3, 1fr )
+        grid-gap: 5px
+        width: 100%
+        margin-bottom: 15px
+        input
+            width: 100%
+        div
+            display: flex
+            flex-direction: column
+    .service_radio_wrap
+        .container_service
+            display: block
+            position: relative
+            padding-left: 25px
+            margin-bottom: 12px
+            cursor: pointer
+            font-size: 15px
+            user-select: none
+            width: auto
+            input
+                position: absolute
+                opacity: 0
+                cursor: pointer
+                z-index: -1
+                width: 0
+                height: 0
+            .checkmark
+                position: absolute
+                top: 0
+                left: 0
+                height: 18px
+                width: 18px
+                background-color: #ddd
+                border-radius: 50%
+        .container_service
+            &:hover input ~ .checkmark
+                background-color: #ccc
+            input:checked ~ .checkmark
+                background-color: #2196F3
+            .checkmark::after
+                content: ""
+                position: absolute
+                display: none
+        .container_service
+            input:checked ~ .checkmark::after
+                display: block
+            .checkmark::after
+                top: 5px
+                left: 5px
+                width: 8px
+                height: 8px
+                border-radius: 50%
+                background: white
+
     select
         width: 100%
         padding: 7px
@@ -278,7 +334,56 @@ header
                 border-radius: 3px 0px 0px 3px
                 margin: 0
                 width: 100%
-    
+    .tag_wrap
+        margin: 15px 0
+        .container_tag
+            display: block
+            position: relative
+            cursor: pointer
+            font-size: 16px
+            user-select: none
+            width: 60px
+            padding: 3px 0 3px 25px
+            input
+                position: absolute
+                opacity: 0
+                cursor: pointer
+                height: 0
+                width: 0
+                z-index: -1
+            .checkmark
+                position: absolute
+                top: 4px
+                left: 0
+                height: 17px
+                width: 17px
+                background-color: #f5f5f5
+                border-radius: 3px
+                border: 1px solid #cfcfcf
+        .container_tag
+            &:hover input ~ .checkmark
+                background-color: #7fbbec
+                border-color: transparent
+            input:checked ~ .checkmark
+                background-color: #2196F3
+                border-color: transparent
+            .checkmark::after
+                content: ""
+                position: absolute
+                display: none
+        .container_tag
+            input:checked ~ .checkmark::after
+                display: block
+            .checkmark:after
+                left: 5px
+                top: 2px
+                width: 3px
+                height: 6px
+                border: solid white
+                border-width: 0 3px 3px 0
+                -webkit-transform: rotate(45deg)
+                -ms-transform: rotate(45deg)
+                transform: rotate(45deg)
 .domains_btn
     margin-bottom: 10px
 .domains
@@ -419,6 +524,7 @@ header
         padding: 10px
         background: #ffffff90
         position: relative
+        overflow: hidden
         .link 
             display: flex
             justify-content: space-between
@@ -435,7 +541,7 @@ header
             font-weight: 300
             font-size: 13px
             color: #555
-        .tiktok
+        .account
             font-weight: 300
             margin: 5px 0
             font-size: 15px
@@ -446,7 +552,15 @@ header
                 font-size: 10px
                 padding: 1px 3px
                 background: #ff8282
+                opacity: .7
+            .links_main_acc
+                margin-left: 15px
                 opacity: .8
+            .accs_under
+                margin-left: 15px
+                padding: 0 3px
+                border-left: 2px solid $blue
+                color: darken($blue, 10)
         .clicks
             display: flex
             text-align: center
@@ -473,7 +587,7 @@ header
         .time_created
             font-size: 12px
             position: absolute
-            bottom: 50px
+            bottom: 55%
             right: 20px
         .stats_link_btn
             position: absolute
@@ -506,7 +620,16 @@ header
             transition: .15s
             &:hover
                 background: #dddddd
-
+        .tag
+            background: #00000010
+            width: 35px
+            height: 20px
+            position: absolute
+            right: -16px
+            top: -6px
+            transform: rotate(45deg)
+        .tagged_1
+            background: #f3db04b5
 
 // .shortlink_stats
 //     .counties_clicks_wrap

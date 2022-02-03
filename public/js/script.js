@@ -144,3 +144,25 @@ $('#r_img-download').click(function (){
     window.open('https://4youtitstok.fun' + href, '_blank');
   }
 })
+
+// SEARCH
+//by date
+$('#search_by_date').click(function(){
+  val = $("#val_date").val()
+  if(val == 'none'){
+    window.location.href = "/user/dashboard/"
+    return
+  }
+  search = 'date/' + val
+  window.location.href = "/user/dashboard/" + search
+})
+//by account
+$('#search_by_account').click(function(){
+  val = $("#val_account").val()
+  if(val == ''){
+    window.location.href = "/user/dashboard/"
+    return
+  }
+  search = 'account/' + val
+  window.location.href = "/user/dashboard/" + search
+})

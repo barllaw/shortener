@@ -8,7 +8,7 @@ class Link extends Controller
     }
 
     public function shorten()
-    {
+    {        
         if ($_POST['link'] != '')            $link = preg_replace('/\s+/', '',  trim($_POST['link']));
         else if ($_POST['mainlink'] != '')   $link = preg_replace('/\s+/', '',  trim($_POST['mainlink']));
         else                                exit(header('location: /'));
@@ -29,6 +29,9 @@ class Link extends Controller
         }
         $nickname = strtolower(trim($_POST['nickname']));
         $custom_link = $_POST['custom_link'];
+        if($_POST['main_acc']) {$main_acc = $_POST['main_acc'];}
+        else{$main_acc = '';}
+        $service = $_POST['service'];
         $domain = $_POST['domain'];
         $login = $_COOKIE['login'];
         $geo = $_POST['geo'];
@@ -37,7 +40,8 @@ class Link extends Controller
             $stairs = true;
         else
             $stairs = false;
-        $linkModel->shortenLink( $soft, $link, $nickname, $custom_link, $domain, $login, $geo, $domains, $stairs, $stairs_links );
+        $tag = ($_POST['tag']) ? 1 : 0;
+        $linkModel->shortenLink( $soft, $link, $nickname, $custom_link, $main_acc, $service, $domain, $login, $geo, $domains, $stairs, $stairs_links, $tag );
         
         $userModel->updateCountLinks();
     
@@ -116,6 +120,30 @@ class Link extends Controller
         ];
 
         $this->view('link/domain', $data);
+    }
+    public function editAllLink()
+    {
+        $linkModel = $this->model('LinkModel');
+
+        if($_POST['link']){
+            $linkModel->changeUserAllLink($_POST['link']);
+            exit(header('location: /'));
+        }
+
+        $this->view('link/edit_all', $data);
+
+    }
+    public function tag($tag,$id)
+    {
+        $linkModel = $this->model('LinkModel');
+
+        $tag = ($tag == 'tag_0') ? 1 : 0;
+
+        $linkModel->taggingLink($tag,$id);
+
+        $referer = $_SERVER['HTTP_REFERER'];
+        exit(header('location: ' . $referer));
+
     }
     // public function statistic($id_shortlink)
     // {

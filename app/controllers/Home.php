@@ -9,13 +9,15 @@ class Home extends Controller
         $linkModel = $this->model('LinkModel');
         $postbackModel = $this->model('PostbackModel');
 
+        $today = date("d.m");
+        
 
         $data = [
-            'links' => $linkModel->getLinks(),
+            'links' => $linkModel->getLinks($_COOKIE['login']),
             'mainlinks' => $linkModel->getMainlinks(),
             'user' => $userModel->getUser(),
             'users_links' => $linkModel->getUsersLinks($userModel->getAllUsers()),
-            'stats' => $userModel->getStatistics($_COOKIE['login'], true),
+            'stats' => $userModel->getStatistics($_COOKIE['login'], $today),
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
             'settings' => $userModel->getUserSettings(),
             'profit_week' => $userModel->getProfitCurrentWeek(),

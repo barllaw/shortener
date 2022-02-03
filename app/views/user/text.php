@@ -14,11 +14,11 @@ require_once 'public/blocks/header.php';
             <div class="text_geo">
                 <select name="geo" id="geo">
                     <option value="">none</option>
-                    <option value="FR">ES</option>
+                    <option value="ES">ES</option>
                     <option value="FR">FR</option>
                     <option value="DE">DE</option>
                     <option value="NL">NL</option>
-                    <option value="NL">CZ</option>
+                    <option value="CZ">CZ</option>
                 </select>
             </div>
             <button class="add_new_text btn">add</button>

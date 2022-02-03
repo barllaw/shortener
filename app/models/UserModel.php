@@ -107,11 +107,16 @@ class UserModel
         return $profit;
 
     }
-    public function getStatistics($login, $today = false)
+    public function getStatistics($login, $date='',$limit='')
    {
-        $today = ($today) ? ' LIMIT 1'  : $today; 
+        if($date){
+            $date = "AND `date` = '$date'";
+        }
+        if($limit){
+            $limit = "LIMIT $limit";
+        }
 
-        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' ORDER BY `id` DESC $today");
+        $query = $this->_db->query("SELECT * FROM `statistics` WHERE `login` = '$login' $date ORDER BY `id` DESC $limit");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -170,10 +175,8 @@ class UserModel
     {
         $month = date('m');
         $year = date('Y');
+        $day = date('d');
 
-        $w = date('w');
-        if($w == '0') $w = 7;
-        $day = date('d', strtotime('-'.$w.' days'));
         $d = mktime(00, 00, 00, $month, $day, $year);
 
         $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' and `date` >= '$d' ORDER BY `id` DESC");
@@ -181,17 +184,41 @@ class UserModel
     }
     public function getCountiesPostback()
     {
-        $query = $this->_db->query("SELECT DISTINCT `geo` FROM `postback` WHERE `login` = '$_COOKIE[login]'");
+        $month = date('m');
+        $year = date('Y');
+
+        $w = date('w');
+        if($w == '0') $w = 7;
+        $day = date('d', strtotime('-'.$w.' days'));
+        $d = mktime(00, 00, 00, $month, $day + 1, $year);
+
+        $query = $this->_db->query("SELECT DISTINCT `geo` FROM `postback` WHERE `login` = '$_COOKIE[login]' and `date` >= '$d' ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getCountCountryPostback($country)
     {
-        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country'");
+        $month = date('m');
+        $year = date('Y');
+
+        $w = date('w');
+        if($w == '0') $w = 7;
+        $day = date('d', strtotime('-'.$w.' days'));
+        $d = mktime(00, 00, 00, $month, $day + 1, $year);
+
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country' and `date` >= '$d' ");
         return count($query->fetchAll(PDO::FETCH_ASSOC));
     }
     public function getProfitCountryPostback($country)
     {
-        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country'");
+        $month = date('m');
+        $year = date('Y');
+
+        $w = date('w');
+        if($w == '0') $w = 7;
+        $day = date('d', strtotime('-'.$w.' days'));
+        $d = mktime(00, 00, 00, $month, $day + 1, $year);
+
+        $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country' and `date` >= '$d' ");
         $leads = $query->fetchAll(PDO::FETCH_ASSOC);
         $profit = 0;
         foreach($leads as $lead){
@@ -387,6 +414,12 @@ class UserModel
         }
 
         exit('ok');
+    }
+
+    public function getDates()
+    {
+        $query = $this->_db->query("SELECT `id`,`date` FROM `statistics` WHERE `login` = '$_COOKIE[login]' ORDER BY `id` DESC");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

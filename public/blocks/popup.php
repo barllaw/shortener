@@ -25,6 +25,7 @@
     <div class="popup_wrap edit_link_popup_wrap">
         <form action="/link/update/edit_link" method='post'>
             <div class="close" >Close</div>
+            <div class="delete_btn" onclick="deleteShortlink()">Delete</div>
             <h3>Edit link</h3>
             <input type="hidden" name='edit_link_id' id="edit_link_id" value="">
             <input type="hidden" name='edit_link_date' id="edit_link_date" value="">
@@ -35,7 +36,6 @@
             <span>Tiktok:</span>
             <p id="tiktok-for_edit"></p>
             <div class="edit_btns">
-                <div class="delete_btn" onclick="deleteShortlink()">Delete</div>
                 <button type="submit">Save</button>
             </div>
         </form>
