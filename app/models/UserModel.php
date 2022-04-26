@@ -107,6 +107,14 @@ class UserModel
         return $profit;
 
     }
+    public function getUsersProfitCurrentWeek($users='')
+    {
+        $user_profit = [];
+        foreach($users as $user){
+            $user_profit[$user['login']] = $this->getProfitCurrentWeek($user['login']);
+        }
+        return $user_profit;
+    }
     public function getStatistics($login, $date='',$limit='')
    {
         if($date){
@@ -190,8 +198,8 @@ class UserModel
         $w = date('w');
         if($w == '0') $w = 7;
         $day = date('d', strtotime('-'.$w.' days'));
+        if($day > date('d')) $month--;
         $d = mktime(00, 00, 00, $month, $day + 1, $year);
-
         $query = $this->_db->query("SELECT DISTINCT `geo` FROM `postback` WHERE `login` = '$_COOKIE[login]' and `date` >= '$d' ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -203,6 +211,7 @@ class UserModel
         $w = date('w');
         if($w == '0') $w = 7;
         $day = date('d', strtotime('-'.$w.' days'));
+        if($day > date('d')) $month--;
         $d = mktime(00, 00, 00, $month, $day + 1, $year);
 
         $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country' and `date` >= '$d' ");
@@ -216,6 +225,7 @@ class UserModel
         $w = date('w');
         if($w == '0') $w = 7;
         $day = date('d', strtotime('-'.$w.' days'));
+        if($day > date('d')) $month--;
         $d = mktime(00, 00, 00, $month, $day + 1, $year);
 
         $query = $this->_db->query("SELECT * FROM `postback` WHERE `login` = '$_COOKIE[login]' AND `geo` = '$country' and `date` >= '$d' ");

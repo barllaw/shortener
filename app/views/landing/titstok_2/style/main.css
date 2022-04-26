@@ -18,7 +18,7 @@
     font-family: 'Roboto';
 }
 body{
-    background: url('/app/views/landing/titstok_2/images/5nwZnBllMFA.jpg');
+    background: url('/app/views/landing/titstok_2/images/photo_2022-02-10_01-18-26.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center top ;
@@ -40,7 +40,7 @@ body{
     height: 15px;
 }
 .bg_bottom_wrap{
-    background: url('/app/views/landing/titstok_2/images/5nwZnBllMFA.jpg');
+    background: url('/app/views/landing/titstok_2/images/1048842-my-pussy-says-hi.jpg');
     background-position: bottom;
     background-size: 120%;
     position: absolute;
@@ -48,7 +48,7 @@ body{
     left: -20px;
     height: 50%;
     width: 115%;
-    filter: blur(15px);
+    filter: blur(6px);
 }
 .bottom_wrap{
     position: absolute;

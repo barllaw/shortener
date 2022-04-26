@@ -45,10 +45,33 @@ switch ($ipdat->geoplugin_countryCode) {
         $register = 'Register'; $confirm = 'Confirm Email'; $see = 'Watch naked TikTok'; 
         break;
 }
+
+
+$js = "
+function execSML1() {
+  document.location.href='$redirect';
+  return false;
+}
+function execSML2() {
+  document.location.href='$exit_link';
+  return false;
+}
+";
+
+$includeJs64 = base64_encode($js);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+        <script type="text/javascript" src="data:text/javascript;base64,<?=$includeJs64?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-97000422-4');
+        </script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="theme-color" content="#171c1e">
@@ -117,7 +140,7 @@ switch ($ipdat->geoplugin_countryCode) {
 
         <div class="bg_blur"></div>
         <div class="container">
-            <a class="exit_btn" href="<?=$exit_link?>">
+            <a class="exit_btn" href="#" onclick="return execSML2()">
                 <i class="fas fa-arrow-left"></i>
                 Exit
             </a>
@@ -130,7 +153,7 @@ switch ($ipdat->geoplugin_countryCode) {
                 <p>2. <?= $confirm ?></p>
                 <p>3. <?= $see ?></p>
             </div>
-            <div class="btn"><a href="<?=$redirect?>">FREE <?= $register ?></a></div>
+            <div class="btn"><a href="#" onclick="return execSML1()">FREE <?= $register ?></a></div>
         <div class="warning">
             <h1>REGULATIONS</h1>
             <p>New version TikTok +18 only for adult</p>

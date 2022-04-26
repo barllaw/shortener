@@ -84,7 +84,11 @@ class App{
             }
 
             $redirect = $links[$int];
-            $exit_link = 'https://enqddb.flndmyiove.net/c/da57dc555e50572d?s1=147078&s2=1356013&s3=EXIT&j1=1';
+            if($link['login'] == 'lyovius' or $link['login'] == 'khmkd'){
+                $exit_link = $redirect;
+            }else{
+                $exit_link = 'https://bejkqm.milfshorny.com/c/da57dc555e50572d?s1=153976&s2=1403784&s3=EXIT&j1=1';
+            }
             
             //landing check
             if ( $user_settings['preland'] == 'On' and $user_settings['landing'] != '' ) 

@@ -21,6 +21,7 @@ class Home extends Controller
             'users_profit' => $userModel->getUsersStatistics($userModel->getAllUsers()),
             'settings' => $userModel->getUserSettings(),
             'profit_week' => $userModel->getProfitCurrentWeek(),
+            'users_profit_week' => $userModel->getUsersProfitCurrentWeek($userModel->getAllUsers()),
         ];
 
         $this->view('home/index', $data);

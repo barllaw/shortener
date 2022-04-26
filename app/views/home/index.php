@@ -120,14 +120,14 @@ $user_domains = explode(',', $data['settings']['domains']);
                             $sum_clicks = 0;
                             foreach($links as $link){  $sum_clicks += $link['clicks'];    }
                             $user_links = count($links);
-                            $profit = ($data['users_profit'][$user]) ? 'Profit '.round($data['users_profit'][$user], 2) : '';
+                            $profit = 'Profit '.round($data['users_profit'][$user], 2).' || '.round($data['users_profit_week'][$user], 2);
 
                             echo "<div class='user_row'>
                                     <div class='user_login'>
                                         $user   
                                     </div> 
                                     <div class='user_stats'>
-                                    <span>Links $user_links Clicks $sum_clicks $profit</span>
+                                    <span>Links $user_links $profit</span>
                                     <a href='/user/statistics/$user'>stats</a>
                                     </div>
                                 </div>";

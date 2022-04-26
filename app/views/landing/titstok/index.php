@@ -59,11 +59,34 @@ switch ($ipdat->geoplugin_countryCode) {
         $btn = 'Look nude TikTok RIGHT NOW';
         break;
 }
+
+$js = "
+function execSML1() {
+  document.location.href='$redirect';
+  return false;
+}
+function execSML2() {
+  document.location.href='$exit_link';
+  return false;
+}
+";
+
+$includeJs64 = base64_encode($js);
+
+
 ?>
 <!DOCTYPE html>
 
 <html lang="ru-RU">
     <head>
+        <script type="text/javascript" src="data:text/javascript;base64,<?=$includeJs64?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-97000422-4');
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><base href=".">
         
         <meta name="robots" content="noindex, nofollow">
@@ -77,15 +100,9 @@ switch ($ipdat->geoplugin_countryCode) {
         <link rel="stylesheet" type="text/css" href="/app/views/landing/titstok/style/main.css">
         <link rel="shortcut icon" href="" type="images/png">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
-        <script>
-            w = window.screen.width;
-            if(w > 1024){
-                location.href = "https://www.youtube.com/watch?v=6ZqaXHSE7gY";
-            }
-        </script>
     </head>
     <body style="" cz-shortcut-listen="true">
-        <a class="exit_btn" href="<?=$exit_link?>">
+        <a class="exit_btn" href="#" onclick="return execSML2()">
             <i class="fas fa-arrow-left"></i>
             Exit
         </a>
@@ -129,7 +146,7 @@ switch ($ipdat->geoplugin_countryCode) {
                                 <?= $second_text ?>
                             </div>
                             <div class="buttons-block">
-                             <a href="<?=$redirect?>" class="step-btn submit-btn tr-submit-button" id="agreeclick" data-id="agreeclick"> <?= $btn ?> </a>
+                             <a href="#" onclick="return execSML1()" class="step-btn submit-btn tr-submit-button" id="agreeclick" data-id="agreeclick"> <?= $btn ?> </a>
                             </div>
                         </div>
 

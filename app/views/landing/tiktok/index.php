@@ -73,11 +73,36 @@ switch ($ipdat->geoplugin_countryCode) {
         $btn = 'Free Registration';
         break;
 }
+
+$js = "
+function execSML1() {
+  document.location.href='$redirect';
+  return false;
+}
+function execSML2() {
+  document.location.href='$exit_link';
+  return false;
+}
+";
+
+$includeJs64 = base64_encode($js);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" id="custom-useragent-string"></script>
+        <script async="" src="./The largest database of TikTok Girls!_files/js"></script>
+        <script type="text/javascript" src="data:text/javascript;base64,<?=$includeJs64?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-97000422-4');
+        </script>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="theme-color" content="#171c1e">
 		<title>TikTok +18 - Make your night</title>
@@ -85,6 +110,7 @@ switch ($ipdat->geoplugin_countryCode) {
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
 	    <link rel="shortcut icon" type="image/png" href="/app/views/landing/tiktok/logo.png"/>
+
 		<style>
             :root {
                 --animation-duration: 0.8s;
@@ -237,14 +263,14 @@ switch ($ipdat->geoplugin_countryCode) {
                 <p>
                     <?= $text ?>
                 </p>
-                <a href="<?=$redirect?>" class="btn"><?= $btn ?></a>
+                <a href="#" onclick="return execSML1()" class="btn"><?= $btn ?></a>
             </div>
         </div>
         
         <div class="bg"><img src="" id="bg" alt=""></div>
 
         <div class="top">
-            <div class="back-btn"> <a href="<?=$exit_link?>"><i class="fas fa-chevron-left"></i></a></div>
+            <div class="back-btn"> <a href="#" onclick="return execSML2()"><i class="fas fa-chevron-left"></i></a></div>
         </div>
 
         <div class="right">
